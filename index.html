@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify — Sound Capsule</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tone.js for Web Audio Preview Chimes / Synth Beats -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            spotify: {
+              black: '#000000',
+              base: 'var(--bg-base)',
+              elevated: 'var(--bg-card)',
+              card: 'var(--bg-card-alt)',
+              highlight: 'var(--bg-highlight)',
+              green: 'var(--accent-primary)',
+              greenBright: 'var(--accent-bright)',
+              subtext: 'var(--text-secondary)',
+              muted: 'var(--text-muted)',
+            }
+          },
+          animation: {
+            'aura-slow': 'auraPulse 8s ease-in-out infinite alternate',
+            'spin-slow': 'spin 18s linear infinite',
+            'equalizer-1': 'eqBar 0.7s ease-in-out infinite alternate',
+            'equalizer-2': 'eqBar 0.5s ease-in-out infinite alternate 0.2s',
+            'equalizer-3': 'eqBar 0.8s ease-in-out infinite alternate 0.4s',
+          },
+          keyframes: {
+            auraPulse: {
+              '0%': { transform: 'scale(1) rotate(0deg)', filter: 'hue-rotate(0deg)' },
+              '100%': { transform: 'scale(1.12) rotate(12deg)', filter: 'hue-rotate(25deg)' },
+            },
+            eqBar: {
+              '0%': { height: '25%' },
+              '100%': { height: '100%' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* =========================================================================
+       THEME CUSTOM PROPERTIES (5 COMPLETE VISUAL THEMES)
+       ========================================================================= */
+    :root,
+    [data-theme="spotify"] {
+      --bg-base: #121212;
+      --header-bg: rgba(18, 18, 18, 0.92);
+      --bg-card: #181818;
+      --bg-card-hover: #1e1e1e;
+      --bg-card-alt: #222222;
+      --bg-highlight: #2A2A2A;
+      --accent-primary: #1DB954;
+      --accent-bright: #1ED760;
+      --accent-secondary: #A855F7;
+      --accent-tertiary: #06B6D4;
+      --accent-contrast: #000000;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #727272;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --aura-bg: radial-gradient(circle at 20% 25%, rgba(139, 92, 246, 0.55) 0%, transparent 52%),
+                 radial-gradient(circle at 82% 20%, rgba(236, 72, 153, 0.48) 0%, transparent 50%),
+                 radial-gradient(circle at 55% 85%, rgba(6, 182, 212, 0.45) 0%, transparent 55%),
+                 linear-gradient(135deg, #1b1629 0%, #181818 100%);
+      --card-shadow: none;
+    }
+
+    /* GTA VI: Vice City (Crisp, High-Saturation Bright Palette — Zero Glow) */
+    [data-theme="vice_city"] {
+      --bg-base: #120422;
+      --header-bg: rgba(18, 4, 34, 0.94);
+      --bg-card: #1f0838;
+      --bg-card-hover: #2c0d4d;
+      --bg-card-alt: #34115c;
+      --bg-highlight: #4b1a82;
+      --accent-primary: #FF2EC4;
+      --accent-bright: #FF6BF2;
+      --accent-secondary: #00F6FF;
+      --accent-tertiary: #7CFFFC;
+      --accent-contrast: #0D0216;
+      --text-primary: #FFFFFF;
+      --text-secondary: #F8D8FF;
+      --text-muted: #CFA0EB;
+      --border-subtle: rgba(255, 46, 196, 0.65);
+      --border-hover: #00F6FF;
+      --aura-bg: linear-gradient(135deg, #D91A9E 0%, #7C15CC 52%, #00A6CC 100%);
+      --card-shadow: none;
+    }
+
+    /* Midnight Synthwave */
+    [data-theme="synthwave"] {
+      --bg-base: #070b19;
+      --header-bg: rgba(7, 11, 25, 0.92);
+      --bg-card: #0f162e;
+      --bg-card-hover: #151f40;
+      --bg-card-alt: #19244a;
+      --bg-highlight: #223061;
+      --accent-primary: #00E5FF;
+      --accent-bright: #5CEFFF;
+      --accent-secondary: #B537F2;
+      --accent-tertiary: #3B82F6;
+      --accent-contrast: #041019;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border-subtle: rgba(0, 229, 255, 0.22);
+      --border-hover: rgba(181, 55, 242, 0.5);
+      --aura-bg: radial-gradient(circle at 20% 25%, rgba(0, 229, 255, 0.5) 0%, transparent 52%),
+                 radial-gradient(circle at 82% 22%, rgba(181, 55, 242, 0.5) 0%, transparent 50%),
+                 radial-gradient(circle at 55% 85%, rgba(59, 130, 246, 0.45) 0%, transparent 55%),
+                 linear-gradient(135deg, #111b3d 0%, #0d1329 100%);
+      --card-shadow: none;
+    }
+
+    /* Solar Gold & Vinyl */
+    [data-theme="solar"] {
+      --bg-base: #130f0b;
+      --header-bg: rgba(19, 15, 11, 0.92);
+      --bg-card: #1c1610;
+      --bg-card-hover: #251d15;
+      --bg-card-alt: #2b2218;
+      --bg-highlight: #382c1f;
+      --accent-primary: #F59E0B;
+      --accent-bright: #FBBF24;
+      --accent-secondary: #FB7185;
+      --accent-tertiary: #F97316;
+      --accent-contrast: #120B02;
+      --text-primary: #FFFBEB;
+      --text-secondary: #D6C7B2;
+      --text-muted: #8C7B65;
+      --border-subtle: rgba(245, 158, 11, 0.22);
+      --border-hover: rgba(251, 113, 133, 0.45);
+      --aura-bg: radial-gradient(circle at 20% 25%, rgba(245, 158, 11, 0.52) 0%, transparent 52%),
+                 radial-gradient(circle at 82% 20%, rgba(251, 113, 133, 0.46) 0%, transparent 50%),
+                 radial-gradient(circle at 55% 85%, rgba(234, 88, 12, 0.42) 0%, transparent 55%),
+                 linear-gradient(135deg, #291c0e 0%, #1a140e 100%);
+      --card-shadow: none;
+    }
+
+    /* Emerald Velvet */
+    [data-theme="emerald"] {
+      --bg-base: #07130f;
+      --header-bg: rgba(7, 19, 15, 0.92);
+      --bg-card: #0e201a;
+      --bg-card-hover: #142b23;
+      --bg-card-alt: #18342a;
+      --bg-highlight: #204437;
+      --accent-primary: #10B981;
+      --accent-bright: #34D399;
+      --accent-secondary: #EAB308;
+      --accent-tertiary: #14B8A6;
+      --accent-contrast: #03140E;
+      --text-primary: #F0FDF4;
+      --text-secondary: #A7C7BA;
+      --text-muted: #658A7B;
+      --border-subtle: rgba(16, 185, 129, 0.22);
+      --border-hover: rgba(234, 179, 8, 0.45);
+      --aura-bg: radial-gradient(circle at 20% 25%, rgba(16, 185, 129, 0.52) 0%, transparent 52%),
+                 radial-gradient(circle at 82% 20%, rgba(234, 179, 8, 0.38) 0%, transparent 50%),
+                 radial-gradient(circle at 55% 85%, rgba(20, 184, 166, 0.45) 0%, transparent 55%),
+                 linear-gradient(135deg, #0d2b22 0%, #0d1d18 100%);
+      --card-shadow: none;
+    }
+
+    /* =========================================================================
+       BASE LAYOUT & COMPONENT STYLES
+       ========================================================================= */
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    .app-header {
+      background-color: var(--header-bg);
+      border-color: var(--border-subtle);
+    }
+
+    .capsule-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .capsule-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .capsule-aura-bg {
+      background: var(--aura-bg);
+    }
+
+    .theme-accent-btn {
+      background-color: var(--accent-primary);
+      color: var(--accent-contrast);
+    }
+
+    .theme-accent-btn:hover {
+      background-color: var(--accent-bright);
+    }
+
+    /* Hide scrollbar for horizontal pill strip */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* =========================================================================
+       VICE CITY CRISP BRIGHT ACCENTS & PALM SILHOUETTES (ZERO GLOW / ZERO BLUR)
+       ========================================================================= */
+    #vice-city-backdrop,
+    #aura-palm-silhouette {
+      display: none;
+    }
+
+    [data-theme="vice_city"] #vice-city-backdrop,
+    [data-theme="vice_city"] #aura-palm-silhouette {
+      display: block;
+    }
+
+    /* Hide hazy blurred ambient orb completely in Vice City */
+    [data-theme="vice_city"] #aura-orb {
+      display: none !important;
+    }
+
+    [data-theme="vice_city"] .app-header {
+      border-bottom-color: #00F6FF;
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .theme-accent-btn {
+      background: linear-gradient(135deg, #FF2EC4 0%, #FF5CE8 50%, #00F6FF 100%);
+      color: #0D0216;
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .theme-accent-btn:hover {
+      background: linear-gradient(135deg, #FF6BF2 0%, #FF2EC4 50%, #7CFFFC 100%);
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .capsule-card {
+      border-width: 1.5px;
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .capsule-card:hover {
+      background-color: var(--bg-card-hover);
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .capsule-aura-bg {
+      border: 1.5px solid #00F6FF;
+      box-shadow: none;
+    }
+
+    [data-theme="vice_city"] .vice-neon-title {
+      text-shadow: none;
+    }
+
+    [data-theme="vice_city"] .range-pill.bg-white {
+      background: linear-gradient(135deg, #7CFFFC 0%, #00F6FF 100%) !important;
+      color: #0D0216 !important;
+      font-weight: 800;
+      box-shadow: none !important;
+    }
+
+    [data-theme="vice_city"] #bar-dance {
+      background-color: #7CFFFC !important;
+      box-shadow: none !important;
+    }
+
+    [data-theme="vice_city"] #bar-energy {
+      background-color: #FF2EC4 !important;
+      box-shadow: none !important;
+    }
+
+    [data-theme="vice_city"] #bar-valence {
+      background-color: #00F6FF !important;
+      box-shadow: none !important;
+    }
+
+    [data-theme="vice_city"] #bar-tempo {
+      background-color: #FFE600 !important;
+      box-shadow: none !important;
+    }
+
+    .clock-spoke {
+      transition: stroke-width 0.18s ease, opacity 0.18s ease;
+      cursor: pointer;
+    }
+    .clock-spoke:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body data-theme="spotify" class="min-h-screen flex flex-col selection:bg-spotify-green selection:text-black relative">
+
+  <!-- Vice City Clean Sunset Horizon & Crisp Palm Tree Silhouettes Backdrop (No Blur / No Glow) -->
+  <div id="vice-city-backdrop" aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <!-- Subtle Crisp Sunset/Twilight Horizon Band -->
+    <div class="absolute inset-x-0 bottom-0 h-[44vh] bg-gradient-to-t from-[#FF2EC4]/20 via-[#7C15CC]/10 to-transparent"></div>
+
+    <!-- Left Palm Tree Silhouette (Crisp Dark Violet, Zero Drop-Shadow) -->
+    <svg class="absolute bottom-0 -left-6 sm:left-0 w-56 sm:w-80 md:w-96 h-auto text-[#1B0633] opacity-90" viewBox="0 0 320 420" fill="currentColor">
+      <path d="M54 420 C62 330, 88 235, 134 152 L146 156 C104 240, 82 332, 78 420 Z"/>
+      <path d="M138 154 C104 124, 62 126, 24 152 C58 140, 96 142, 132 162 Z"/>
+      <path d="M136 158 C92 150, 48 172, 16 212 C52 184, 92 168, 132 168 Z"/>
+      <path d="M137 162 C102 174, 72 204, 56 244 C78 212, 106 186, 135 170 Z"/>
+      <path d="M140 152 C122 108, 92 84, 56 80 C88 94, 114 118, 134 154 Z"/>
+      <path d="M142 152 C154 106, 184 82, 222 76 C190 92, 164 116, 146 154 Z"/>
+      <path d="M144 154 C182 124, 228 124, 268 150 C230 138, 188 140, 148 162 Z"/>
+      <path d="M144 158 C190 152, 234 174, 264 214 C228 186, 188 168, 146 168 Z"/>
+      <path d="M142 162 C176 176, 204 206, 218 246 C196 214, 170 186, 142 170 Z"/>
+    </svg>
+
+    <!-- Right Twin Palm Silhouettes (Crisp Dark Violet, Zero Drop-Shadow) -->
+    <svg class="absolute bottom-0 -right-8 sm:right-0 w-64 sm:w-96 md:w-[27rem] h-auto text-[#1B0633] opacity-90" viewBox="0 0 380 460" fill="currentColor">
+      <path d="M292 460 C282 352, 254 242, 204 142 L190 147 C236 246, 260 354, 266 460 Z"/>
+      <path d="M198 144 C156 112, 108 114, 64 142 C104 128, 148 130, 192 152 Z"/>
+      <path d="M196 148 C144 140, 94 164, 56 208 C98 178, 144 160, 192 158 Z"/>
+      <path d="M197 152 C156 168, 122 202, 102 246 C128 210, 160 182, 194 160 Z"/>
+      <path d="M200 142 C180 94, 144 68, 102 62 C140 78, 170 104, 194 144 Z"/>
+      <path d="M202 142 C218 92, 252 66, 294 60 C258 76, 228 104, 206 144 Z"/>
+      <path d="M204 144 C248 112, 298 114, 342 142 C300 128, 254 130, 208 152 Z"/>
+      <path d="M204 148 C256 142, 306 166, 340 210 C300 180, 254 160, 206 158 Z"/>
+      <path d="M202 152 C240 168, 272 202, 288 246 C264 210, 234 182, 202 160 Z"/>
+      <path d="M348 460 C342 384, 326 312, 296 248 L286 252 C314 314, 326 386, 330 460 Z"/>
+      <path d="M292 250 C262 228, 228 230, 198 250 C226 240, 258 242, 288 256 Z"/>
+      <path d="M291 253 C254 248, 220 264, 194 294 C222 274, 254 262, 288 260 Z"/>
+      <path d="M294 248 C282 216, 258 198, 230 194 C256 206, 276 224, 290 250 Z"/>
+      <path d="M296 250 C328 228, 362 230, 380 246 C358 238, 328 240, 300 256 Z"/>
+      <path d="M296 253 C330 250, 360 266, 380 290 C356 272, 328 262, 298 260 Z"/>
+    </svg>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Top Navigation & Data Source Bar -->
+  <header class="app-header sticky top-0 z-40 backdrop-blur-xl border-b">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-3">
+      <!-- Brand + Capsule Badge -->
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="theme-accent-btn w-9 h-9 rounded-full flex items-center justify-center shrink-0">
+          <!-- Authentic Spotify Soundwave SVG -->
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="vice-neon-title font-display font-extrabold text-base sm:text-lg tracking-tight text-white truncate">Sound Capsule</span>
+            <span id="data-mode-badge" class="hidden sm:inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full bg-spotify-green/15 text-spotify-green border border-spotify-green/30 whitespace-nowrap">
+              Demo Profile
+            </span>
+          </div>
+          <p id="user-subtitle" class="text-xs text-spotify-subtext hidden sm:block">Your personal listening time capsule</p>
+        </div>
+      </div>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <!-- Connect Spotify / Data Source Modal Trigger -->
+        <button id="open-connect-btn" class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition active:scale-95">
+          <i data-lucide="plug-zap" class="w-4 h-4 text-spotify-green"></i>
+          <span id="connect-btn-label">Connect Spotify</span>
+        </button>
+
+        <!-- Share Capsule Button -->
+        <button id="open-share-btn" class="theme-accent-btn flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition active:scale-95">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+          <span>Share</span>
+        </button>
+
+        <!-- Settings & Themes Button -->
+        <button id="open-settings-btn" title="Settings & Themes" aria-label="Settings and Themes" class="flex items-center gap-1.5 p-2.5 sm:px-3.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition active:scale-95">
+          <i data-lucide="settings" class="w-4 h-4 text-spotify-green"></i>
+          <span class="hidden md:inline">Settings</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="relative z-10 flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-28 space-y-6">
+
+    <!-- Capsule Header + Time Range Selector Pills -->
+    <section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2.5 mb-1.5">
+          <img id="user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Profile" onerror="this.src='https://placehold.co/100x100/242424/1DB954?text=S'" class="w-7 h-7 rounded-full object-cover ring-2 ring-spotify-green/70">
+          <span id="user-display-name" class="text-xs font-semibold uppercase tracking-wider text-spotify-subtext">Maya Lin • Sound Capsule</span>
+        </div>
+        <h1 id="capsule-period-heading" class="vice-neon-title font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          November 2026
+        </h1>
+      </div>
+
+      <!-- Time Range Pills (Dynamically rendered based on active source) -->
+      <div id="timeframe-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- HERO ROW: Listening Time + Sound of the Month (Audio Aura) -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+      <!-- Card 1: Listening Time & Daily Streak (5 cols) -->
+      <div class="lg:col-span-5 capsule-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+        <!-- Crisp top accent bar -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-spotify-green via-emerald-400 to-cyan-400"></div>
+
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-spotify-subtext flex items-center gap-1.5">
+              <i data-lucide="headphones" class="w-4 h-4 text-spotify-green"></i>
+              Time Listened
+            </span>
+            <span id="minutes-delta-badge" class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full bg-spotify-green/15 text-spotify-green">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+              <span>+14% vs Oct</span>
+            </span>
+          </div>
+
+          <div class="flex items-baseline gap-2.5 mt-1">
+            <span id="stat-minutes" class="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">4,820</span>
+            <span class="text-lg font-semibold text-spotify-subtext">minutes</span>
+          </div>
+          <p id="stat-hours-sub" class="text-sm text-spotify-subtext mt-1">
+            That’s <span class="text-white font-semibold">80.3 hours</span> of pure sound—averaging <span class="text-white font-semibold">161 min/day</span>.
+          </p>
+        </div>
+
+        <!-- Mini 7-Day Activity Spark Bars -->
+        <div class="mt-6 pt-5 border-t border-white/10">
+          <div class="flex items-center justify-between text-xs text-spotify-subtext mb-3">
+            <span>Daily Rhythm (Avg)</span>
+            <span id="stat-top-day" class="text-white font-semibold">Peak: Fridays</span>
+          </div>
+          <div id="weekday-bars" class="grid grid-cols-7 gap-2 items-end h-20">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Sound of the Month / Audio Aura (7 cols) -->
+      <div class="lg:col-span-7 capsule-aura-bg rounded-3xl p-6 border border-white/10 flex flex-col justify-between relative overflow-hidden">
+        <!-- Animated Ambient Glow Orb (Hidden in Vice City theme) -->
+        <div id="aura-orb" class="pointer-events-none absolute -right-12 -top-12 w-64 h-64 rounded-full bg-gradient-to-tr from-violet-500/40 via-fuchsia-500/40 to-cyan-400/40 blur-2xl animate-aura-slow"></div>
+
+        <!-- Vice City Hero Card Palm Tree Silhouette (Crisp Dark Violet, Zero Drop-Shadow) -->
+        <svg id="aura-palm-silhouette" aria-hidden="true" class="pointer-events-none absolute right-2 bottom-0 w-44 sm:w-56 h-auto text-[#120422] opacity-40" viewBox="0 0 240 220" fill="currentColor">
+          <path d="M174 220 C168 168, 154 118, 128 72 L120 75 C144 120, 156 168, 160 220 Z"/>
+          <path d="M124 74 C98 54, 68 56, 40 74 C66 64, 94 66, 120 79 Z"/>
+          <path d="M123 77 C90 72, 58 88, 34 116 C62 96, 90 85, 120 83 Z"/>
+          <path d="M125 72 C112 42, 90 26, 64 22 C88 32, 106 48, 121 74 Z"/>
+          <path d="M127 72 C138 42, 160 26, 186 22 C164 32, 144 48, 130 74 Z"/>
+          <path d="M128 74 C156 54, 188 56, 216 74 C190 64, 160 66, 131 79 Z"/>
+          <path d="M128 77 C162 72, 194 88, 216 116 C190 96, 160 85, 130 83 Z"/>
+        </svg>
+
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-white/90 flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-4 h-4 text-fuchsia-200"></i>
+              Sound of the Month
+            </span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-black/40 text-white border border-white/20">
+              Audio Aura
+            </span>
+          </div>
+
+          <h2 id="aura-title" class="font-display text-2xl sm:text-3xl font-extrabold text-white leading-tight max-w-lg">
+            Euphoric Indie & Nocturnal Synth
+          </h2>
+          <p id="aura-description" class="text-sm text-white/90 mt-2 max-w-xl leading-relaxed">
+            Your rotation leaned into shimmering late-night synths, crisp alt-pop percussion, and warm atmospheric vocals.
+          </p>
+        </div>
+
+        <!-- Audio Feature Pills (Danceability, Energy, Valence, Tempo) -->
+        <div class="relative z-10 mt-6 pt-4 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-black/40 rounded-2xl p-3 border border-white/15">
+            <div id="feat-1-label" class="text-[11px] font-medium text-white/80">Danceability</div>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="feat-dance" class="font-display text-xl font-bold text-white">76%</span>
+              <span id="feat-1-tag" class="text-[11px] text-emerald-300 font-semibold">High</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/20 rounded-full mt-2 overflow-hidden">
+              <div id="bar-dance" class="h-full bg-emerald-400 rounded-full transition-all duration-500" style="width: 76%"></div>
+            </div>
+          </div>
+
+          <div class="bg-black/40 rounded-2xl p-3 border border-white/15">
+            <div id="feat-2-label" class="text-[11px] font-medium text-white/80">Energy</div>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="feat-energy" class="font-display text-xl font-bold text-white">81%</span>
+              <span id="feat-2-tag" class="text-[11px] text-fuchsia-200 font-semibold">Electric</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/20 rounded-full mt-2 overflow-hidden">
+              <div id="bar-energy" class="h-full bg-fuchsia-400 rounded-full transition-all duration-500" style="width: 81%"></div>
+            </div>
+          </div>
+
+          <div class="bg-black/40 rounded-2xl p-3 border border-white/15">
+            <div id="feat-3-label" class="text-[11px] font-medium text-white/80">Mood (Valence)</div>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="feat-valence" class="font-display text-xl font-bold text-white">64%</span>
+              <span id="feat-3-tag" class="text-[11px] text-cyan-200 font-semibold">Uplifting</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/20 rounded-full mt-2 overflow-hidden">
+              <div id="bar-valence" class="h-full bg-cyan-400 rounded-full transition-all duration-500" style="width: 64%"></div>
+            </div>
+          </div>
+
+          <div class="bg-black/40 rounded-2xl p-3 border border-white/15">
+            <div id="feat-4-label" class="text-[11px] font-medium text-white/80">Avg Tempo</div>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="feat-tempo" class="font-display text-xl font-bold text-white">118</span>
+              <span id="feat-4-tag" class="text-[11px] text-yellow-200 font-semibold">BPM</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/20 rounded-full mt-2 overflow-hidden">
+              <div id="bar-tempo" class="h-full bg-amber-400 rounded-full transition-all duration-500" style="width: 72%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOP ARTISTS & TOP TRACKS ROW (Side-by-side Sound Capsule Ranked Lists) -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+      <!-- Top Artists Card -->
+      <div class="capsule-card rounded-3xl p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-spotify-green">Heavy Rotation</span>
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">Top Artists</h2>
+          </div>
+          <button id="toggle-artists-count" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-spotify-subtext hover:text-white transition">
+            Show Top 10
+          </button>
+        </div>
+
+        <!-- #1 Spotlight Artist Banner -->
+        <div id="top-artist-spotlight" class="mb-4 p-4 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center gap-4">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Ranked List (#2 - #5 or #10) -->
+        <div id="top-artists-list" class="space-y-2.5 flex-1">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Top Tracks Card -->
+      <div class="capsule-card rounded-3xl p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyan-300">On Repeat</span>
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">Top Songs</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] text-spotify-subtext hidden sm:inline">Click track to preview</span>
+            <button id="toggle-tracks-count" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-spotify-subtext hover:text-white transition">
+              Show Top 10
+            </button>
+          </div>
+        </div>
+
+        <!-- Ranked Track List -->
+        <div id="top-tracks-list" class="space-y-2 flex-1">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTENING CLOCK & TOP GENRES ROW -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+      <!-- 24-Hour Radial Listening Clock (7 cols) -->
+      <div class="lg:col-span-7 capsule-card rounded-3xl p-6 flex flex-col justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-violet-300">Listening Clock</span>
+            <h2 id="clock-persona-title" class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">Night Owl: 10 PM – 1 AM</h2>
+          </div>
+          <span id="clock-peak-pill" class="self-start sm:self-auto text-xs font-semibold px-3 py-1 rounded-full bg-violet-500/20 text-violet-200 border border-violet-400/40">
+            Peak Hour: 11 PM
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-6 my-auto">
+          <!-- Interactive SVG Radial 24h Clock -->
+          <div class="sm:col-span-7 flex items-center justify-center">
+            <div class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center">
+              <svg id="listening-clock-svg" viewBox="0 0 280 280" class="w-full h-full overflow-visible">
+                <!-- Radial segments drawn via JS -->
+              </svg>
+              <!-- Center Readout -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center px-12">
+                <span id="clock-hover-hour" class="font-display text-2xl font-extrabold text-white">11 PM</span>
+                <span id="clock-hover-mins" class="text-xs font-medium text-spotify-subtext mt-0.5">412 mins streamed</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time-of-Day Breakdown Summary -->
+          <div class="sm:col-span-5 space-y-3">
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-spotify-subtext flex items-center gap-1.5"><i data-lucide="sunrise" class="w-3.5 h-3.5 text-yellow-300"></i> Morning (6a–12p)</span>
+                <span id="tod-morning" class="font-bold text-white">18%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
+                <div id="tod-morning-bar" class="h-full bg-yellow-300 rounded-full transition-all duration-500" style="width: 18%"></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-spotify-subtext flex items-center gap-1.5"><i data-lucide="sun" class="w-3.5 h-3.5 text-orange-400"></i> Afternoon (12p–6p)</span>
+                <span id="tod-afternoon" class="font-bold text-white">27%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
+                <div id="tod-afternoon-bar" class="h-full bg-orange-400 rounded-full transition-all duration-500" style="width: 27%"></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-spotify-subtext flex items-center gap-1.5"><i data-lucide="sunset" class="w-3.5 h-3.5 text-pink-400"></i> Evening (6p–10p)</span>
+                <span id="tod-evening" class="font-bold text-white">23%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
+                <div id="tod-evening-bar" class="h-full bg-pink-400 rounded-full transition-all duration-500" style="width: 23%"></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-cyan-400/40">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-white font-medium flex items-center gap-1.5"><i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-300"></i> Late Night (10p–6a)</span>
+                <span id="tod-night" class="font-bold text-cyan-300">32%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
+                <div id="tod-night-bar" class="h-full bg-cyan-300 rounded-full transition-all duration-500" style="width: 32%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Genres Breakdown (5 cols) -->
+      <div class="lg:col-span-5 capsule-card rounded-3xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span id="genres-section-eyebrow" class="text-xs font-bold uppercase tracking-widest text-pink-400">Sonic Palette</span>
+              <h2 id="genres-section-title" class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">Top Genres</h2>
+            </div>
+            <span id="genre-count-badge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-spotify-subtext">
+              14 genres explored
+            </span>
+          </div>
+
+          <div id="top-genres-list" class="space-y-4">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Discovery Callout -->
+        <div class="mt-6 p-4 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-spotify-green/20 text-spotify-green flex items-center justify-center shrink-0">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-white" id="discovery-headline">28% Fresh Discoveries</p>
+            <p class="text-xs text-spotify-subtext mt-0.5" id="discovery-sub">You explored 42 new artists this capsule period.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Mini Sticky Audio Preview Bar (appears when playing a track preview) -->
+  <div id="mini-player" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-xl bg-[#242424]/95 backdrop-blur-xl border border-white/15 rounded-2xl px-4 py-3 shadow-2xl flex items-center justify-between gap-3 transition-all duration-300 translate-y-28 opacity-0 pointer-events-none">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="relative w-11 h-11 rounded-lg overflow-hidden shrink-0">
+        <img id="player-art" src="https://placehold.co/100x100/242424/1DB954?text=S" alt="Track" onerror="this.src='https://placehold.co/100x100/242424/1DB954?text=S'" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/40 flex items-end justify-center gap-0.5 p-2">
+          <span class="w-1 bg-spotify-green rounded-full animate-equalizer-1"></span>
+          <span class="w-1 bg-spotify-green rounded-full animate-equalizer-2"></span>
+          <span class="w-1 bg-spotify-green rounded-full animate-equalizer-3"></span>
+        </div>
+      </div>
+      <div class="min-w-0">
+        <p id="player-title" class="text-sm font-bold text-white truncate">Track Name</p>
+        <p id="player-artist" class="text-xs text-spotify-subtext truncate">Artist Name</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <span id="player-mode-tag" class="hidden sm:inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-spotify-subtext">Synth Preview</span>
+      <button id="player-stop-btn" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition" title="Stop Preview">
+        <i data-lucide="square" class="w-3.5 h-3.5 fill-current"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 1: Connect Spotify OAuth PKCE / Upload JSON / Switch Demo -->
+  <div id="connect-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-[#181818] border border-white/10 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button id="close-connect-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#282828] hover:bg-[#333333] flex items-center justify-center text-spotify-subtext hover:text-white transition">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-spotify-green/15 text-spotify-green flex items-center justify-center">
+          <i data-lucide="radio" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="font-display text-xl font-bold text-white">Connect Your Spotify Data</h3>
+          <p class="text-xs text-spotify-subtext">Choose how you want to populate your Sound Capsule</p>
+        </div>
+      </div>
+
+      <!-- Tab Switcher inside Modal -->
+      <div class="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-[#121212] border border-white/5 mb-5">
+        <button data-source-tab="oauth" class="source-tab-btn active py-2 px-3 rounded-xl text-xs font-bold bg-[#282828] text-white transition">
+          Spotify API
+        </button>
+        <button data-source-tab="json" class="source-tab-btn py-2 px-3 rounded-xl text-xs font-bold text-spotify-subtext hover:text-white transition">
+          Upload JSON
+        </button>
+        <button data-source-tab="demo" class="source-tab-btn py-2 px-3 rounded-xl text-xs font-bold text-spotify-subtext hover:text-white transition">
+          Demo Profiles
+        </button>
+      </div>
+
+      <!-- TAB 1: Live Spotify OAuth 2.0 PKCE -->
+      <div id="tab-oauth" class="space-y-4">
+        <div class="p-4 rounded-2xl bg-[#222222] border border-white/5 text-xs text-spotify-subtext space-y-2.5 leading-relaxed">
+          <p class="text-white font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4 text-spotify-green"></i>
+            Quick Setup Guide (No Backend Needed)
+          </p>
+          <ol class="space-y-2 list-decimal list-inside marker:text-spotify-green marker:font-bold">
+            <li>
+              Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener" class="text-spotify-green underline hover:text-spotify-greenBright">Spotify Developer Dashboard</a>, click <strong class="text-white">Create app</strong>, and check <strong class="text-white">Web API</strong>.
+            </li>
+            <li>
+              Copy this exact <strong class="text-white">Redirect URI</strong> and paste it once into your Spotify app's Redirect URIs box:
+              <div class="flex items-center gap-2 bg-[#121212] p-2 mt-1.5 rounded-xl border border-white/10">
+                <input id="redirect-uri-display" type="text" aria-label="Redirect URI" class="bg-transparent text-[11px] font-mono text-emerald-300 flex-1 focus:outline-none focus:text-white min-w-0" />
+                <button id="copy-redirect-btn" type="button" class="px-2.5 py-1 rounded-lg bg-[#282828] hover:bg-[#353535] text-white text-[11px] font-semibold shrink-0">
+                  Copy
+                </button>
+              </div>
+            </li>
+            <li>
+              Click <strong class="text-white">Add</strong>, then scroll to the bottom of Spotify's settings page and click <strong class="text-white">Save</strong> <span class="text-amber-300/90">(clicking Add alone won't save it)</span>.
+            </li>
+            <li>
+              Open your app's <strong class="text-white">Settings</strong>, copy the <strong class="text-white">Client ID</strong>, and paste it below.
+            </li>
+            <li>
+              Click <strong class="text-white">Authorize & Load Real Spotify Stats</strong>, click <strong class="text-white">Agree</strong> on Spotify, then copy the redirected URL (containing <code class="text-emerald-300">?code=...</code>) from the address bar and paste it into the box that appears below.
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <label for="spotify-client-id" class="block text-xs font-semibold text-white mb-1.5">Spotify App Client ID</label>
+          <input id="spotify-client-id" type="text" placeholder="e.g., 8f9a2b3c4d5e6f7a8b9c0d1e2f3a4b5c" class="w-full px-4 py-3 rounded-xl bg-[#121212] border border-white/15 text-sm text-white placeholder-spotify-muted focus:outline-none focus:border-spotify-green transition">
+          <p id="client-id-status" class="text-[11px] text-spotify-subtext mt-1.5 hidden"></p>
+        </div>
+
+        <button id="start-pkce-btn" type="button" class="theme-accent-btn w-full py-3.5 rounded-full font-bold text-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          Authorize & Load Real Spotify Stats
+        </button>
+
+        <!-- Sandboxed Iframe Fallback: Manual Callback URL / Code Paste -->
+        <div id="pkce-fallback-box" class="hidden p-3.5 rounded-2xl bg-[#121212] border border-amber-500/30 space-y-2.5">
+          <p class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            Opened Spotify Login in a New Tab
+          </p>
+          <p class="text-[11px] text-spotify-subtext leading-relaxed">
+            After clicking <strong>Agree</strong> on Spotify, if the redirected page doesn't load inside this preview frame, copy the full URL from your browser's address bar (containing <code class="text-emerald-300">?code=...</code>) and paste it below:
+          </p>
+          <div class="flex items-center gap-2">
+            <input id="manual-callback-input" type="text" placeholder="Paste redirected URL or ?code=... here" class="flex-1 px-3 py-2 rounded-xl bg-[#181818] border border-white/15 text-xs text-white placeholder-spotify-muted focus:outline-none focus:border-spotify-green min-w-0">
+            <button id="complete-manual-pkce-btn" type="button" class="theme-accent-btn px-3.5 py-2 rounded-xl font-bold text-xs shrink-0">
+              Load Stats
+            </button>
+          </div>
+          <p id="pkce-fallback-error" class="hidden text-[11px] text-rose-300 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- TAB 2: Upload Spotify Privacy Data JSON -->
+      <div id="tab-json" class="hidden space-y-4">
+        <div class="p-3.5 rounded-2xl bg-[#222222] border border-white/5 text-xs text-spotify-subtext space-y-1.5">
+          <p class="text-white font-semibold">Supports Spotify Account Data Exports</p>
+          <p>Upload <code class="text-emerald-300">StreamingHistory_music_0.json</code> or <code class="text-emerald-300">endsong_0.json</code> (or multiple files at once) to compute your exact listening minutes, peak clock hours, top tracks, and top artists locally in your browser.</p>
+        </div>
+
+        <label id="json-dropzone" class="flex flex-col items-center justify-center p-7 border-2 border-dashed border-white/15 hover:border-spotify-green rounded-2xl bg-[#121212] cursor-pointer transition text-center">
+          <i data-lucide="file-json" class="w-9 h-9 text-spotify-green mb-2"></i>
+          <span class="text-sm font-bold text-white">Click to select Spotify JSON file(s)</span>
+          <span class="text-xs text-spotify-subtext mt-1">StreamingHistory_music_*.json or endsong_*.json</span>
+          <input id="json-file-input" type="file" accept=".json,application/json" multiple class="hidden">
+        </label>
+      </div>
+
+      <!-- TAB 3: Curated Demo Personas -->
+      <div id="tab-demo" class="hidden space-y-3">
+        <p class="text-xs text-spotify-subtext">Switch between curated listening personas to explore different Sound Capsule moods and rhythms:</p>
+
+        <button data-demo-preset="indie" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-spotify-green/40 text-left flex items-center justify-between transition">
+          <div>
+            <p class="text-sm font-bold text-white">Maya Lin — Euphoric Indie & Synth</p>
+            <p class="text-xs text-spotify-subtext">4,820 mins • Fred again.., Tame Impala, Magdalena Bay</p>
+          </div>
+          <span class="demo-status-label text-xs font-bold text-spotify-green shrink-0 ml-2">Active</span>
+        </button>
+
+        <button data-demo-preset="hiphop" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-white/5 text-left flex items-center justify-between transition">
+          <div>
+            <p class="text-sm font-bold text-white">Devon Brooks — Late-Night R&B & Rap</p>
+            <p class="text-xs text-spotify-subtext">6,140 mins • Kendrick Lamar, SZA, Kaytranada, Frank Ocean</p>
+          </div>
+          <span class="demo-status-label text-xs font-semibold text-spotify-subtext shrink-0 ml-2">Load</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Share Capsule Story Card Generator (9:16 Mobile Card) -->
+  <div id="share-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+    <div class="bg-[#181818] border border-white/10 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto flex flex-col items-center">
+      <div class="w-full flex items-center justify-between mb-4">
+        <h3 class="font-display text-lg font-bold text-white">Share Sound Capsule</h3>
+        <button id="close-share-modal" class="w-8 h-8 rounded-full bg-[#282828] hover:bg-[#333333] flex items-center justify-center text-spotify-subtext hover:text-white transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Theme Selector Pills -->
+      <div class="flex items-center gap-2 mb-4">
+        <button data-card-theme="cosmic" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-cyan-400 ring-2 ring-white transition" title="Cosmic Purple"></button>
+        <button data-card-theme="vice_city" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-[#00F6FF] via-[#FF2EC4] to-[#FFE600] opacity-70 hover:opacity-100 transition" title="GTA VI: Vice City"></button>
+        <button data-card-theme="lime" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 via-spotify-green to-lime-300 opacity-70 hover:opacity-100 transition" title="Neon Lime"></button>
+        <button data-card-theme="sunset" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-rose-600 via-orange-500 to-amber-300 opacity-70 hover:opacity-100 transition" title="Sunset Coral"></button>
+        <button data-card-theme="cyan" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 via-cyan-500 to-teal-300 opacity-70 hover:opacity-100 transition" title="Midnight Cyan"></button>
+      </div>
+
+      <!-- 9:16 Aspect Ratio Story Card Preview -->
+      <div id="share-story-card" class="w-full max-w-[300px] aspect-[9/16] rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden border border-white/15 bg-gradient-to-br from-[#23153c] via-[#171324] to-[#0f172a]">
+        <!-- Decorative Radial Glows (Hidden in Vice City theme) -->
+        <div id="story-glow-1" class="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full bg-fuchsia-500/40 blur-2xl"></div>
+        <div id="story-glow-2" class="pointer-events-none absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-cyan-400/35 blur-2xl"></div>
+
+        <!-- Vice City Story Card Palm Silhouette (Crisp, Zero Drop-Shadow) -->
+        <svg id="story-palm-silhouette" aria-hidden="true" class="hidden pointer-events-none absolute -right-3 bottom-6 w-36 h-auto text-[#120422] opacity-45" viewBox="0 0 240 260" fill="currentColor">
+          <path d="M178 260 C172 196, 156 136, 128 82 L120 85 C146 138, 160 198, 164 260 Z"/>
+          <path d="M124 84 C96 62, 64 64, 36 84 C64 74, 92 76, 120 90 Z"/>
+          <path d="M123 87 C88 82, 56 98, 32 128 C60 108, 90 96, 120 94 Z"/>
+          <path d="M125 82 C112 50, 88 32, 60 28 C86 38, 106 56, 121 84 Z"/>
+          <path d="M127 82 C138 50, 162 32, 190 28 C166 38, 146 56, 130 84 Z"/>
+          <path d="M128 84 C158 62, 192 64, 220 84 C192 74, 162 76, 131 90 Z"/>
+          <path d="M128 87 C164 82, 196 98, 220 128 C192 108, 162 96, 130 94 Z"/>
+        </svg>
+
+        <!-- Top Header -->
+        <div class="relative z-10 flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+            <span class="font-display font-extrabold text-xs tracking-tight text-white">Sound Capsule</span>
+          </div>
+          <span id="story-period" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-black/30 text-white">Nov 2026</span>
+        </div>
+
+        <!-- Center Highlight: #1 Artist & Minutes -->
+        <div class="relative z-10 my-auto py-2">
+          <div class="flex items-center gap-3 mb-3">
+            <img id="story-artist-img" src="https://placehold.co/120x120/242424/1DB954?text=A" onerror="this.src='https://placehold.co/120x120/242424/1DB954?text=A'" alt="Top Artist" class="w-16 h-16 rounded-full object-cover ring-2 ring-white/60 shrink-0">
+            <div class="min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-white/80">Top Artist</span>
+              <p id="story-artist-name" class="font-display text-lg font-extrabold text-white leading-tight truncate">Fred again..</p>
+              <p id="story-aura-tag" class="text-[11px] text-white/90 font-medium mt-0.5 truncate">Euphoric Indie & Synth</p>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-black/40 border border-white/15 mb-3">
+            <div class="flex items-baseline justify-between">
+              <span class="text-[10px] uppercase tracking-wider text-white/80 font-semibold">Minutes Listened</span>
+              <span id="story-peak-hour" class="text-[10px] text-cyan-200 font-semibold">Peak: 11 PM</span>
+            </div>
+            <p id="story-minutes" class="font-display text-2xl font-extrabold text-white mt-0.5">4,820 min</p>
+          </div>
+
+          <!-- Top 3 Tracks Mini List -->
+          <div class="space-y-1.5">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-white/80">Top Songs</span>
+            <div id="story-tracks-list" class="space-y-1.5 text-xs">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="relative z-10 flex items-center justify-between pt-2 border-t border-white/20 text-[10px] text-white/85">
+          <span id="story-user">@mayalin</span>
+          <span class="font-semibold text-white">spotify.com/soundcapsule</span>
+        </div>
+      </div>
+
+      <!-- Share Action Buttons -->
+      <div class="w-full grid grid-cols-2 gap-2.5 mt-4">
+        <button id="copy-stats-btn" class="py-2.5 px-4 rounded-full bg-[#262626] hover:bg-[#323232] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          Copy Summary
+        </button>
+        <button id="download-card-btn" class="theme-accent-btn py-2.5 px-4 rounded-full font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          Save PNG Card
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Settings & Visual Themes -->
+  <div id="settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="capsule-card rounded-3xl max-w-lg w-full p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto">
+      <button id="close-settings-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-spotify-subtext hover:text-white transition">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-full bg-spotify-green/15 text-spotify-green flex items-center justify-center">
+          <i data-lucide="palette" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="font-display text-xl font-bold text-white">Settings & Themes</h3>
+          <p class="text-xs text-spotify-subtext">Customize your Sound Capsule atmosphere and display</p>
+        </div>
+      </div>
+
+      <!-- Theme Picker Grid -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-widest text-spotify-subtext">Capsule Theme</span>
+          <span id="active-theme-label" class="text-xs font-semibold text-spotify-green">Spotify Classic</span>
+        </div>
+
+        <div id="theme-options-grid" class="grid grid-cols-1 gap-2.5">
+          <!-- Spotify Classic -->
+          <button type="button" data-theme-choice="spotify" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-white/15" style="background: linear-gradient(135deg, #121212 45%, #1DB954 100%);">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#1DB954]"></span>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-white">Spotify Classic</p>
+                <p class="text-xs text-spotify-subtext truncate">Signature dark charcoal with Spotify Green</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-bold text-spotify-green shrink-0">Active</span>
+          </button>
+
+          <!-- GTA VI: Vice City -->
+          <button type="button" data-theme-choice="vice_city" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-[#00F6FF]" style="background: linear-gradient(135deg, #00F6FF 0%, #FF2EC4 55%, #FFE600 100%);">
+                <span class="text-[11px] font-display font-extrabold text-[#0D0216] tracking-tighter">VI</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-bold text-white">GTA VI: Vice City</p>
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#FF2EC4]/25 text-[#FF6BF2] border border-[#00F6FF]">Leonida</span>
+                </div>
+                <p class="text-xs text-spotify-subtext truncate">Bright vivid magenta (#FF2EC4), electric cyan (#00F6FF) &amp; neon yellow</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Midnight Synthwave -->
+          <button type="button" data-theme-choice="synthwave" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-white/15" style="background: linear-gradient(135deg, #070b19 30%, #00E5FF 75%, #B537F2 100%);">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#00E5FF]"></span>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-white">Midnight Synthwave</p>
+                <p class="text-xs text-spotify-subtext truncate">Deep arcade cobalt with electric cyan &amp; laser violet</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Solar Gold -->
+          <button type="button" data-theme-choice="solar" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-white/15" style="background: linear-gradient(135deg, #130f0b 35%, #F59E0B 80%, #FB7185 100%);">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#F59E0B]"></span>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-white">Solar Vinyl Gold</p>
+                <p class="text-xs text-spotify-subtext truncate">Warm espresso studio tones with molten amber &amp; rose</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Emerald Velvet -->
+          <button type="button" data-theme-choice="emerald" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-white/15" style="background: linear-gradient(135deg, #07130f 35%, #10B981 80%, #EAB308 100%);">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#10B981]"></span>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-white">Emerald Velvet</p>
+                <p class="text-xs text-spotify-subtext truncate">Midnight forest slate with jade &amp; champagne gold</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Display Preferences -->
+      <div class="mt-5 pt-4 border-t border-white/10 space-y-3">
+        <span class="block text-xs font-bold uppercase tracking-widest text-spotify-subtext">Preferences</span>
+
+        <label class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 cursor-pointer">
+          <div>
+            <p class="text-xs font-bold text-white">Ambient Aura Animation</p>
+            <p class="text-[11px] text-spotify-subtext">Slowly pulse the Sound of the Month gradient orb</p>
+          </div>
+          <input id="toggle-aura-anim" type="checkbox" checked class="w-4 h-4 accent-[#1DB954] rounded cursor-pointer">
+        </label>
+
+        <label class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 cursor-pointer">
+          <div>
+            <p class="text-xs font-bold text-white">Expand Top 10 Lists by Default</p>
+            <p class="text-[11px] text-spotify-subtext">Show all 10 top artists and top songs automatically</p>
+          </div>
+          <input id="toggle-default-top10" type="checkbox" class="w-4 h-4 accent-[#1DB954] rounded cursor-pointer">
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // =========================================================================
+    // 1. CURATED DEMO DATASETS (Sound Capsule Profiles)
+    // =========================================================================
+    const DEMO_PROFILES = {
+      indie: {
+        user: {
+          name: 'Maya Lin',
+          handle: '@mayalin',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+        },
+        ranges: {
+          month: {
+            label: 'November 2026',
+            minutes: 4820,
+            delta: '+14% vs Oct',
+            dailyAvg: 161,
+            topDay: 'Fridays',
+            weekdayMinutes: [540, 610, 590, 680, 920, 810, 670],
+            aura: {
+              title: 'Euphoric Indie & Nocturnal Synth',
+              description: 'Your rotation leaned into shimmering late-night synths, crisp alt-pop percussion, and warm atmospheric vocals.',
+              danceability: 76,
+              energy: 81,
+              valence: 64,
+              tempo: 118
+            },
+            clockPersona: 'Night Owl: 10 PM – 1 AM',
+            hourlyMinutes: [290, 180, 95, 45, 20, 15, 40, 110, 185, 220, 210, 240, 265, 250, 230, 275, 310, 295, 260, 245, 280, 340, 395, 412],
+            discoveryPct: 28,
+            newArtistsCount: 42,
+            totalGenresExplored: 14,
+            genres: [
+              { name: 'Indie Electronic', pct: 34, color: '#1DB954' },
+              { name: 'Alt-Pop & Synth', pct: 26, color: '#A855F7' },
+              { name: 'Neo-Psychedelia', pct: 18, color: '#06B6D4' },
+              { name: 'UK Garage & House', pct: 13, color: '#EC4899' },
+              { name: 'Dream Pop', pct: 9, color: '#F59E0B' }
+            ],
+            artists: [
+              { name: 'Fred again..', genre: 'UK Electronic', minutes: 842, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 695, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Magdalena Bay', genre: 'Synthpop', minutes: 580, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 490, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Charli xcx', genre: 'Hyperpop', minutes: 435, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Jamie xx', genre: 'Future Garage', minutes: 388, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Caroline Polachek', genre: 'Art Pop', minutes: 342, image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=240&q=80' },
+              { name: 'ODESZA', genre: 'Chillwave', minutes: 298, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Romy', genre: 'Club Pop', minutes: 254, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Disclosure', genre: 'UK House', minutes: 215, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'places to be', artist: 'Fred again.., Anderson .Paak', duration: '3:46', plays: 68, note: 'C4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Image', artist: 'Magdalena Bay', duration: '3:32', plays: 59, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Let It Happen', artist: 'Tame Impala', duration: '7:46', plays: 51, note: 'G4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: '360', artist: 'Charli xcx', duration: '2:13', plays: 47, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Baddy On The Floor', artist: 'Jamie xx, Honey Dijon', duration: '3:42', plays: 43, note: 'D4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Witchy (feat. Childish Gambino)', artist: 'Kaytranada', duration: '3:28', plays: 39, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Welcome To My Island', artist: 'Caroline Polachek', duration: '3:53', plays: 35, note: 'B4', art: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Enjoy Your Life', artist: 'Romy', duration: '4:01', plays: 31, note: 'C5', art: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=200&q=80' },
+              { title: 'The Less I Know The Better', artist: 'Tame Impala', duration: '3:36', plays: 29, note: 'E5', art: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Latch', artist: 'Disclosure, Sam Smith', duration: '4:15', plays: 26, note: 'G3', art: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          short_term: {
+            label: 'Last 4 Weeks',
+            minutes: 4410,
+            delta: '+9% vs prior 4w',
+            dailyAvg: 158,
+            topDay: 'Saturdays',
+            weekdayMinutes: [490, 560, 540, 620, 840, 890, 470],
+            aura: {
+              title: 'High-Voltage Club & Alt-Pop',
+              description: 'Fast tempos and festival-ready basslines dominated your past month of listening.',
+              danceability: 82,
+              energy: 86,
+              valence: 69,
+              tempo: 124
+            },
+            clockPersona: 'Late Evening Peak: 9 PM – 12 AM',
+            hourlyMinutes: [240, 140, 70, 30, 15, 10, 35, 95, 165, 200, 195, 215, 240, 235, 220, 260, 290, 310, 285, 270, 315, 385, 370, 330],
+            discoveryPct: 31,
+            newArtistsCount: 38,
+            totalGenresExplored: 12,
+            genres: [
+              { name: 'UK Garage & House', pct: 36, color: '#1DB954' },
+              { name: 'Indie Electronic', pct: 28, color: '#A855F7' },
+              { name: 'Hyperpop', pct: 18, color: '#06B6D4' },
+              { name: 'Synthpop', pct: 18, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Magdalena Bay', genre: 'Synthpop', minutes: 760, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Fred again..', genre: 'UK Electronic', minutes: 715, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Jamie xx', genre: 'Future Garage', minutes: 590, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Charli xcx', genre: 'Hyperpop', minutes: 510, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 440, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 375, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Romy', genre: 'Club Pop', minutes: 310, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Image', artist: 'Magdalena Bay', duration: '3:32', plays: 61, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'places to be', artist: 'Fred again.., Anderson .Paak', duration: '3:46', plays: 54, note: 'C4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Baddy On The Floor', artist: 'Jamie xx, Honey Dijon', duration: '3:42', plays: 46, note: 'D4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: '360', artist: 'Charli xcx', duration: '2:13', plays: 41, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Death & Romance', artist: 'Magdalena Bay', duration: '4:14', plays: 36, note: 'G4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Witchy (feat. Childish Gambino)', artist: 'Kaytranada', duration: '3:28', plays: 32, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Enjoy Your Life', artist: 'Romy', duration: '4:01', plays: 27, note: 'C5', art: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          medium_term: {
+            label: 'Last 6 Months',
+            minutes: 27450,
+            delta: '+18% vs H1',
+            dailyAvg: 152,
+            topDay: 'Fridays',
+            weekdayMinutes: [3400, 3650, 3800, 4050, 4620, 4280, 3650],
+            aura: {
+              title: 'Sun-Drenched Indie & Electronic',
+              description: 'Six months of groovy basslines, melodic house, and nostalgic psychedelic hooks.',
+              danceability: 74,
+              energy: 78,
+              valence: 67,
+              tempo: 116
+            },
+            clockPersona: 'Evening Commute & Late Night',
+            hourlyMinutes: [1420, 890, 420, 210, 110, 95, 260, 680, 1120, 1340, 1290, 1410, 1520, 1480, 1390, 1590, 1780, 1890, 1650, 1520, 1680, 1980, 2190, 2150],
+            discoveryPct: 34,
+            newArtistsCount: 164,
+            totalGenresExplored: 22,
+            genres: [
+              { name: 'Indie Electronic', pct: 32, color: '#1DB954' },
+              { name: 'Neo-Psychedelia', pct: 25, color: '#A855F7' },
+              { name: 'Alt-Pop & Synth', pct: 23, color: '#06B6D4' },
+              { name: 'Electronic R&B', pct: 20, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 4120, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Fred again..', genre: 'UK Electronic', minutes: 3890, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 3140, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Magdalena Bay', genre: 'Synthpop', minutes: 2780, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'ODESZA', genre: 'Chillwave', minutes: 2310, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Caroline Polachek', genre: 'Art Pop', minutes: 1940, image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Let It Happen', artist: 'Tame Impala', duration: '7:46', plays: 214, note: 'G4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'places to be', artist: 'Fred again.., Anderson .Paak', duration: '3:46', plays: 198, note: 'C4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Witchy (feat. Childish Gambino)', artist: 'Kaytranada', duration: '3:28', plays: 176, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Image', artist: 'Magdalena Bay', duration: '3:32', plays: 162, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'The Less I Know The Better', artist: 'Tame Impala', duration: '3:36', plays: 149, note: 'E5', art: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Welcome To My Island', artist: 'Caroline Polachek', duration: '3:53', plays: 132, note: 'B4', art: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          long_term: {
+            label: 'All Time',
+            minutes: 148920,
+            delta: 'Top 2% Listener',
+            dailyAvg: 146,
+            topDay: 'Fridays',
+            weekdayMinutes: [18900, 19800, 20400, 21600, 24900, 23100, 20220],
+            aura: {
+              title: 'Timeless Psychedelia & Leftfield Club',
+              description: 'Across years of listening, your core DNA blends lush analog synths, indie anthems, and soulful electronic beats.',
+              danceability: 73,
+              energy: 76,
+              valence: 62,
+              tempo: 115
+            },
+            clockPersona: 'Midnight Explorer: 11 PM Peak',
+            hourlyMinutes: [8100, 4900, 2200, 1100, 620, 540, 1480, 3900, 6100, 7200, 7050, 7600, 8150, 7900, 7500, 8450, 9300, 9650, 8700, 8100, 8950, 10400, 11800, 12130],
+            discoveryPct: 39,
+            newArtistsCount: 612,
+            totalGenresExplored: 48,
+            genres: [
+              { name: 'Neo-Psychedelia', pct: 30, color: '#1DB954' },
+              { name: 'Indie Electronic', pct: 28, color: '#A855F7' },
+              { name: 'Alt-Pop & Synth', pct: 22, color: '#06B6D4' },
+              { name: 'UK House & Garage', pct: 20, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 19450, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Fred again..', genre: 'UK Electronic', minutes: 14820, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Disclosure', genre: 'UK House', minutes: 12640, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 11290, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'ODESZA', genre: 'Chillwave', minutes: 9870, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Jamie xx', genre: 'Future Garage', minutes: 8420, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Let It Happen', artist: 'Tame Impala', duration: '7:46', plays: 642, note: 'G4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Latch', artist: 'Disclosure, Sam Smith', duration: '4:15', plays: 538, note: 'G3', art: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=200&q=80' },
+              { title: 'The Less I Know The Better', artist: 'Tame Impala', duration: '3:36', plays: 495, note: 'E5', art: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=200&q=80' },
+              { title: 'places to be', artist: 'Fred again.., Anderson .Paak', duration: '3:46', plays: 412, note: 'C4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Borderline', artist: 'Tame Impala', duration: '3:57', plays: 388, note: 'D4', art: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Loud Places', artist: 'Jamie xx, Romy', duration: '4:43', plays: 352, note: 'A4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' }
+            ]
+          }
+        }
+      },
+      hiphop: {
+        user: {
+          name: 'Devon Brooks',
+          handle: '@devonbrooks',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80'
+        },
+        ranges: {
+          month: {
+            label: 'November 2026',
+            minutes: 6140,
+            delta: '+21% vs Oct',
+            dailyAvg: 205,
+            topDay: 'Thursdays',
+            weekdayMinutes: [760, 810, 840, 1040, 960, 910, 820],
+            aura: {
+              title: 'Velvet Neo-Soul & West Coast Rap',
+              description: 'Heavy 808s, jazz-inflected hip-hop production, and late-night R&B harmonies defined your month.',
+              danceability: 79,
+              energy: 72,
+              valence: 58,
+              tempo: 98
+            },
+            clockPersona: 'After-Hours Cruise: 11 PM – 2 AM',
+            hourlyMinutes: [440, 320, 180, 75, 30, 20, 45, 130, 220, 260, 280, 310, 340, 320, 310, 350, 390, 410, 370, 340, 390, 460, 520, 560],
+            discoveryPct: 24,
+            newArtistsCount: 35,
+            totalGenresExplored: 16,
+            genres: [
+              { name: 'Conscious Hip-Hop', pct: 36, color: '#1DB954' },
+              { name: 'Alternative R&B', pct: 29, color: '#A855F7' },
+              { name: 'Neo-Soul', pct: 17, color: '#06B6D4' },
+              { name: 'Jazz Rap', pct: 11, color: '#EC4899' },
+              { name: 'Boom Bap', pct: 7, color: '#F59E0B' }
+            ],
+            artists: [
+              { name: 'Kendrick Lamar', genre: 'West Coast Hip-Hop', minutes: 1180, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 940, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Frank Ocean', genre: 'Neo-Soul', minutes: 785, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tyler, The Creator', genre: 'Alt Hip-Hop', minutes: 670, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 540, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Anderson .Paak', genre: 'Funk & Soul', minutes: 465, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' },
+              { name: 'J. Cole', genre: 'Rap', minutes: 410, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Daniel Caesar', genre: 'R&B', minutes: 360, image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Vince Staples', genre: 'West Coast Rap', minutes: 310, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Steve Lacy', genre: 'Bedroom Soul', minutes: 275, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'luther (with sza)', artist: 'Kendrick Lamar, SZA', duration: '2:57', plays: 84, note: 'C4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Snooze', artist: 'SZA', duration: '3:21', plays: 72, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', plays: 65, note: 'A4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'St. Chroma', artist: 'Tyler, The Creator', duration: '3:17', plays: 58, note: 'G4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'All The Stars', artist: 'Kendrick Lamar, SZA', duration: '3:52', plays: 49, note: 'D4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pink + White', artist: 'Frank Ocean', duration: '3:04', plays: 44, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Get You (feat. Kali Uchis)', artist: 'Daniel Caesar', duration: '4:38', plays: 38, note: 'B4', art: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Come Down', artist: 'Anderson .Paak', duration: '2:56', plays: 35, note: 'C5', art: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Bad Habit', artist: 'Steve Lacy', duration: '3:52', plays: 31, note: 'E5', art: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Middle Child', artist: 'J. Cole', duration: '3:33', plays: 28, note: 'G3', art: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          short_term: {
+            label: 'Last 4 Weeks',
+            minutes: 5820,
+            delta: '+16% vs prior 4w',
+            dailyAvg: 208,
+            topDay: 'Thursdays',
+            weekdayMinutes: [720, 770, 800, 990, 910, 860, 770],
+            aura: {
+              title: 'Velvet Neo-Soul & West Coast Rap',
+              description: 'Heavy 808s and soulful late-night R&B harmonies.',
+              danceability: 79,
+              energy: 72,
+              valence: 58,
+              tempo: 98
+            },
+            clockPersona: 'After-Hours Cruise: 11 PM – 2 AM',
+            hourlyMinutes: [410, 290, 160, 65, 25, 15, 40, 120, 210, 245, 265, 295, 325, 305, 295, 335, 375, 395, 355, 325, 375, 440, 495, 535],
+            discoveryPct: 24,
+            newArtistsCount: 31,
+            totalGenresExplored: 13,
+            genres: [
+              { name: 'Conscious Hip-Hop', pct: 38, color: '#1DB954' },
+              { name: 'Alternative R&B', pct: 31, color: '#A855F7' },
+              { name: 'Neo-Soul', pct: 18, color: '#06B6D4' },
+              { name: 'Jazz Rap', pct: 13, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Kendrick Lamar', genre: 'West Coast Hip-Hop', minutes: 1120, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 890, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Frank Ocean', genre: 'Neo-Soul', minutes: 740, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tyler, The Creator', genre: 'Alt Hip-Hop', minutes: 630, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kaytranada', genre: 'Electronic R&B', minutes: 510, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'luther (with sza)', artist: 'Kendrick Lamar, SZA', duration: '2:57', plays: 79, note: 'C4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Snooze', artist: 'SZA', duration: '3:21', plays: 68, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', plays: 61, note: 'A4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'St. Chroma', artist: 'Tyler, The Creator', duration: '3:17', plays: 54, note: 'G4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'All The Stars', artist: 'Kendrick Lamar, SZA', duration: '3:52', plays: 45, note: 'D4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          medium_term: {
+            label: 'Last 6 Months',
+            minutes: 34200,
+            delta: '+12% vs H1',
+            dailyAvg: 190,
+            topDay: 'Thursdays',
+            weekdayMinutes: [4400, 4650, 4800, 5650, 5200, 4950, 4550],
+            aura: {
+              title: 'Golden-Hour R&B & Modern Rap',
+              description: 'Six months anchored by lyrical storytelling and warm analog soul.',
+              danceability: 77,
+              energy: 70,
+              valence: 61,
+              tempo: 96
+            },
+            clockPersona: 'Midnight Vinyl Sessions',
+            hourlyMinutes: [2200, 1500, 820, 340, 160, 110, 260, 690, 1180, 1420, 1520, 1680, 1840, 1760, 1690, 1890, 2120, 2240, 2010, 1890, 2140, 2480, 2790, 2960],
+            discoveryPct: 27,
+            newArtistsCount: 118,
+            totalGenresExplored: 24,
+            genres: [
+              { name: 'Alternative R&B', pct: 35, color: '#1DB954' },
+              { name: 'Conscious Hip-Hop', pct: 33, color: '#A855F7' },
+              { name: 'Neo-Soul', pct: 20, color: '#06B6D4' },
+              { name: 'Funk & Soul', pct: 12, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Kendrick Lamar', genre: 'West Coast Hip-Hop', minutes: 6420, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Frank Ocean', genre: 'Neo-Soul', minutes: 5390, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 4980, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tyler, The Creator', genre: 'Alt Hip-Hop', minutes: 4120, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Anderson .Paak', genre: 'Funk & Soul', minutes: 3450, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', plays: 284, note: 'A4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'luther (with sza)', artist: 'Kendrick Lamar, SZA', duration: '2:57', plays: 261, note: 'C4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Snooze', artist: 'SZA', duration: '3:21', plays: 239, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pink + White', artist: 'Frank Ocean', duration: '3:04', plays: 215, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'EARFQUAKE', artist: 'Tyler, The Creator', duration: '3:10', plays: 194, note: 'G4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          long_term: {
+            label: 'All Time',
+            minutes: 184500,
+            delta: 'Top 1% Listener',
+            dailyAvg: 181,
+            topDay: 'Thursdays',
+            weekdayMinutes: [24100, 25200, 26100, 29800, 27900, 26400, 25000],
+            aura: {
+              title: 'Classic Neo-Soul & Lyrical Rap',
+              description: 'Years of timeless soul samples, west coast classics, and genre-bending R&B.',
+              danceability: 76,
+              energy: 71,
+              valence: 60,
+              tempo: 95
+            },
+            clockPersona: 'Late Night Architect: 11 PM Peak',
+            hourlyMinutes: [11800, 8100, 4200, 1800, 890, 620, 1450, 3800, 6400, 7800, 8300, 9100, 9900, 9500, 9100, 10200, 11400, 12100, 10900, 10200, 11600, 13400, 15100, 16140],
+            discoveryPct: 32,
+            newArtistsCount: 489,
+            totalGenresExplored: 41,
+            genres: [
+              { name: 'Conscious Hip-Hop', pct: 35, color: '#1DB954' },
+              { name: 'Neo-Soul', pct: 29, color: '#A855F7' },
+              { name: 'Alternative R&B', pct: 24, color: '#06B6D4' },
+              { name: 'Jazz Rap', pct: 12, color: '#EC4899' }
+            ],
+            artists: [
+              { name: 'Frank Ocean', genre: 'Neo-Soul', minutes: 28400, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Kendrick Lamar', genre: 'West Coast Hip-Hop', minutes: 26150, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 19820, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tyler, The Creator', genre: 'Alt Hip-Hop', minutes: 16490, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' },
+              { name: 'J. Cole', genre: 'Rap', minutes: 14120, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', plays: 892, note: 'A4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pink + White', artist: 'Frank Ocean', duration: '3:04', plays: 764, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'All The Stars', artist: 'Kendrick Lamar, SZA', duration: '3:52', plays: 688, note: 'D4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Snooze', artist: 'SZA', duration: '3:21', plays: 612, note: 'E4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'EARFQUAKE', artist: 'Tyler, The Creator', duration: '3:10', plays: 549, note: 'G4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' }
+            ]
+          }
+        }
+      }
+    };
+
+    const RANGE_LABELS = {
+      month: 'November 2026',
+      short_term: 'Last 4 Weeks',
+      medium_term: 'Last 6 Months',
+      long_term: 'All Time',
+      all: 'Exported History'
+    };
+
+    const DEFAULT_GENRE_COLORS = ['#1DB954', '#A855F7', '#06B6D4', '#EC4899', '#F59E0B', '#3B82F6'];
+    const SYNTH_NOTES = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5'];
+
+    // =========================================================================
+    // 2. SPOTIFY OAUTH 2.0 PKCE CRYPTO & REDIRECT HELPERS
+    // =========================================================================
+    const SPOTIFY_SCOPES = 'user-top-read user-read-recently-played user-read-private';
+
+    function getCleanRedirectUri() {
+      const savedCustom = localStorage.getItem('sc_custom_redirect_uri');
+      if (savedCustom && savedCustom.startsWith('http')) {
+        return savedCustom.split('#')[0].split('?')[0];
+      }
+      const isIframe = window.self !== window.top;
+      const href = window.location.href || '';
+      if (isIframe || href.startsWith('blob:') || href.startsWith('about:') || href.startsWith('file:')) {
+        return 'https://example.org/callback';
+      }
+      try {
+        const url = new URL(href);
+        return `${url.origin}${url.pathname}`;
+      } catch (e) {
+        return 'https://example.org/callback';
+      }
+    }
+
+    function generateRandomString(length) {
+      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const values = crypto.getRandomValues(new Uint8Array(length));
+      return values.reduce((acc, x) => acc + possible[x % possible.length], '');
+    }
+
+    async function sha256(plain) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(plain);
+      return window.crypto.subtle.digest('SHA-256', data);
+    }
+
+    function base64encode(input) {
+      return btoa(String.fromCharCode(...new Uint8Array(input)))
+        .replace(/=/g, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_');
+    }
+
+    // =========================================================================
+    // 3. APPLICATION STATE & VISUAL THEMES
+    // =========================================================================
+    const APP_THEMES = {
+      spotify: {
+        name: 'Spotify Classic',
+        primary: '#1DB954',
+        secondary: '#A855F7',
+        mutedSpoke: '#52525B',
+        emptySpoke: '#262626',
+        storyTheme: 'cosmic'
+      },
+      vice_city: {
+        name: 'GTA VI: Vice City',
+        primary: '#FF2EC4',
+        secondary: '#00F6FF',
+        mutedSpoke: '#FF6BF2',
+        emptySpoke: '#34115C',
+        palette: ['#FF2EC4', '#00F6FF', '#FF6BF2', '#7CFFFC', '#FFE600'],
+        storyTheme: 'vice_city'
+      },
+      synthwave: {
+        name: 'Midnight Synthwave',
+        primary: '#00E5FF',
+        secondary: '#B537F2',
+        mutedSpoke: '#3B82F6',
+        emptySpoke: '#162044',
+        storyTheme: 'cyan'
+      },
+      solar: {
+        name: 'Solar Vinyl Gold',
+        primary: '#F59E0B',
+        secondary: '#FB7185',
+        mutedSpoke: '#92400E',
+        emptySpoke: '#292017',
+        storyTheme: 'sunset'
+      },
+      emerald: {
+        name: 'Emerald Velvet',
+        primary: '#10B981',
+        secondary: '#EAB308',
+        mutedSpoke: '#065F46',
+        emptySpoke: '#132A22',
+        storyTheme: 'lime'
+      }
+    };
+
+    const STORY_THEMES = {
+      cosmic: {
+        bg: 'from-[#23153c] via-[#171324] to-[#0f172a]',
+        glow1: 'bg-fuchsia-500/40',
+        glow2: 'bg-cyan-400/35',
+        accentHex: '#A855F7',
+        gradStart: '#23153c',
+        gradEnd: '#0f172a'
+      },
+      vice_city: {
+        bg: 'from-[#D91A9E] via-[#6A11B0] to-[#008FB8]',
+        glow1: 'hidden',
+        glow2: 'hidden',
+        accentHex: '#FF2EC4',
+        secondaryHex: '#00F6FF',
+        gradStart: '#D91A9E',
+        gradMid: '#6A11B0',
+        gradEnd: '#008FB8'
+      },
+      lime: {
+        bg: 'from-[#0d2b1d] via-[#121816] to-[#091510]',
+        glow1: 'bg-emerald-500/40',
+        glow2: 'bg-lime-400/30',
+        accentHex: '#1DB954',
+        gradStart: '#0d2b1d',
+        gradEnd: '#091510'
+      },
+      sunset: {
+        bg: 'from-[#36151e] via-[#1f1318] to-[#170f12]',
+        glow1: 'bg-orange-500/45',
+        glow2: 'bg-rose-500/35',
+        accentHex: '#F97316',
+        gradStart: '#36151e',
+        gradEnd: '#170f12'
+      },
+      cyan: {
+        bg: 'from-[#0c2738] via-[#111827] to-[#090d16]',
+        glow1: 'bg-cyan-500/45',
+        glow2: 'bg-blue-500/35',
+        accentHex: '#06B6D4',
+        gradStart: '#0c2738',
+        gradEnd: '#090d16'
+      }
+    };
+
+    const state = {
+      sourceMode: 'demo', // 'demo' | 'live' | 'json'
+      demoPreset: 'indie',
+      activeRange: 'month',
+      showTop10Artists: localStorage.getItem('sc_default_top10') === 'true',
+      showTop10Tracks: localStorage.getItem('sc_default_top10') === 'true',
+      activeTheme: localStorage.getItem('sc_app_theme') || 'spotify',
+      storyTheme: 'cosmic',
+      auraAnimated: localStorage.getItem('sc_aura_anim') !== 'false',
+      liveDataset: null,
+      jsonDataset: null,
+      playingTrackId: null,
+      audioElem: null,
+      synth: null,
+      synthLoop: null,
+      selectedClockHour: null,
+      attemptedCodes: new Set()
+    };
+
+    // =========================================================================
+    // 4. UI UTILITIES (TOASTS, CLIPBOARD, FORMATTERS, HTML ESCAPING)
+    // =========================================================================
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const borderClass =
+        type === 'error'
+          ? 'border-rose-500/60 text-rose-200'
+          : type === 'success'
+          ? 'border-emerald-500/60 text-emerald-200'
+          : 'border-white/20 text-white';
+
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl bg-[#1e1e1e]/95 backdrop-blur-xl border ${borderClass} shadow-2xl text-xs font-semibold flex items-center gap-2 transition-all duration-300 transform translate-y-2 opacity-0`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3600);
+    }
+
+    function copyTextSafe(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (e) {
+        copied = false;
+      }
+      document.body.removeChild(textarea);
+
+      if (!copied && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+    }
+
+    function formatHourLabel(hour24) {
+      const h = ((hour24 % 24) + 24) % 24;
+      if (h === 0) return '12 AM';
+      if (h === 12) return '12 PM';
+      return h < 12 ? `${h} AM` : `${h - 12} PM`;
+    }
+
+    function formatDurationMs(ms) {
+      if (!ms || isNaN(ms)) return '0:00';
+      const totalSec = Math.round(ms / 1000);
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function getPeakHourFromArray(hourlyMinutes) {
+      if (!Array.isArray(hourlyMinutes) || !hourlyMinutes.length) return 23;
+      let peakIdx = 0;
+      let peakVal = -1;
+      hourlyMinutes.forEach((v, idx) => {
+        if (v > peakVal) {
+          peakVal = v;
+          peakIdx = idx;
+        }
+      });
+      return peakIdx;
+    }
+
+    function getActiveProfileAndRange() {
+      if (state.sourceMode === 'live' && state.liveDataset) {
+        const rangeKey = state.liveDataset.ranges[state.activeRange]
+          ? state.activeRange
+          : 'short_term';
+        state.activeRange = rangeKey;
+        return {
+          user: state.liveDataset.user,
+          rangeData: state.liveDataset.ranges[rangeKey],
+          availableRanges: ['short_term', 'medium_term', 'long_term']
+        };
+      }
+
+      if (state.sourceMode === 'json' && state.jsonDataset) {
+        state.activeRange = 'all';
+        return {
+          user: state.jsonDataset.user,
+          rangeData: state.jsonDataset.ranges.all,
+          availableRanges: ['all']
+        };
+      }
+
+      const preset = DEMO_PROFILES[state.demoPreset] || DEMO_PROFILES.indie;
+      const rangeKey = preset.ranges[state.activeRange] ? state.activeRange : 'month';
+      state.activeRange = rangeKey;
+      return {
+        user: preset.user,
+        rangeData: preset.ranges[rangeKey],
+        availableRanges: ['month', 'short_term', 'medium_term', 'long_term']
+      };
+    }
+
+    // =========================================================================
+    // 5. THEME & SETTINGS ENGINE
+    // =========================================================================
+    function applyAppTheme(themeKey) {
+      const theme = APP_THEMES[themeKey] ? themeKey : 'spotify';
+      state.activeTheme = theme;
+      localStorage.setItem('sc_app_theme', theme);
+      document.body.setAttribute('data-theme', theme);
+
+      const themeMeta = APP_THEMES[theme];
+      const activeLabel = document.getElementById('active-theme-label');
+      if (activeLabel) activeLabel.textContent = themeMeta.name;
+
+      document.querySelectorAll('.theme-choice-btn').forEach((btn) => {
+        const isSelected = btn.dataset.themeChoice === theme;
+        const badge = btn.querySelector('.theme-check-badge');
+        if (isSelected) {
+          btn.classList.add('border-spotify-green', 'bg-white/10');
+          btn.classList.remove('border-white/10');
+          if (badge) {
+            badge.textContent = 'Active';
+            badge.className = 'theme-check-badge text-xs font-bold text-spotify-green shrink-0';
+          }
+        } else {
+          btn.classList.remove('border-spotify-green', 'bg-white/10');
+          btn.classList.add('border-white/10');
+          if (badge) {
+            badge.textContent = 'Select';
+            badge.className = 'theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0';
+          }
+        }
+      });
+
+      // Synchronize Story Card theme to match active app theme
+      if (themeMeta.storyTheme) {
+        applyStoryCardTheme(themeMeta.storyTheme);
+      }
+
+      // Re-render dashboard charts so spoke/bar colors adapt immediately
+      renderDashboard();
+    }
+
+    function applyStoryCardTheme(cardThemeKey) {
+      const key = STORY_THEMES[cardThemeKey] ? cardThemeKey : 'cosmic';
+      state.storyTheme = key;
+      const theme = STORY_THEMES[key];
+
+      const card = document.getElementById('share-story-card');
+      const glow1 = document.getElementById('story-glow-1');
+      const glow2 = document.getElementById('story-glow-2');
+      const storyPalm = document.getElementById('story-palm-silhouette');
+
+      if (card) {
+        const borderClass = key === 'vice_city' ? 'border-2 border-[#00F6FF]' : 'border border-white/15';
+        card.className = `w-full max-w-[300px] aspect-[9/16] rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden ${borderClass} bg-gradient-to-br ${theme.bg}`;
+      }
+      if (glow1) {
+        glow1.className =
+          key === 'vice_city'
+            ? 'hidden'
+            : `pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full ${theme.glow1} blur-2xl`;
+      }
+      if (glow2) {
+        glow2.className =
+          key === 'vice_city'
+            ? 'hidden'
+            : `pointer-events-none absolute -bottom-12 -left-12 w-48 h-48 rounded-full ${theme.glow2} blur-2xl`;
+      }
+      if (storyPalm) {
+        storyPalm.classList.toggle('hidden', key !== 'vice_city');
+      }
+
+      document.querySelectorAll('.card-theme-btn').forEach((btn) => {
+        const active = btn.dataset.cardTheme === key;
+        btn.classList.toggle('ring-2', active);
+        btn.classList.toggle('ring-white', active);
+        btn.classList.toggle('opacity-100', active);
+        btn.classList.toggle('opacity-70', !active);
+      });
+    }
+
+    // =========================================================================
+    // 6. MAIN DASHBOARD RENDERER & COMPONENT BUILDERS
+    // =========================================================================
+    function renderDashboard() {
+      const { user, rangeData, availableRanges } = getActiveProfileAndRange();
+      if (!rangeData) return;
+
+      // 1) Update Header Mode Badge & User Profile
+      const modeBadge = document.getElementById('data-mode-badge');
+      const connectBtnLabel = document.getElementById('connect-btn-label');
+      if (modeBadge) {
+        if (state.sourceMode === 'live') {
+          modeBadge.textContent = 'Live Spotify';
+        } else if (state.sourceMode === 'json') {
+          modeBadge.textContent = 'JSON Export';
+        } else {
+          modeBadge.textContent = 'Demo Profile';
+        }
+      }
+      if (connectBtnLabel) {
+        connectBtnLabel.textContent = state.sourceMode === 'live' ? 'Connected' : 'Connect Spotify';
+      }
+
+      const avatarEl = document.getElementById('user-avatar');
+      if (avatarEl) {
+        avatarEl.src = user.avatar || 'https://placehold.co/100x100/242424/1DB954?text=S';
+      }
+      const userDisplayEl = document.getElementById('user-display-name');
+      if (userDisplayEl) {
+        userDisplayEl.textContent = `${user.name} • Sound Capsule`;
+      }
+      const headingEl = document.getElementById('capsule-period-heading');
+      if (headingEl) {
+        headingEl.textContent = rangeData.label || 'Sound Capsule';
+      }
+
+      // Sync demo modal active badges
+      document.querySelectorAll('.demo-preset-btn').forEach((btn) => {
+        const isCurrent = state.sourceMode === 'demo' && btn.dataset.demoPreset === state.demoPreset;
+        btn.classList.toggle('border-spotify-green/40', isCurrent);
+        btn.classList.toggle('border-white/5', !isCurrent);
+        const statusSpan = btn.querySelector('.demo-status-label');
+        if (statusSpan) {
+          statusSpan.textContent = isCurrent ? 'Active' : 'Load';
+          statusSpan.className = isCurrent
+            ? 'demo-status-label text-xs font-bold text-spotify-green shrink-0 ml-2'
+            : 'demo-status-label text-xs font-semibold text-spotify-subtext shrink-0 ml-2';
+        }
+      });
+
+      // 2) Render Timeframe Pills
+      renderTimeframePills(availableRanges, rangeData);
+
+      // 3) Render Hero Row (Listening Time + Audio Aura)
+      renderHeroStats(rangeData);
+      renderAudioAura(rangeData);
+
+      // 4) Render Top Artists & Top Songs
+      renderTopArtists(rangeData);
+      renderTopTracks(rangeData);
+
+      // 5) Render 24-Hour Listening Clock & Top Genres
+      renderListeningClock(rangeData);
+      renderTopGenres(rangeData);
+
+      // 6) Refresh Lucide SVG icons
+      refreshIcons();
+    }
+
+    function renderTimeframePills(availableRanges, currentRangeData) {
+      const container = document.getElementById('timeframe-pills');
+      if (!container) return;
+
+      container.innerHTML = availableRanges
+        .map((key) => {
+          const isActive = state.activeRange === key;
+          const label =
+            key === 'all'
+              ? currentRangeData.label || 'Exported History'
+              : RANGE_LABELS[key] || key;
+          const cls = isActive
+            ? 'range-pill active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white text-black'
+            : 'range-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white/10 text-spotify-subtext hover:text-white hover:bg-white/15';
+          return `<button type="button" data-range="${key}" class="${cls}">${escapeHtml(label)}</button>`;
+        })
+        .join('');
+
+      container.querySelectorAll('.range-pill').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const nextRange = btn.dataset.range;
+          if (nextRange && nextRange !== state.activeRange) {
+            state.activeRange = nextRange;
+            state.selectedClockHour = null;
+            renderDashboard();
+          }
+        });
+      });
+    }
+
+    function renderHeroStats(rangeData) {
+      const mins = Number(rangeData.minutes || 0);
+      const hours = (mins / 60).toFixed(1);
+      const dailyAvg = Number(rangeData.dailyAvg || Math.round(mins / 30));
+
+      const statMinutesEl = document.getElementById('stat-minutes');
+      if (statMinutesEl) statMinutesEl.textContent = mins.toLocaleString();
+
+      const deltaBadge = document.getElementById('minutes-delta-badge');
+      if (deltaBadge) {
+        deltaBadge.innerHTML = `<i data-lucide="trending-up" class="w-3.5 h-3.5"></i><span>${escapeHtml(rangeData.delta || 'Active Period')}</span>`;
+      }
+
+      const hoursSub = document.getElementById('stat-hours-sub');
+      if (hoursSub) {
+        hoursSub.innerHTML = `That’s <span class="text-white font-semibold">${hours} hours</span> of pure sound—averaging <span class="text-white font-semibold">${dailyAvg.toLocaleString()} min/day</span>.`;
+      }
+
+      const topDayEl = document.getElementById('stat-top-day');
+      if (topDayEl) {
+        topDayEl.textContent = `Peak: ${rangeData.topDay || 'Fridays'}`;
+      }
+
+      // Render 7-Day Spark Bars (Mon - Sun) — Crisp Solid Colors, Zero Glow
+      const barsContainer = document.getElementById('weekday-bars');
+      if (!barsContainer) return;
+
+      const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const values =
+        Array.isArray(rangeData.weekdayMinutes) && rangeData.weekdayMinutes.length === 7
+          ? rangeData.weekdayMinutes
+          : [100, 120, 110, 140, 180, 160, 130];
+
+      const maxVal = Math.max(...values, 1);
+      const themeMeta = APP_THEMES[state.activeTheme] || APP_THEMES.spotify;
+
+      barsContainer.innerHTML = values
+        .map((val, idx) => {
+          const pct = Math.max(16, Math.round((val / maxVal) * 100));
+          const isPeak = val === maxVal;
+          const barColor = isPeak
+            ? themeMeta.primary
+            : state.activeTheme === 'vice_city'
+            ? '#00F6FF'
+            : 'rgba(255,255,255,0.24)';
+          const barOpacity = isPeak ? '1' : state.activeTheme === 'vice_city' ? '0.65' : '1';
+          return `
+            <div class="group flex flex-col items-center justify-end h-full gap-1.5 relative" title="${dayNames[idx]}: ${val.toLocaleString()} mins">
+              <div class="w-full flex-1 flex items-end">
+                <div class="w-full rounded-t-lg transition-all duration-500 group-hover:opacity-100" style="height: ${pct}%; background-color: ${barColor}; opacity: ${barOpacity};"></div>
+              </div>
+              <span class="text-[10px] font-semibold ${isPeak ? 'text-white' : 'text-spotify-muted'}">${dayNames[idx]}</span>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function getFeatureTag(type, value) {
+      if (type === 'dance') {
+        if (value >= 75) return 'High';
+        if (value >= 55) return 'Groovy';
+        return 'Chill';
+      }
+      if (type === 'energy') {
+        if (value >= 80) return 'Electric';
+        if (value >= 60) return 'Vibrant';
+        return 'Mellow';
+      }
+      if (type === 'valence') {
+        if (value >= 70) return 'Radiant';
+        if (value >= 50) return 'Uplifting';
+        return 'Moody';
+      }
+      return 'BPM';
+    }
+
+    function renderAudioAura(rangeData) {
+      const aura = rangeData.aura || {
+        title: 'Balanced Sonic Mix',
+        description: 'A blend of upbeat essentials and late-night favorites.',
+        danceability: 70,
+        energy: 74,
+        valence: 60,
+        tempo: 114
+      };
+
+      const titleEl = document.getElementById('aura-title');
+      const descEl = document.getElementById('aura-description');
+      if (titleEl) titleEl.textContent = aura.title;
+      if (descEl) descEl.textContent = aura.description;
+
+      const dance = Math.min(100, Math.max(0, Math.round(aura.danceability || 70)));
+      const energy = Math.min(100, Math.max(0, Math.round(aura.energy || 75)));
+      const valence = Math.min(100, Math.max(0, Math.round(aura.valence || 60)));
+      const tempo = Math.round(aura.tempo || 115);
+      const tempoBarPct = Math.min(100, Math.max(25, Math.round(((tempo - 60) / 110) * 100)));
+
+      document.getElementById('feat-dance').textContent = `${dance}%`;
+      document.getElementById('feat-1-tag').textContent = getFeatureTag('dance', dance);
+      document.getElementById('bar-dance').style.width = `${dance}%`;
+
+      document.getElementById('feat-energy').textContent = `${energy}%`;
+      document.getElementById('feat-2-tag').textContent = getFeatureTag('energy', energy);
+      document.getElementById('bar-energy').style.width = `${energy}%`;
+
+      document.getElementById('feat-valence').textContent = `${valence}%`;
+      document.getElementById('feat-3-tag').textContent = getFeatureTag('valence', valence);
+      document.getElementById('bar-valence').style.width = `${valence}%`;
+
+      document.getElementById('feat-tempo').textContent = `${tempo}`;
+      document.getElementById('feat-4-tag').textContent = 'BPM';
+      document.getElementById('bar-tempo').style.width = `${tempoBarPct}%`;
+    }
+
+    function renderTopArtists(rangeData) {
+      const artists = rangeData.artists || [];
+      const spotlight = document.getElementById('top-artist-spotlight');
+      const list = document.getElementById('top-artists-list');
+      const toggleBtn = document.getElementById('toggle-artists-count');
+
+      if (!spotlight || !list) return;
+
+      if (toggleBtn) {
+        if (artists.length <= 5) {
+          toggleBtn.classList.add('hidden');
+        } else {
+          toggleBtn.classList.remove('hidden');
+          toggleBtn.textContent = state.showTop10Artists ? 'Show Top 5' : `Show Top ${Math.min(10, artists.length)}`;
+        }
+      }
+
+      if (!artists.length) {
+        spotlight.innerHTML = '<p class="text-xs text-spotify-subtext">No artist data available for this period.</p>';
+        list.innerHTML = '';
+        return;
+      }
+
+      const top1 = artists[0];
+      const maxMins = Math.max(top1.minutes || 1, 1);
+      const themeMeta = APP_THEMES[state.activeTheme] || APP_THEMES.spotify;
+      const top1Metric = top1.minutes ? `${Number(top1.minutes).toLocaleString()} mins` : 'Top #1';
+
+      spotlight.innerHTML = `
+        <div class="relative shrink-0">
+          <img src="${escapeHtml(top1.image || '')}" alt="${escapeHtml(top1.name)}" onerror="this.src='https://placehold.co/160x160/242424/1DB954?text=1'" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover ring-2 ring-spotify-green">
+          <span class="theme-accent-btn absolute -bottom-1 -right-1 w-6 h-6 rounded-full text-[11px] font-extrabold flex items-center justify-center">
+            #1
+          </span>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-spotify-green">Top Artist</span>
+          </div>
+          <h3 class="font-display text-lg sm:text-xl font-extrabold text-white truncate">${escapeHtml(top1.name)}</h3>
+          <div class="flex flex-wrap items-center gap-2 mt-1 text-xs text-spotify-subtext">
+            <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90 text-[11px] font-medium">${escapeHtml(top1.genre || 'Artist')}</span>
+            <span class="font-semibold text-white">${escapeHtml(top1Metric)}</span>
+          </div>
+        </div>
+      `;
+
+      const limit = state.showTop10Artists ? Math.min(10, artists.length) : Math.min(5, artists.length);
+      const rest = artists.slice(1, limit);
+
+      list.innerHTML = rest
+        .map((artist, i) => {
+          const rank = i + 2;
+          const pct = Math.max(14, Math.round(((artist.minutes || 0) / maxMins) * 100));
+          const metricLabel = artist.minutes ? `${Number(artist.minutes).toLocaleString()} min` : `#${rank}`;
+          const barColor =
+            state.activeTheme === 'vice_city'
+              ? i % 2 === 0
+                ? '#00F6FF'
+                : '#FF2EC4'
+              : themeMeta.primary;
+
+          return `
+            <div class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-transparent hover:border-white/15 transition">
+              <span class="w-5 text-center font-display text-sm font-bold text-spotify-muted shrink-0">${rank}</span>
+              <img src="${escapeHtml(artist.image || '')}" alt="${escapeHtml(artist.name)}" onerror="this.src='https://placehold.co/96x96/242424/1DB954?text=${rank}'" class="w-10 h-10 rounded-full object-cover shrink-0">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <p class="text-sm font-bold text-white truncate">${escapeHtml(artist.name)}</p>
+                  <span class="text-xs font-semibold text-spotify-subtext shrink-0">${escapeHtml(metricLabel)}</span>
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                  <div class="flex-1 h-1.5 bg-white/15 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full transition-all duration-500" style="width: ${pct}%; background-color: ${barColor};"></div>
+                  </div>
+                  <span class="text-[10px] text-spotify-muted hidden sm:inline truncate max-w-[110px]">${escapeHtml(artist.genre || '')}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function renderTopTracks(rangeData) {
+      const tracks = rangeData.tracks || [];
+      const list = document.getElementById('top-tracks-list');
+      const toggleBtn = document.getElementById('toggle-tracks-count');
+      if (!list) return;
+
+      if (toggleBtn) {
+        if (tracks.length <= 5) {
+          toggleBtn.classList.add('hidden');
+        } else {
+          toggleBtn.classList.remove('hidden');
+          toggleBtn.textContent = state.showTop10Tracks ? 'Show Top 5' : `Show Top ${Math.min(10, tracks.length)}`;
+        }
+      }
+
+      if (!tracks.length) {
+        list.innerHTML = '<p class="text-xs text-spotify-subtext">No track data available for this period.</p>';
+        return;
+      }
+
+      const limit = state.showTop10Tracks ? Math.min(10, tracks.length) : Math.min(5, tracks.length);
+      const visibleTracks = tracks.slice(0, limit);
+
+      list.innerHTML = visibleTracks
+        .map((track, idx) => {
+          const rank = idx + 1;
+          const trackId = `${track.title}__${track.artist}`;
+          const isPlaying = state.playingTrackId === trackId;
+          const playsText = track.plays ? `${Number(track.plays).toLocaleString()} plays` : '';
+
+          return `
+            <button type="button" data-track-idx="${idx}" class="track-row-btn group w-full text-left flex items-center gap-3 p-2.5 rounded-2xl ${isPlaying ? 'bg-spotify-green/20 border border-spotify-green' : 'bg-white/[0.03] hover:bg-white/[0.08] border border-transparent hover:border-white/15'} transition">
+              <span class="w-5 text-center font-display text-sm font-bold ${isPlaying ? 'text-spotify-green' : 'text-spotify-muted'} shrink-0">${rank}</span>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden shrink-0">
+                <img src="${escapeHtml(track.art || '')}" alt="${escapeHtml(track.title)}" onerror="this.src='https://placehold.co/96x96/242424/1DB954?text=${rank}'" class="w-full h-full object-cover">
+                <div class="absolute inset-0 ${isPlaying ? 'bg-black/55 opacity-100' : 'bg-black/55 opacity-0 group-hover:opacity-100'} flex items-center justify-center transition">
+                  <i data-lucide="${isPlaying ? 'square' : 'play'}" class="w-4 h-4 text-white fill-current"></i>
+                </div>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-bold ${isPlaying ? 'text-spotify-green' : 'text-white'} truncate">${escapeHtml(track.title)}</p>
+                <p class="text-xs text-spotify-subtext truncate">${escapeHtml(track.artist)}</p>
+              </div>
+              <div class="text-right shrink-0">
+                ${playsText ? `<p class="text-xs font-semibold text-white/90">${escapeHtml(playsText)}</p>` : ''}
+                <p class="text-[11px] text-spotify-muted font-mono">${escapeHtml(track.duration || '3:30')}</p>
+              </div>
+            </button>
+          `;
+        })
+        .join('');
+
+      list.querySelectorAll('.track-row-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.trackIdx);
+          const track = visibleTracks[idx];
+          if (!track) return;
+          const trackId = `${track.title}__${track.artist}`;
+          if (state.playingTrackId === trackId) {
+            stopTrackPreview();
+          } else {
+            playTrackPreview(track, idx);
+          }
+        });
+      });
+    }
+
+    function renderListeningClock(rangeData) {
+      const hourly =
+        Array.isArray(rangeData.hourlyMinutes) && rangeData.hourlyMinutes.length === 24
+          ? rangeData.hourlyMinutes
+          : Array(24).fill(10);
+
+      const peakHour = getPeakHourFromArray(hourly);
+      const displayHour = state.selectedClockHour !== null ? state.selectedClockHour : peakHour;
+      const maxMin = Math.max(...hourly, 1);
+      const totalMin = hourly.reduce((acc, v) => acc + v, 0) || 1;
+
+      const personaEl = document.getElementById('clock-persona-title');
+      if (personaEl) personaEl.textContent = rangeData.clockPersona || `Peak at ${formatHourLabel(peakHour)}`;
+
+      const peakPill = document.getElementById('clock-peak-pill');
+      if (peakPill) peakPill.textContent = `Peak Hour: ${formatHourLabel(peakHour)}`;
+
+      const updateCenterReadout = (hourIdx) => {
+        const hourEl = document.getElementById('clock-hover-hour');
+        const minsEl = document.getElementById('clock-hover-mins');
+        if (hourEl) hourEl.textContent = formatHourLabel(hourIdx);
+        if (minsEl) minsEl.textContent = `${Math.round(hourly[hourIdx] || 0).toLocaleString()} mins streamed`;
+      };
+      updateCenterReadout(displayHour);
+
+      // Draw 24-Hour Radial SVG Clock (Crisp Bright Spokes — Zero Glow)
+      const svg = document.getElementById('listening-clock-svg');
+      if (svg) {
+        const cx = 140;
+        const cy = 140;
+        const innerR = 54;
+        const maxOuterR = 114;
+        const themeMeta = APP_THEMES[state.activeTheme] || APP_THEMES.spotify;
+
+        let svgMarkup = `
+          <circle cx="${cx}" cy="${cy}" r="${innerR - 4}" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+          <circle cx="${cx}" cy="${cy}" r="${maxOuterR}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 5" stroke-width="1" />
+        `;
+
+        const cardinals = [
+          { label: '12a', x: cx, y: 14 },
+          { label: '6a', x: 266, y: cy + 4 },
+          { label: '12p', x: cx, y: 274 },
+          { label: '6p', x: 14, y: cy + 4 }
+        ];
+        cardinals.forEach((c) => {
+          svgMarkup += `<text x="${c.x}" y="${c.y}" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10" font-weight="700" font-family="Inter, sans-serif">${c.label}</text>`;
+        });
+
+        for (let h = 0; h < 24; h++) {
+          const val = hourly[h] || 0;
+          const ratio = val / maxMin;
+          const angleRad = ((h * 15 - 90) * Math.PI) / 180;
+          const outerR = innerR + 10 + ratio * (maxOuterR - innerR - 10);
+
+          const x1 = cx + innerR * Math.cos(angleRad);
+          const y1 = cy + innerR * Math.sin(angleRad);
+          const x2 = cx + outerR * Math.cos(angleRad);
+          const y2 = cy + outerR * Math.sin(angleRad);
+
+          let strokeColor = themeMeta.emptySpoke;
+          if (ratio >= 0.78) {
+            strokeColor = themeMeta.primary;
+          } else if (ratio >= 0.48) {
+            strokeColor = themeMeta.secondary;
+          } else if (val > 0) {
+            strokeColor = themeMeta.mutedSpoke;
+          }
+
+          const isSelected = h === displayHour;
+          const strokeWidth = isSelected ? 9 : 6.5;
+
+          svgMarkup += `
+            <line
+              data-hour="${h}"
+              class="clock-spoke"
+              x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}"
+              x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
+              stroke="${strokeColor}"
+              stroke-width="${strokeWidth}"
+              stroke-linecap="round"
+              opacity="${isSelected ? '1' : '0.88'}"
+            />
+          `;
+        }
+
+        svg.innerHTML = svgMarkup;
+
+        svg.querySelectorAll('.clock-spoke').forEach((line) => {
+          const h = Number(line.dataset.hour);
+          line.addEventListener('mouseenter', () => updateCenterReadout(h));
+          line.addEventListener('click', () => {
+            state.selectedClockHour = h;
+            renderListeningClock(rangeData);
+          });
+        });
+
+        svg.onmouseleave = () => {
+          updateCenterReadout(state.selectedClockHour !== null ? state.selectedClockHour : peakHour);
+        };
+      }
+
+      // Compute Time-of-Day Breakdown
+      const sumRange = (indices) => indices.reduce((acc, i) => acc + (hourly[i] || 0), 0);
+      const morningMins = sumRange([6, 7, 8, 9, 10, 11]);
+      const afternoonMins = sumRange([12, 13, 14, 15, 16, 17]);
+      const eveningMins = sumRange([18, 19, 20, 21]);
+
+      const mPct = Math.round((morningMins / totalMin) * 100);
+      const aPct = Math.round((afternoonMins / totalMin) * 100);
+      const ePct = Math.round((eveningMins / totalMin) * 100);
+      const nPct = Math.max(0, 100 - mPct - aPct - ePct);
+
+      document.getElementById('tod-morning').textContent = `${mPct}%`;
+      document.getElementById('tod-morning-bar').style.width = `${mPct}%`;
+
+      document.getElementById('tod-afternoon').textContent = `${aPct}%`;
+      document.getElementById('tod-afternoon-bar').style.width = `${aPct}%`;
+
+      document.getElementById('tod-evening').textContent = `${ePct}%`;
+      document.getElementById('tod-evening-bar').style.width = `${ePct}%`;
+
+      document.getElementById('tod-night').textContent = `${nPct}%`;
+      document.getElementById('tod-night-bar').style.width = `${nPct}%`;
+    }
+
+    function renderTopGenres(rangeData) {
+      const list = document.getElementById('top-genres-list');
+      const countBadge = document.getElementById('genre-count-badge');
+      const discHeadline = document.getElementById('discovery-headline');
+      const discSub = document.getElementById('discovery-sub');
+
+      if (!list) return;
+
+      const genres = rangeData.genres || [];
+      const activeThemePalette = (APP_THEMES[state.activeTheme] || {}).palette;
+
+      if (countBadge) {
+        const exploredCount = rangeData.totalGenresExplored || Math.max(genres.length, 1);
+        countBadge.textContent = `${exploredCount} genres explored`;
+      }
+
+      if (!genres.length) {
+        list.innerHTML = '<p class="text-xs text-spotify-subtext">No genre metadata returned for these artists.</p>';
+      } else {
+        list.innerHTML = genres
+          .map((g, idx) => {
+            const barHex = activeThemePalette
+              ? activeThemePalette[idx % activeThemePalette.length]
+              : g.color || DEFAULT_GENRE_COLORS[idx % DEFAULT_GENRE_COLORS.length];
+            return `
+              <div>
+                <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
+                  <span class="text-white">${escapeHtml(g.name)}</span>
+                  <span class="text-spotify-subtext">${Math.round(g.pct)}%</span>
+                </div>
+                <div class="w-full h-2 bg-white/15 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.round(g.pct))}%; background-color: ${barHex};"></div>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      if (discHeadline) {
+        discHeadline.textContent = `${rangeData.discoveryPct ?? 28}% Fresh Discoveries`;
+      }
+      if (discSub) {
+        discSub.textContent = `You explored ${Number(rangeData.newArtistsCount ?? 42).toLocaleString()} new artists this capsule period.`;
+      }
+    }
+
+    // =========================================================================
+    // 7. AUDIO PREVIEW ENGINE (REAL SPOTIFY PREVIEW URL + TONE.JS SYNTH FALLBACK)
+    // =========================================================================
+    function showMiniPlayer(track, modeLabel) {
+      const player = document.getElementById('mini-player');
+      const art = document.getElementById('player-art');
+      const title = document.getElementById('player-title');
+      const artist = document.getElementById('player-artist');
+      const tag = document.getElementById('player-mode-tag');
+
+      if (art) art.src = track.art || 'https://placehold.co/100x100/242424/1DB954?text=S';
+      if (title) title.textContent = track.title || 'Unknown Track';
+      if (artist) artist.textContent = track.artist || 'Unknown Artist';
+      if (tag) tag.textContent = modeLabel;
+
+      if (player) {
+        player.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function hideMiniPlayer() {
+      const player = document.getElementById('mini-player');
+      if (player) {
+        player.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function stopTrackPreview() {
+      if (state.audioElem) {
+        try {
+          state.audioElem.pause();
+          state.audioElem.currentTime = 0;
+        } catch (e) {}
+        state.audioElem = null;
+      }
+
+      if (state.synthLoop) {
+        try {
+          state.synthLoop.stop();
+          state.synthLoop.dispose();
+        } catch (e) {}
+        state.synthLoop = null;
+      }
+      if (window.Tone && Tone.Transport) {
+        try {
+          Tone.Transport.stop();
+        } catch (e) {}
+      }
+
+      state.playingTrackId = null;
+      hideMiniPlayer();
+
+      const { rangeData } = getActiveProfileAndRange();
+      if (rangeData) {
+        renderTopTracks(rangeData);
+        refreshIcons();
+      }
+    }
+
+    async function playTrackPreview(track, idx = 0) {
+      stopTrackPreview();
+
+      const trackId = `${track.title}__${track.artist}`;
+      state.playingTrackId = trackId;
+
+      const { rangeData } = getActiveProfileAndRange();
+      if (rangeData) {
+        renderTopTracks(rangeData);
+        refreshIcons();
+      }
+
+      if (track.previewUrl) {
+        try {
+          const audio = new Audio(track.previewUrl);
+          audio.volume = 0.7;
+          audio.onended = () => stopTrackPreview();
+          audio.onerror = () => playSynthPreviewFallback(track, idx);
+          state.audioElem = audio;
+          showMiniPlayer(track, 'Spotify 30s Preview');
+          await audio.play();
+          return;
+        } catch (err) {
+          // Fall back to Tone.js synth preview
+        }
+      }
+
+      await playSynthPreviewFallback(track, idx);
+    }
+
+    async function playSynthPreviewFallback(track, idx = 0) {
+      showMiniPlayer(track, 'Synth Preview');
+
+      if (!window.Tone) {
+        showToast('Audio engine unavailable offline.', 'info');
+        return;
+      }
+
+      try {
+        await Tone.start();
+
+        if (!state.synth) {
+          const reverb = new Tone.Reverb({ decay: 2.2, wet: 0.35 }).toDestination();
+          state.synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: 'triangle' },
+            envelope: { attack: 0.04, decay: 0.25, sustain: 0.25, release: 0.9 }
+          }).connect(reverb);
+          state.synth.volume.value = -10;
+        }
+
+        const root = track.note || SYNTH_NOTES[idx % SYNTH_NOTES.length];
+        const rootMidi = Tone.Frequency(root).toMidi();
+        const pattern = [
+          Tone.Frequency(rootMidi, 'midi').toNote(),
+          Tone.Frequency(rootMidi + 4, 'midi').toNote(),
+          Tone.Frequency(rootMidi + 7, 'midi').toNote(),
+          Tone.Frequency(rootMidi + 11, 'midi').toNote(),
+          Tone.Frequency(rootMidi + 7, 'midi').toNote(),
+          Tone.Frequency(rootMidi + 4, 'midi').toNote()
+        ];
+
+        let step = 0;
+        Tone.Transport.bpm.value = 108 + (idx % 4) * 6;
+
+        state.synthLoop = new Tone.Loop((time) => {
+          const note = pattern[step % pattern.length];
+          if (step % 6 === 0) {
+            const chord = [
+              Tone.Frequency(rootMidi - 12, 'midi').toNote(),
+              Tone.Frequency(rootMidi, 'midi').toNote(),
+              Tone.Frequency(rootMidi + 7, 'midi').toNote()
+            ];
+            state.synth.triggerAttackRelease(chord, '4n', time, 0.55);
+          } else {
+            state.synth.triggerAttackRelease(note, '8n', time, 0.7);
+          }
+          step++;
+        }, '8n');
+
+        state.synthLoop.start(0);
+        Tone.Transport.start();
+      } catch (err) {
+        console.warn('Tone.js preview error:', err);
+      }
+    }
+
+    // =========================================================================
+    // 8. SPOTIFY OAUTH 2.0 PKCE LIVE API INTEGRATION
+    // =========================================================================
+    async function initiateSpotifyPKCE() {
+      const clientIdInput = document.getElementById('spotify-client-id');
+      const redirectInput = document.getElementById('redirect-uri-display');
+      const fallbackBox = document.getElementById('pkce-fallback-box');
+      const errorBox = document.getElementById('pkce-fallback-error');
+
+      const clientId = clientIdInput ? clientIdInput.value.trim() : '';
+      const redirectUri = redirectInput ? redirectInput.value.trim() : getCleanRedirectUri();
+
+      if (!clientId || clientId.length < 16) {
+        showToast('Please enter your Spotify App Client ID first.', 'error');
+        if (clientIdInput) clientIdInput.focus();
+        return;
+      }
+
+      try {
+        localStorage.setItem('sc_spotify_client_id', clientId);
+        localStorage.setItem('sc_custom_redirect_uri', redirectUri);
+
+        const codeVerifier = generateRandomString(64);
+        localStorage.setItem('sc_pkce_verifier', codeVerifier);
+
+        const hashed = await sha256(codeVerifier);
+        const codeChallenge = base64encode(hashed);
+
+        const authUrl = new URL('https://accounts.spotify.com/authorize');
+        authUrl.searchParams.set('response_type', 'code');
+        authUrl.searchParams.set('client_id', clientId);
+        authUrl.searchParams.set('scope', SPOTIFY_SCOPES);
+        authUrl.searchParams.set('code_challenge_method', 'S256');
+        authUrl.searchParams.set('code_challenge', codeChallenge);
+        authUrl.searchParams.set('redirect_uri', redirectUri);
+
+        if (errorBox) errorBox.classList.add('hidden');
+
+        const isIframe = window.self !== window.top;
+        if (isIframe) {
+          window.open(authUrl.toString(), '_blank', 'noopener,noreferrer');
+          if (fallbackBox) fallbackBox.classList.remove('hidden');
+          showToast('Opened Spotify authorization in a new tab.', 'info');
+        } else {
+          window.location.href = authUrl.toString();
+        }
+      } catch (err) {
+        showToast('Failed to start Spotify authorization.', 'error');
+      }
+    }
+
+    async function spotifyApiFetch(endpoint, accessToken) {
+      const res = await fetch(`https://api.spotify.com/v1${endpoint}`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      if (!res.ok) {
+        throw new Error(`Spotify API error (${res.status})`);
+      }
+      return res.json();
+    }
+
+    function buildLiveRangeData(label, artistsItems, tracksItems, recentItems, multiplier) {
+      const artists = (artistsItems || []).map((a, idx) => ({
+        name: a.name,
+        genre: a.genres && a.genres.length ? a.genres[0] : 'Artist',
+        minutes: Math.round((120 - idx * 8) * multiplier),
+        image: a.images && a.images[0] ? a.images[0].url : ''
+      }));
+
+      const tracks = (tracksItems || []).map((t, idx) => ({
+        title: t.name,
+        artist: (t.artists || []).map((a) => a.name).join(', '),
+        duration: formatDurationMs(t.duration_ms),
+        plays: Math.max(5, Math.round((48 - idx * 3) * (multiplier / 6))),
+        note: SYNTH_NOTES[idx % SYNTH_NOTES.length],
+        previewUrl: t.preview_url || null,
+        art: t.album && t.album.images && t.album.images[0] ? t.album.images[0].url : ''
+      }));
+
+      const genreCounts = {};
+      (artistsItems || []).forEach((a) => {
+        (a.genres || []).forEach((g) => {
+          const clean = g.replace(/\b\w/g, (c) => c.toUpperCase());
+          genreCounts[clean] = (genreCounts[clean] || 0) + 1;
+        });
+      });
+
+      const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
+      const top5Genres = sortedGenres.slice(0, 5);
+      const top5Sum = top5Genres.reduce((acc, [, c]) => acc + c, 0) || 1;
+      const genres = top5Genres.map(([name, count], idx) => ({
+        name,
+        pct: Math.max(6, Math.round((count / top5Sum) * 100)),
+        color: DEFAULT_GENRE_COLORS[idx % DEFAULT_GENRE_COLORS.length]
+      }));
+
+      const hourlyMinutes = Array(24).fill(0);
+      const weekdayMinutes = Array(7).fill(0);
+      (recentItems || []).forEach((item) => {
+        const dt = new Date(item.played_at);
+        if (!isNaN(dt.getTime())) {
+          const mins = Math.max(1, Math.round((item.track?.duration_ms || 200000) / 60000));
+          hourlyMinutes[dt.getHours()] += mins;
+          const dayIdx = (dt.getDay() + 6) % 7;
+          weekdayMinutes[dayIdx] += mins;
+        }
+      });
+
+      const hasRecent = hourlyMinutes.some((v) => v > 0);
+      const finalHourly = hasRecent
+        ? hourlyMinutes.map((v) => Math.round(v * (multiplier / 2)))
+        : [120, 80, 40, 20, 10, 15, 45, 95, 160, 195, 180, 210, 230, 215, 200, 240, 270, 285, 250, 235, 265, 310, 340, 290];
+      const finalWeekdays = weekdayMinutes.some((v) => v > 0)
+        ? weekdayMinutes.map((v) => Math.round(v * (multiplier / 2)))
+        : [420, 460, 440, 510, 680, 620, 490];
+
+      const dayLabels = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'];
+      const topDayIdx = finalWeekdays.indexOf(Math.max(...finalWeekdays));
+      const totalMinutes = artists.reduce((acc, a) => acc + a.minutes, 0) || 1800;
+      const peakHour = getPeakHourFromArray(finalHourly);
+      const topGenreName = genres[0] ? genres[0].name : 'Eclectic Mix';
+      const secondGenreName = genres[1] ? genres[1].name : 'Modern Essentials';
+
+      return {
+        label,
+        minutes: totalMinutes,
+        delta: 'Live Spotify API',
+        dailyAvg: Math.max(20, Math.round(totalMinutes / (multiplier * 5))),
+        topDay: dayLabels[topDayIdx] || 'Fridays',
+        weekdayMinutes: finalWeekdays,
+        aura: {
+          title: `${topGenreName} & ${secondGenreName}`,
+          description: `Built directly from your live Spotify profile, centered around ${artists[0]?.name || 'your favorite artists'} and ${topGenreName.toLowerCase()} vibes.`,
+          danceability: 74,
+          energy: 78,
+          valence: 62,
+          tempo: 116
+        },
+        clockPersona: `Peak Rhythm: ${formatHourLabel(peakHour)}`,
+        hourlyMinutes: finalHourly,
+        discoveryPct: 30,
+        newArtistsCount: Math.max(12, artists.length * 3),
+        totalGenresExplored: Math.max(sortedGenres.length, 1),
+        genres,
+        artists,
+        tracks
+      };
+    }
+
+    async function exchangeCodeForSpotifyStats(rawInput) {
+      const errorBox = document.getElementById('pkce-fallback-error');
+      const showFallbackError = (msg) => {
+        if (errorBox) {
+          errorBox.textContent = msg;
+          errorBox.classList.remove('hidden');
+        }
+        showToast(msg, 'error');
+      };
+
+      let code = (rawInput || '').trim();
+      if (!code) {
+        showFallbackError('Please paste the full redirected URL or authorization code.');
+        return;
+      }
+
+      try {
+        if (code.includes('code=')) {
+          const parsed = new URL(code.startsWith('http') ? code : `https://dummy.local/?${code.replace(/^\?/, '')}`);
+          code = parsed.searchParams.get('code') || '';
+        }
+      } catch (e) {
+        const match = code.match(/[?&]code=([^&]+)/);
+        if (match) code = match[1];
+      }
+
+      if (!code) {
+        showFallbackError('Could not find a ?code= parameter in the pasted URL.');
+        return;
+      }
+
+      if (state.attemptedCodes.has(code)) {
+        showFallbackError('This authorization code was already used. Click Authorize again to get a fresh code.');
+        return;
+      }
+      state.attemptedCodes.add(code);
+
+      const clientId = localStorage.getItem('sc_spotify_client_id');
+      const codeVerifier = localStorage.getItem('sc_pkce_verifier');
+      const redirectUri = getCleanRedirectUri();
+
+      if (!clientId || !codeVerifier) {
+        showFallbackError('Missing PKCE session. Please click "Authorize & Load Real Spotify Stats" first.');
+        return;
+      }
+
+      try {
+        showToast('Connecting to Spotify...', 'info');
+        const body = new URLSearchParams({
+          client_id: clientId,
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri: redirectUri,
+          code_verifier: codeVerifier
+        });
+
+        const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body
+        });
+
+        const tokenData = await tokenRes.json();
+        if (!tokenRes.ok || !tokenData.access_token) {
+          throw new Error(tokenData.error_description || tokenData.error || 'Token exchange failed.');
+        }
+
+        const accessToken = tokenData.access_token;
+
+        const [me, artShort, artMed, artLong, trkShort, trkMed, trkLong, recent] = await Promise.all([
+          spotifyApiFetch('/me', accessToken),
+          spotifyApiFetch('/me/top/artists?time_range=short_term&limit=10', accessToken),
+          spotifyApiFetch('/me/top/artists?time_range=medium_term&limit=10', accessToken),
+          spotifyApiFetch('/me/top/artists?time_range=long_term&limit=10', accessToken),
+          spotifyApiFetch('/me/top/tracks?time_range=short_term&limit=10', accessToken),
+          spotifyApiFetch('/me/top/tracks?time_range=medium_term&limit=10', accessToken),
+          spotifyApiFetch('/me/top/tracks?time_range=long_term&limit=10', accessToken),
+          spotifyApiFetch('/me/player/recently-played?limit=50', accessToken).catch(() => ({ items: [] }))
+        ]);
+
+        state.liveDataset = {
+          user: {
+            name: me.display_name || 'Spotify Listener',
+            handle: `@${(me.id || 'spotify').toLowerCase()}`,
+            avatar: me.images && me.images[0] ? me.images[0].url : 'https://placehold.co/100x100/242424/1DB954?text=S'
+          },
+          ranges: {
+            short_term: buildLiveRangeData('Last 4 Weeks', artShort.items, trkShort.items, recent.items, 6),
+            medium_term: buildLiveRangeData('Last 6 Months', artMed.items, trkMed.items, recent.items, 24),
+            long_term: buildLiveRangeData('All Time', artLong.items, trkLong.items, recent.items, 80)
+          }
+        };
+
+        state.sourceMode = 'live';
+        state.activeRange = 'short_term';
+        state.selectedClockHour = null;
+
+        const connectModal = document.getElementById('connect-modal');
+        if (connectModal) {
+          connectModal.classList.add('hidden');
+          connectModal.classList.remove('flex');
+        }
+
+        renderDashboard();
+        showToast(`Loaded live Spotify Sound Capsule for ${state.liveDataset.user.name}!`, 'success');
+      } catch (err) {
+        showFallbackError(`Spotify connection failed: ${err.message}`);
+      }
+    }
+
+    // =========================================================================
+    // 9. LOCAL SPOTIFY PRIVACY JSON PARSER
+    // =========================================================================
+    async function handleSpotifyJsonFiles(fileList) {
+      if (!fileList || !fileList.length) return;
+
+      try {
+        const allEntries = [];
+        for (const file of Array.from(fileList)) {
+          const text = await file.text();
+          const parsed = JSON.parse(text);
+          if (Array.isArray(parsed)) {
+            allEntries.push(...parsed);
+          }
+        }
+
+        if (!allEntries.length) {
+          showToast('No valid listening entries found in the selected JSON file(s).', 'error');
+          return;
+        }
+
+        let totalMs = 0;
+        const artistMs = new Map();
+        const trackMap = new Map();
+        const hourlyMs = Array(24).fill(0);
+        const weekdayMs = Array(7).fill(0);
+        const uniqueDates = new Set();
+
+        allEntries.forEach((entry) => {
+          const ms = Number(entry.msPlayed ?? entry.ms_played ?? 0);
+          if (!ms || ms < 5000) return;
+
+          const artist = entry.artistName || entry.master_metadata_album_artist_name || 'Unknown Artist';
+          const track = entry.trackName || entry.master_metadata_track_name || 'Unknown Track';
+          const rawTime = entry.endTime || entry.ts;
+
+          totalMs += ms;
+          artistMs.set(artist, (artistMs.get(artist) || 0) + ms);
+
+          const trackKey = `${track}|||${artist}`;
+          const prev = trackMap.get(trackKey) || { title: track, artist, plays: 0, totalMs: 0 };
+          prev.plays += 1;
+          prev.totalMs += ms;
+          trackMap.set(trackKey, prev);
+
+          if (rawTime) {
+            const normalizedTime = typeof rawTime === 'string' && rawTime.includes(' ') && !rawTime.includes('T')
+              ? rawTime.replace(' ', 'T')
+              : rawTime;
+            const dt = new Date(normalizedTime);
+            if (!isNaN(dt.getTime())) {
+              hourlyMs[dt.getHours()] += ms;
+              const dayIdx = (dt.getDay() + 6) % 7;
+              weekdayMs[dayIdx] += ms;
+              uniqueDates.add(dt.toISOString().slice(0, 10));
+            }
+          }
+        });
+
+        const totalMinutes = Math.round(totalMs / 60000);
+        if (totalMinutes <= 0) {
+          showToast('Could not detect msPlayed or ms_played fields in JSON.', 'error');
+          return;
+        }
+
+        const hourlyMinutes = hourlyMs.map((m) => Math.round(m / 60000));
+        const weekdayMinutes = weekdayMs.map((m) => Math.round(m / 60000));
+        const dayNames = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'];
+        const topDayIdx = weekdayMinutes.indexOf(Math.max(...weekdayMinutes));
+        const peakHour = getPeakHourFromArray(hourlyMinutes);
+
+        const topArtists = Array.from(artistMs.entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10)
+          .map(([name, ms], idx) => ({
+            name,
+            genre: idx === 0 ? 'Most Streamed' : 'Top Artist',
+            minutes: Math.round(ms / 60000),
+            image: `https://placehold.co/160x160/242424/1DB954?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`
+          }));
+
+        const topTracks = Array.from(trackMap.values())
+          .sort((a, b) => b.plays - a.plays)
+          .slice(0, 10)
+          .map((t, idx) => ({
+            title: t.title,
+            artist: t.artist,
+            duration: formatDurationMs(Math.round(t.totalMs / Math.max(t.plays, 1))),
+            plays: t.plays,
+            note: SYNTH_NOTES[idx % SYNTH_NOTES.length],
+            art: `https://placehold.co/160x160/242424/1DB954?text=${idx + 1}`
+          }));
+
+        const activeDays = Math.max(uniqueDates.size, 1);
+        const dailyAvg = Math.round(totalMinutes / activeDays);
+
+        const top5ArtistMins = topArtists.slice(0, 5);
+        const top5Sum = top5ArtistMins.reduce((acc, a) => acc + a.minutes, 0) || 1;
+        const shareGenres = top5ArtistMins.map((a, idx) => ({
+          name: `${a.name} Rotation`,
+          pct: Math.max(6, Math.round((a.minutes / top5Sum) * 100)),
+          color: DEFAULT_GENRE_COLORS[idx % DEFAULT_GENRE_COLORS.length]
+        }));
+
+        state.jsonDataset = {
+          user: {
+            name: 'Your JSON Archive',
+            handle: '@spotifyexport',
+            avatar: 'https://placehold.co/100x100/242424/1DB954?text=ME'
+          },
+          ranges: {
+            all: {
+              label: `Exported History (${activeDays} Days)`,
+              minutes: totalMinutes,
+              delta: `${allEntries.length.toLocaleString()} Streams`,
+              dailyAvg,
+              topDay: dayNames[topDayIdx] || 'Fridays',
+              weekdayMinutes,
+              aura: {
+                title: `Anchored by ${topArtists[0]?.name || 'Your Favorites'}`,
+                description: `Analyzed ${allEntries.length.toLocaleString()} streams across ${artistMs.size.toLocaleString()} unique artists completely locally in your browser.`,
+                danceability: 75,
+                energy: 77,
+                valence: 63,
+                tempo: 114
+              },
+              clockPersona: `Peak Hour: ${formatHourLabel(peakHour)}`,
+              hourlyMinutes,
+              discoveryPct: Math.min(95, Math.round((artistMs.size / Math.max(allEntries.length, 1)) * 180)),
+              newArtistsCount: artistMs.size,
+              totalGenresExplored: Math.min(40, Math.max(5, Math.round(artistMs.size / 12))),
+              genres: shareGenres,
+              artists: topArtists,
+              tracks: topTracks
+            }
+          }
+        };
+
+        state.sourceMode = 'json';
+        state.activeRange = 'all';
+        state.selectedClockHour = null;
+
+        const connectModal = document.getElementById('connect-modal');
+        if (connectModal) {
+          connectModal.classList.add('hidden');
+          connectModal.classList.remove('flex');
+        }
+
+        renderDashboard();
+        showToast(`Parsed ${allEntries.length.toLocaleString()} Spotify streams (${totalMinutes.toLocaleString()} mins)!`, 'success');
+      } catch (err) {
+        showToast('Could not parse JSON file. Ensure it is a valid Spotify export.', 'error');
+      }
+    }
+
+    // =========================================================================
+    // 10. SHARE STORY CARD PREVIEW & 720x1280 PNG CANVAS EXPORTER
+    // =========================================================================
+    function populateShareCard() {
+      const { user, rangeData } = getActiveProfileAndRange();
+      if (!rangeData) return;
+
+      const topArtist = rangeData.artists && rangeData.artists[0]
+        ? rangeData.artists[0]
+        : { name: 'Top Artist', image: '' };
+      const peakHour = getPeakHourFromArray(rangeData.hourlyMinutes);
+      const topTracks = (rangeData.tracks || []).slice(0, 3);
+
+      document.getElementById('story-period').textContent = rangeData.label;
+      document.getElementById('story-artist-img').src =
+        topArtist.image || 'https://placehold.co/120x120/242424/1DB954?text=A';
+      document.getElementById('story-artist-name').textContent = topArtist.name;
+      document.getElementById('story-aura-tag').textContent = rangeData.aura?.title || 'Audio Aura';
+      document.getElementById('story-peak-hour').textContent = `Peak: ${formatHourLabel(peakHour)}`;
+      document.getElementById('story-minutes').textContent = `${Number(rangeData.minutes || 0).toLocaleString()} min`;
+      document.getElementById('story-user').textContent = user.handle || '@spotify';
+
+      const tracksContainer = document.getElementById('story-tracks-list');
+      if (tracksContainer) {
+        tracksContainer.innerHTML = topTracks
+          .map(
+            (t, idx) => `
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-black/35 border border-white/10">
+              <span class="font-display font-extrabold text-spotify-green w-4 text-center">#${idx + 1}</span>
+              <div class="min-w-0 flex-1">
+                <p class="font-bold text-white truncate leading-tight">${escapeHtml(t.title)}</p>
+                <p class="text-[10px] text-white/75 truncate">${escapeHtml(t.artist)}</p>
+              </div>
+            </div>
+          `
+          )
+          .join('');
+      }
+    }
+
+    function drawRoundedRect(ctx, x, y, w, h, r) {
+      if (typeof ctx.roundRect === 'function') {
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function downloadShareCardPng() {
+      const { user, rangeData } = getActiveProfileAndRange();
+      if (!rangeData) return;
+
+      const theme = STORY_THEMES[state.storyTheme] || STORY_THEMES.cosmic;
+      const topArtist = rangeData.artists && rangeData.artists[0]
+        ? rangeData.artists[0]
+        : { name: 'Top Artist' };
+      const topTracks = (rangeData.tracks || []).slice(0, 3);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 720;
+      canvas.height = 1280;
+      const ctx = canvas.getContext('2d');
+
+      // Base Gradient Background
+      const bgGrad = ctx.createLinearGradient(0, 0, 720, 1280);
+      bgGrad.addColorStop(0, theme.gradStart);
+      if (theme.gradMid) {
+        bgGrad.addColorStop(0.52, theme.gradMid);
+      }
+      bgGrad.addColorStop(1, theme.gradEnd);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 720, 1280);
+
+      if (state.storyTheme === 'vice_city') {
+        // Crisp Vice City Palm Tree Silhouette (Zero Blur / Zero Shadow Glow)
+        ctx.save();
+        ctx.fillStyle = 'rgba(18, 4, 34, 0.48)';
+
+        // Trunk
+        ctx.beginPath();
+        ctx.moveTo(645, 1280);
+        ctx.bezierCurveTo(632, 1130, 598, 990, 535, 865);
+        ctx.lineTo(516, 872);
+        ctx.bezierCurveTo(574, 996, 604, 1134, 614, 1280);
+        ctx.closePath();
+        ctx.fill();
+
+        // Palm Fronds
+        const fronds = [
+          [526, 868, 455, 818, 375, 822, 305, 868, 375, 845, 445, 848],
+          [524, 874, 440, 862, 360, 902, 300, 972, 370, 922, 442, 894],
+          [528, 864, 496, 788, 438, 745, 368, 735, 432, 760, 482, 804],
+          [532, 864, 560, 788, 616, 745, 686, 735, 624, 760, 574, 804],
+          [534, 868, 606, 818, 682, 822, 720, 855, 678, 845, 608, 848],
+          [534, 874, 616, 862, 688, 898, 720, 955, 680, 916, 610, 894]
+        ];
+        fronds.forEach(([sx, sy, c1x, c1y, c2x, c2y, ex, ey, r1x, r1y, r2x, r2y]) => {
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.bezierCurveTo(c1x, c1y, c2x, c2y, ex, ey);
+          ctx.quadraticCurveTo(r1x, r1y, r2x, r2y);
+          ctx.closePath();
+          ctx.fill();
+        });
+
+        // Crisp electric cyan accent border inset
+        ctx.strokeStyle = '#00F6FF';
+        ctx.lineWidth = 6;
+        drawRoundedRect(ctx, 18, 18, 684, 1244, 34);
+        ctx.stroke();
+        ctx.restore();
+      } else {
+        // Standard themes subtle radial accent
+        const glow = ctx.createRadialGradient(580, 180, 20, 580, 180, 340);
+        glow.addColorStop(0, theme.accentHex + '66');
+        glow.addColorStop(1, 'transparent');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, 720, 1280);
+      }
+
+      const highlightColor = state.storyTheme === 'vice_city' ? '#7CFFFC' : theme.accentHex;
+
+      // Typography
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 34px Plus Jakarta Sans, Inter, sans-serif';
+      ctx.fillText('Spotify • Sound Capsule', 56, 96);
+
+      ctx.fillStyle = highlightColor;
+      ctx.font = 'bold 26px Inter, sans-serif';
+      ctx.fillText(rangeData.label.toUpperCase(), 56, 146);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('TOP ARTIST', 56, 260);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 54px Plus Jakarta Sans, Inter, sans-serif';
+      ctx.fillText(topArtist.name.slice(0, 22), 56, 325);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = '600 26px Inter, sans-serif';
+      ctx.fillText((rangeData.aura?.title || 'Audio Aura').slice(0, 36), 56, 372);
+
+      // Minutes Box
+      ctx.fillStyle = 'rgba(13,2,22,0.45)';
+      drawRoundedRect(ctx, 56, 440, 608, 175, 28);
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('MINUTES LISTENED', 88, 495);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 64px Plus Jakarta Sans, Inter, sans-serif';
+      ctx.fillText(`${Number(rangeData.minutes || 0).toLocaleString()} min`, 88, 575);
+
+      // Top 3 Songs
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('TOP SONGS', 56, 700);
+
+      topTracks.forEach((t, idx) => {
+        const y = 765 + idx * 105;
+        ctx.fillStyle = 'rgba(13,2,22,0.38)';
+        drawRoundedRect(ctx, 56, y - 48, 608, 82, 20);
+        ctx.fill();
+
+        ctx.fillStyle = state.storyTheme === 'vice_city' ? ['#FFE600', '#00F6FF', '#FF6BF2'][idx % 3] : theme.accentHex;
+        ctx.font = 'bold 28px Inter, sans-serif';
+        ctx.fillText(`#${idx + 1}`, 82, y);
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 28px Inter, sans-serif';
+        ctx.fillText(t.title.slice(0, 28), 145, y);
+      });
+
+      // Footer
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.font = '600 24px Inter, sans-serif';
+      ctx.fillText(`${user.handle || '@spotify'}  •  Sound Capsule`, 56, 1210);
+
+      const link = document.createElement('a');
+      link.download = `sound-capsule-${rangeData.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('Saved 9:16 Sound Capsule PNG!', 'success');
+    }
+
+    // =========================================================================
+    // 11. EVENT WIRING & INITIALIZATION
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      // Populate Redirect URI & Saved Client ID
+      const redirectInput = document.getElementById('redirect-uri-display');
+      if (redirectInput) {
+        redirectInput.value = getCleanRedirectUri();
+        redirectInput.addEventListener('change', () => {
+          localStorage.setItem('sc_custom_redirect_uri', redirectInput.value.trim());
+        });
+      }
+
+      const savedClientId = localStorage.getItem('sc_spotify_client_id');
+      const clientIdInput = document.getElementById('spotify-client-id');
+      const clientIdStatus = document.getElementById('client-id-status');
+      if (clientIdInput && savedClientId) {
+        clientIdInput.value = savedClientId;
+      }
+
+      if (clientIdInput) {
+        clientIdInput.addEventListener('input', () => {
+          const val = clientIdInput.value.trim();
+          if (val.length >= 20) {
+            localStorage.setItem('sc_spotify_client_id', val);
+            if (clientIdStatus) {
+              clientIdStatus.textContent = 'Client ID saved. Click "Authorize & Load Real Spotify Stats" below to connect.';
+              clientIdStatus.className = 'text-[11px] text-emerald-400 mt-1.5';
+              clientIdStatus.classList.remove('hidden');
+            }
+          } else if (clientIdStatus) {
+            clientIdStatus.classList.add('hidden');
+          }
+        });
+      }
+
+      // Connect Modal Controls
+      const connectModal = document.getElementById('connect-modal');
+      document.getElementById('open-connect-btn').addEventListener('click', () => {
+        connectModal.classList.remove('hidden');
+        connectModal.classList.add('flex');
+      });
+      document.getElementById('close-connect-modal').addEventListener('click', () => {
+        connectModal.classList.add('hidden');
+        connectModal.classList.remove('flex');
+      });
+
+      // Modal Source Tabs (Spotify API / Upload JSON / Demo Profiles)
+      document.querySelectorAll('.source-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.sourceTab;
+          document.querySelectorAll('.source-tab-btn').forEach((b) => {
+            const active = b.dataset.sourceTab === target;
+            b.classList.toggle('bg-[#282828]', active);
+            b.classList.toggle('text-white', active);
+            b.classList.toggle('text-spotify-subtext', !active);
+          });
+          document.getElementById('tab-oauth').classList.toggle('hidden', target !== 'oauth');
+          document.getElementById('tab-json').classList.toggle('hidden', target !== 'json');
+          document.getElementById('tab-demo').classList.toggle('hidden', target !== 'demo');
+        });
+      });
+
+      document.getElementById('copy-redirect-btn').addEventListener('click', () => {
+        const uri = document.getElementById('redirect-uri-display').value.trim();
+        copyTextSafe(uri);
+        showToast('Copied Redirect URI to clipboard!', 'success');
+      });
+
+      document.getElementById('start-pkce-btn').addEventListener('click', initiateSpotifyPKCE);
+
+      document.getElementById('complete-manual-pkce-btn').addEventListener('click', () => {
+        const raw = document.getElementById('manual-callback-input').value;
+        exchangeCodeForSpotifyStats(raw);
+      });
+
+      // JSON File Upload + Drag & Drop
+      const jsonInput = document.getElementById('json-file-input');
+      const jsonDropzone = document.getElementById('json-dropzone');
+      jsonInput.addEventListener('change', (e) => handleSpotifyJsonFiles(e.target.files));
+      if (jsonDropzone) {
+        jsonDropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          jsonDropzone.classList.add('border-spotify-green');
+        });
+        jsonDropzone.addEventListener('dragleave', () => {
+          jsonDropzone.classList.remove('border-spotify-green');
+        });
+        jsonDropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          jsonDropzone.classList.remove('border-spotify-green');
+          if (e.dataTransfer?.files?.length) {
+            handleSpotifyJsonFiles(e.dataTransfer.files);
+          }
+        });
+      }
+
+      // Demo Presets
+      document.querySelectorAll('.demo-preset-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.demoPreset = btn.dataset.demoPreset;
+          state.sourceMode = 'demo';
+          state.activeRange = 'month';
+          state.selectedClockHour = null;
+          connectModal.classList.add('hidden');
+          connectModal.classList.remove('flex');
+          renderDashboard();
+          showToast('Switched demo profile.', 'info');
+        });
+      });
+
+      // Expand / Collapse Top 10 Lists
+      document.getElementById('toggle-artists-count').addEventListener('click', () => {
+        state.showTop10Artists = !state.showTop10Artists;
+        renderDashboard();
+      });
+      document.getElementById('toggle-tracks-count').addEventListener('click', () => {
+        state.showTop10Tracks = !state.showTop10Tracks;
+        renderDashboard();
+      });
+
+      // Mini Player Stop Button
+      document.getElementById('player-stop-btn').addEventListener('click', stopTrackPreview);
+
+      // Share Modal Controls
+      const shareModal = document.getElementById('share-modal');
+      document.getElementById('open-share-btn').addEventListener('click', () => {
+        populateShareCard();
+        shareModal.classList.remove('hidden');
+        shareModal.classList.add('flex');
+      });
+      document.getElementById('close-share-modal').addEventListener('click', () => {
+        shareModal.classList.add('hidden');
+        shareModal.classList.remove('flex');
+      });
+
+      document.querySelectorAll('.card-theme-btn').forEach((btn) => {
+        btn.addEventListener('click', () => applyStoryCardTheme(btn.dataset.cardTheme));
+      });
+
+      document.getElementById('copy-stats-btn').addEventListener('click', () => {
+        const { user, rangeData } = getActiveProfileAndRange();
+        const topArtist = rangeData.artists && rangeData.artists[0] ? rangeData.artists[0].name : 'N/A';
+        const topSong = rangeData.tracks && rangeData.tracks[0] ? rangeData.tracks[0].title : 'N/A';
+        const summary = `${user.name}'s Spotify Sound Capsule (${rangeData.label}): ${Number(rangeData.minutes || 0).toLocaleString()} mins • Top Artist: ${topArtist} • Top Song: ${topSong}`;
+        copyTextSafe(summary);
+        showToast('Copied Sound Capsule summary!', 'success');
+      });
+
+      document.getElementById('download-card-btn').addEventListener('click', downloadShareCardPng);
+
+      // Settings & Themes Modal Controls
+      const settingsModal = document.getElementById('settings-modal');
+      document.getElementById('open-settings-btn').addEventListener('click', () => {
+        settingsModal.classList.remove('hidden');
+        settingsModal.classList.add('flex');
+      });
+      document.getElementById('close-settings-modal').addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+        settingsModal.classList.remove('flex');
+      });
+
+      document.querySelectorAll('.theme-choice-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          applyAppTheme(btn.dataset.themeChoice);
+          showToast(`Theme set to ${APP_THEMES[btn.dataset.themeChoice].name}`, 'success');
+        });
+      });
+
+      const auraToggle = document.getElementById('toggle-aura-anim');
+      const auraOrb = document.getElementById('aura-orb');
+      if (auraToggle && auraOrb) {
+        auraToggle.checked = state.auraAnimated;
+        auraOrb.classList.toggle('animate-aura-slow', state.auraAnimated);
+        auraToggle.addEventListener('change', () => {
+          state.auraAnimated = auraToggle.checked;
+          localStorage.setItem('sc_aura_anim', String(state.auraAnimated));
+          auraOrb.classList.toggle('animate-aura-slow', state.auraAnimated);
+        });
+      }
+
+      const defaultTop10Toggle = document.getElementById('toggle-default-top10');
+      if (defaultTop10Toggle) {
+        defaultTop10Toggle.checked = state.showTop10Artists;
+        defaultTop10Toggle.addEventListener('change', () => {
+          const val = defaultTop10Toggle.checked;
+          localStorage.setItem('sc_default_top10', String(val));
+          state.showTop10Artists = val;
+          state.showTop10Tracks = val;
+          renderDashboard();
+        });
+      }
+
+      // Close modals on backdrop click or Escape key
+      [connectModal, shareModal, settingsModal].forEach((modal) => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          [connectModal, shareModal, settingsModal].forEach((modal) => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          });
+        }
+      });
+
+      // Handle top-level OAuth ?code=... redirect if present in window.location
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('code')) {
+        const fullHref = window.location.href;
+        window.history.replaceState({}, document.title, window.location.pathname);
+        exchangeCodeForSpotifyStats(fullHref);
+      }
+
+      // Apply saved theme and render initial dashboard
+      applyAppTheme(state.activeTheme);
+      refreshIcons();
+    });
+  </script>
+</body>
+</html>
