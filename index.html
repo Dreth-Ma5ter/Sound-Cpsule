@@ -65,12 +65,12 @@
 
   <style>
     /* =========================================================================
-       THEME CUSTOM PROPERTIES (5 COMPLETE VISUAL THEMES)
+       THEME CUSTOM PROPERTIES (8 COMPLETE CRISP VISUAL THEMES — ZERO GLOW)
        ========================================================================= */
     :root,
     [data-theme="spotify"] {
       --bg-base: #121212;
-      --header-bg: rgba(18, 18, 18, 0.92);
+      --header-bg: rgba(18, 18, 18, 0.94);
       --bg-card: #181818;
       --bg-card-hover: #1e1e1e;
       --bg-card-alt: #222222;
@@ -83,19 +83,16 @@
       --text-primary: #FFFFFF;
       --text-secondary: #B3B3B3;
       --text-muted: #727272;
-      --border-subtle: rgba(255, 255, 255, 0.07);
-      --border-hover: rgba(255, 255, 255, 0.14);
-      --aura-bg: radial-gradient(circle at 20% 25%, rgba(139, 92, 246, 0.55) 0%, transparent 52%),
-                 radial-gradient(circle at 82% 20%, rgba(236, 72, 153, 0.48) 0%, transparent 50%),
-                 radial-gradient(circle at 55% 85%, rgba(6, 182, 212, 0.45) 0%, transparent 55%),
-                 linear-gradient(135deg, #1b1629 0%, #181818 100%);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --aura-bg: linear-gradient(135deg, #2b1d4d 0%, #1c2436 52%, #133022 100%);
       --card-shadow: none;
     }
 
     /* GTA VI: Vice City (Crisp, High-Saturation Bright Palette — Zero Glow) */
     [data-theme="vice_city"] {
       --bg-base: #120422;
-      --header-bg: rgba(18, 4, 34, 0.94);
+      --header-bg: rgba(18, 4, 34, 0.95);
       --bg-card: #1f0838;
       --bg-card-hover: #2c0d4d;
       --bg-card-alt: #34115c;
@@ -114,10 +111,76 @@
       --card-shadow: none;
     }
 
+    /* Fallout: Pip-Boy / Vault-Tec (Crisp High-Contrast Phosphor Palette) */
+    [data-theme="fallout"] {
+      --bg-base: #06130b;
+      --header-bg: rgba(6, 19, 11, 0.95);
+      --bg-card: #0c2114;
+      --bg-card-hover: #12301d;
+      --bg-card-alt: #153822;
+      --bg-highlight: #1d4d2f;
+      --accent-primary: #2EFF66;
+      --accent-bright: #73FF98;
+      --accent-secondary: #FFE600;
+      --accent-tertiary: #00C2FF;
+      --accent-contrast: #041208;
+      --text-primary: #F2FFF5;
+      --text-secondary: #A9E6B8;
+      --text-muted: #65A377;
+      --border-subtle: rgba(46, 255, 102, 0.58);
+      --border-hover: #FFE600;
+      --aura-bg: linear-gradient(135deg, #0D5C2B 0%, #0E3D22 52%, #005B82 100%);
+      --card-shadow: none;
+    }
+
+    /* Cyberpunk 2077: Night City (Crisp High-Saturation Cyber Palette) */
+    [data-theme="cyberpunk"] {
+      --bg-base: #0a0a12;
+      --header-bg: rgba(10, 10, 18, 0.95);
+      --bg-card: #131322;
+      --bg-card-hover: #1c1c33;
+      --bg-card-alt: #21213b;
+      --bg-highlight: #2e2e52;
+      --accent-primary: #FCEE0A;
+      --accent-bright: #FFF559;
+      --accent-secondary: #00F0FF;
+      --accent-tertiary: #FF003C;
+      --accent-contrast: #0A0A12;
+      --text-primary: #FFFFFF;
+      --text-secondary: #D4D7F0;
+      --text-muted: #8B90B8;
+      --border-subtle: rgba(252, 238, 10, 0.65);
+      --border-hover: #00F0FF;
+      --aura-bg: linear-gradient(135deg, #B80032 0%, #4A1259 52%, #007A8C 100%);
+      --card-shadow: none;
+    }
+
+    /* Watch Dogs: DedSec / ctOS (Crisp High-Contrast Signal Palette) */
+    [data-theme="watch_dogs"] {
+      --bg-base: #0b0e14;
+      --header-bg: rgba(11, 14, 20, 0.95);
+      --bg-card: #131924;
+      --bg-card-hover: #1b2433;
+      --bg-card-alt: #202b3d;
+      --bg-highlight: #2c3a52;
+      --accent-primary: #00D8FF;
+      --accent-bright: #5CE8FF;
+      --accent-secondary: #FF2A85;
+      --accent-tertiary: #39FF14;
+      --accent-contrast: #080B10;
+      --text-primary: #FFFFFF;
+      --text-secondary: #C8D6E8;
+      --text-muted: #7F91AB;
+      --border-subtle: rgba(0, 216, 255, 0.58);
+      --border-hover: #FF2A85;
+      --aura-bg: linear-gradient(135deg, #005E80 0%, #19263D 52%, #8F124C 100%);
+      --card-shadow: none;
+    }
+
     /* Midnight Synthwave */
     [data-theme="synthwave"] {
       --bg-base: #070b19;
-      --header-bg: rgba(7, 11, 25, 0.92);
+      --header-bg: rgba(7, 11, 25, 0.94);
       --bg-card: #0f162e;
       --bg-card-hover: #151f40;
       --bg-card-alt: #19244a;
@@ -130,19 +193,16 @@
       --text-primary: #F8FAFC;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
-      --border-subtle: rgba(0, 229, 255, 0.22);
-      --border-hover: rgba(181, 55, 242, 0.5);
-      --aura-bg: radial-gradient(circle at 20% 25%, rgba(0, 229, 255, 0.5) 0%, transparent 52%),
-                 radial-gradient(circle at 82% 22%, rgba(181, 55, 242, 0.5) 0%, transparent 50%),
-                 radial-gradient(circle at 55% 85%, rgba(59, 130, 246, 0.45) 0%, transparent 55%),
-                 linear-gradient(135deg, #111b3d 0%, #0d1329 100%);
+      --border-subtle: rgba(0, 229, 255, 0.25);
+      --border-hover: rgba(181, 55, 242, 0.55);
+      --aura-bg: linear-gradient(135deg, #0E4D7A 0%, #261B5E 52%, #521775 100%);
       --card-shadow: none;
     }
 
     /* Solar Gold & Vinyl */
     [data-theme="solar"] {
       --bg-base: #130f0b;
-      --header-bg: rgba(19, 15, 11, 0.92);
+      --header-bg: rgba(19, 15, 11, 0.94);
       --bg-card: #1c1610;
       --bg-card-hover: #251d15;
       --bg-card-alt: #2b2218;
@@ -155,19 +215,16 @@
       --text-primary: #FFFBEB;
       --text-secondary: #D6C7B2;
       --text-muted: #8C7B65;
-      --border-subtle: rgba(245, 158, 11, 0.22);
-      --border-hover: rgba(251, 113, 133, 0.45);
-      --aura-bg: radial-gradient(circle at 20% 25%, rgba(245, 158, 11, 0.52) 0%, transparent 52%),
-                 radial-gradient(circle at 82% 20%, rgba(251, 113, 133, 0.46) 0%, transparent 50%),
-                 radial-gradient(circle at 55% 85%, rgba(234, 88, 12, 0.42) 0%, transparent 55%),
-                 linear-gradient(135deg, #291c0e 0%, #1a140e 100%);
+      --border-subtle: rgba(245, 158, 11, 0.25);
+      --border-hover: rgba(251, 113, 133, 0.5);
+      --aura-bg: linear-gradient(135deg, #7A4406 0%, #4A2316 52%, #6E1D33 100%);
       --card-shadow: none;
     }
 
     /* Emerald Velvet */
     [data-theme="emerald"] {
       --bg-base: #07130f;
-      --header-bg: rgba(7, 19, 15, 0.92);
+      --header-bg: rgba(7, 19, 15, 0.94);
       --bg-card: #0e201a;
       --bg-card-hover: #142b23;
       --bg-card-alt: #18342a;
@@ -180,12 +237,9 @@
       --text-primary: #F0FDF4;
       --text-secondary: #A7C7BA;
       --text-muted: #658A7B;
-      --border-subtle: rgba(16, 185, 129, 0.22);
-      --border-hover: rgba(234, 179, 8, 0.45);
-      --aura-bg: radial-gradient(circle at 20% 25%, rgba(16, 185, 129, 0.52) 0%, transparent 52%),
-                 radial-gradient(circle at 82% 20%, rgba(234, 179, 8, 0.38) 0%, transparent 50%),
-                 radial-gradient(circle at 55% 85%, rgba(20, 184, 166, 0.45) 0%, transparent 55%),
-                 linear-gradient(135deg, #0d2b22 0%, #0d1d18 100%);
+      --border-subtle: rgba(16, 185, 129, 0.25);
+      --border-hover: rgba(234, 179, 8, 0.5);
+      --aura-bg: linear-gradient(135deg, #0A523B 0%, #0E382A 52%, #52430A 100%);
       --card-shadow: none;
     }
 
@@ -208,7 +262,7 @@
     .capsule-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      box-shadow: var(--card-shadow);
+      box-shadow: none;
       transition: border-color 0.25s ease, background-color 0.25s ease;
     }
 
@@ -223,6 +277,7 @@
     .theme-accent-btn {
       background-color: var(--accent-primary);
       color: var(--accent-contrast);
+      box-shadow: none;
     }
 
     .theme-accent-btn:hover {
@@ -239,84 +294,158 @@
     }
 
     /* =========================================================================
-       VICE CITY CRISP BRIGHT ACCENTS & PALM SILHOUETTES (ZERO GLOW / ZERO BLUR)
+       GAMING THEME BACKDROPS & CRISP ACCENTS (ZERO GLOW / ZERO BLUR)
        ========================================================================= */
     #vice-city-backdrop,
-    #aura-palm-silhouette {
+    #fallout-backdrop,
+    #cyberpunk-backdrop,
+    #watchdogs-backdrop,
+    #aura-palm-silhouette,
+    #aura-fallout-silhouette,
+    #aura-cyberpunk-silhouette,
+    #aura-watchdogs-silhouette {
       display: none;
     }
 
     [data-theme="vice_city"] #vice-city-backdrop,
-    [data-theme="vice_city"] #aura-palm-silhouette {
+    [data-theme="vice_city"] #aura-palm-silhouette,
+    [data-theme="fallout"] #fallout-backdrop,
+    [data-theme="fallout"] #aura-fallout-silhouette,
+    [data-theme="cyberpunk"] #cyberpunk-backdrop,
+    [data-theme="cyberpunk"] #aura-cyberpunk-silhouette,
+    [data-theme="watch_dogs"] #watchdogs-backdrop,
+    [data-theme="watch_dogs"] #aura-watchdogs-silhouette {
       display: block;
     }
 
-    /* Hide hazy blurred ambient orb completely in Vice City */
-    [data-theme="vice_city"] #aura-orb {
+    /* Hide default geometric aura accent when a gaming vector silhouette is active */
+    [data-theme="vice_city"] #aura-orb,
+    [data-theme="fallout"] #aura-orb,
+    [data-theme="cyberpunk"] #aura-orb,
+    [data-theme="watch_dogs"] #aura-orb {
       display: none !important;
     }
 
+    /* --- GTA VI: Vice City --- */
     [data-theme="vice_city"] .app-header {
       border-bottom-color: #00F6FF;
-      box-shadow: none;
     }
-
     [data-theme="vice_city"] .theme-accent-btn {
       background: linear-gradient(135deg, #FF2EC4 0%, #FF5CE8 50%, #00F6FF 100%);
       color: #0D0216;
-      box-shadow: none;
     }
-
     [data-theme="vice_city"] .theme-accent-btn:hover {
       background: linear-gradient(135deg, #FF6BF2 0%, #FF2EC4 50%, #7CFFFC 100%);
-      box-shadow: none;
     }
-
     [data-theme="vice_city"] .capsule-card {
       border-width: 1.5px;
-      box-shadow: none;
     }
-
     [data-theme="vice_city"] .capsule-card:hover {
       background-color: var(--bg-card-hover);
-      box-shadow: none;
     }
-
     [data-theme="vice_city"] .capsule-aura-bg {
       border: 1.5px solid #00F6FF;
-      box-shadow: none;
     }
-
-    [data-theme="vice_city"] .vice-neon-title {
-      text-shadow: none;
-    }
-
     [data-theme="vice_city"] .range-pill.bg-white {
       background: linear-gradient(135deg, #7CFFFC 0%, #00F6FF 100%) !important;
       color: #0D0216 !important;
       font-weight: 800;
-      box-shadow: none !important;
     }
+    [data-theme="vice_city"] #bar-dance { background-color: #7CFFFC !important; }
+    [data-theme="vice_city"] #bar-energy { background-color: #FF2EC4 !important; }
+    [data-theme="vice_city"] #bar-valence { background-color: #00F6FF !important; }
+    [data-theme="vice_city"] #bar-tempo { background-color: #FFE600 !important; }
 
-    [data-theme="vice_city"] #bar-dance {
-      background-color: #7CFFFC !important;
-      box-shadow: none !important;
+    /* --- Fallout (Pip-Boy / Vault-Tec) --- */
+    [data-theme="fallout"] .app-header {
+      border-bottom-color: #2EFF66;
     }
+    [data-theme="fallout"] .theme-accent-btn {
+      background: linear-gradient(135deg, #2EFF66 0%, #FFE600 100%);
+      color: #041208;
+    }
+    [data-theme="fallout"] .theme-accent-btn:hover {
+      background: linear-gradient(135deg, #73FF98 0%, #FFF266 100%);
+    }
+    [data-theme="fallout"] .capsule-card {
+      border-width: 1.5px;
+    }
+    [data-theme="fallout"] .capsule-card:hover {
+      background-color: var(--bg-card-hover);
+    }
+    [data-theme="fallout"] .capsule-aura-bg {
+      border: 1.5px solid #FFE600;
+    }
+    [data-theme="fallout"] .range-pill.bg-white {
+      background: #2EFF66 !important;
+      color: #041208 !important;
+      font-weight: 800;
+    }
+    [data-theme="fallout"] #bar-dance { background-color: #2EFF66 !important; }
+    [data-theme="fallout"] #bar-energy { background-color: #FFE600 !important; }
+    [data-theme="fallout"] #bar-valence { background-color: #00C2FF !important; }
+    [data-theme="fallout"] #bar-tempo { background-color: #FF9F1C !important; }
 
-    [data-theme="vice_city"] #bar-energy {
-      background-color: #FF2EC4 !important;
-      box-shadow: none !important;
+    /* --- Cyberpunk 2077 (Night City) --- */
+    [data-theme="cyberpunk"] .app-header {
+      border-bottom-color: #FCEE0A;
     }
+    [data-theme="cyberpunk"] .theme-accent-btn {
+      background: linear-gradient(135deg, #FCEE0A 0%, #FF8A00 100%);
+      color: #0A0A12;
+    }
+    [data-theme="cyberpunk"] .theme-accent-btn:hover {
+      background: linear-gradient(135deg, #FFF559 0%, #00F0FF 100%);
+    }
+    [data-theme="cyberpunk"] .capsule-card {
+      border-width: 1.5px;
+    }
+    [data-theme="cyberpunk"] .capsule-card:hover {
+      background-color: var(--bg-card-hover);
+    }
+    [data-theme="cyberpunk"] .capsule-aura-bg {
+      border: 1.5px solid #00F0FF;
+    }
+    [data-theme="cyberpunk"] .range-pill.bg-white {
+      background: #FCEE0A !important;
+      color: #0A0A12 !important;
+      font-weight: 800;
+    }
+    [data-theme="cyberpunk"] #bar-dance { background-color: #00F0FF !important; }
+    [data-theme="cyberpunk"] #bar-energy { background-color: #FF003C !important; }
+    [data-theme="cyberpunk"] #bar-valence { background-color: #FCEE0A !important; }
+    [data-theme="cyberpunk"] #bar-tempo { background-color: #FF8A00 !important; }
 
-    [data-theme="vice_city"] #bar-valence {
-      background-color: #00F6FF !important;
-      box-shadow: none !important;
+    /* --- Watch Dogs (DedSec / ctOS) --- */
+    [data-theme="watch_dogs"] .app-header {
+      border-bottom-color: #00D8FF;
     }
-
-    [data-theme="vice_city"] #bar-tempo {
-      background-color: #FFE600 !important;
-      box-shadow: none !important;
+    [data-theme="watch_dogs"] .theme-accent-btn {
+      background: linear-gradient(135deg, #00D8FF 0%, #39FF14 100%);
+      color: #080B10;
     }
+    [data-theme="watch_dogs"] .theme-accent-btn:hover {
+      background: linear-gradient(135deg, #5CE8FF 0%, #FF2A85 100%);
+      color: #FFFFFF;
+    }
+    [data-theme="watch_dogs"] .capsule-card {
+      border-width: 1.5px;
+    }
+    [data-theme="watch_dogs"] .capsule-card:hover {
+      background-color: var(--bg-card-hover);
+    }
+    [data-theme="watch_dogs"] .capsule-aura-bg {
+      border: 1.5px solid #FF2A85;
+    }
+    [data-theme="watch_dogs"] .range-pill.bg-white {
+      background: #00D8FF !important;
+      color: #080B10 !important;
+      font-weight: 800;
+    }
+    [data-theme="watch_dogs"] #bar-dance { background-color: #00D8FF !important; }
+    [data-theme="watch_dogs"] #bar-energy { background-color: #FF2A85 !important; }
+    [data-theme="watch_dogs"] #bar-valence { background-color: #39FF14 !important; }
+    [data-theme="watch_dogs"] #bar-tempo { background-color: #FFFFFF !important; }
 
     .clock-spoke {
       transition: stroke-width 0.18s ease, opacity 0.18s ease;
@@ -330,7 +459,7 @@
 
 <body data-theme="spotify" class="min-h-screen flex flex-col selection:bg-spotify-green selection:text-black relative">
 
-  <!-- Vice City Clean Sunset Horizon & Crisp Palm Tree Silhouettes Backdrop (No Blur / No Glow) -->
+  <!-- 1) Vice City Clean Sunset Horizon & Crisp Palm Tree Silhouettes Backdrop -->
   <div id="vice-city-backdrop" aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <!-- Subtle Crisp Sunset/Twilight Horizon Band -->
     <div class="absolute inset-x-0 bottom-0 h-[44vh] bg-gradient-to-t from-[#FF2EC4]/20 via-[#7C15CC]/10 to-transparent"></div>
@@ -368,6 +497,153 @@
     </svg>
   </div>
 
+  <!-- 2) Fallout: Pip-Boy / Vault-Tec Backdrop (Crisp Vector Silhouettes — Zero Glow) -->
+  <div id="fallout-backdrop" aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-x-0 bottom-0 h-[40vh] bg-gradient-to-t from-[#2EFF66]/12 via-[#0c2114]/20 to-transparent"></div>
+
+    <!-- Bottom-Left: Geometric Wasteland Radio Tower + Pip-Boy Grid Lines -->
+    <svg class="absolute bottom-0 left-0 w-72 sm:w-96 h-auto text-[#102E1B] opacity-95" viewBox="0 0 360 360" fill="none">
+      <!-- Crisp Tactical Grid Lines -->
+      <g stroke="#2EFF66" stroke-opacity="0.16" stroke-width="1.5">
+        <line x1="0" y1="320" x2="360" y2="320" />
+        <line x1="0" y1="270" x2="310" y2="270" />
+        <line x1="0" y1="220" x2="240" y2="220" />
+        <line x1="40" y1="160" x2="40" y2="360" />
+        <line x1="100" y1="180" x2="100" y2="360" />
+        <line x1="160" y1="210" x2="160" y2="360" />
+        <line x1="220" y1="250" x2="220" y2="360" />
+      </g>
+      <!-- Radio Tower Silhouette -->
+      <path d="M88 360 L118 116 L128 116 L158 360 L144 360 L123 160 L102 360 Z" fill="currentColor" />
+      <rect x="120" y="74" width="6" height="46" fill="currentColor" />
+      <circle cx="123" cy="72" r="7" fill="#FFE600" fill-opacity="0.45" />
+      <!-- Cross Braces -->
+      <path d="M106 290 L140 290 M110 245 L136 245 M114 200 L132 200 M103 320 L143 275 M143 320 L103 275 M108 270 L138 228 M138 270 L108 228" stroke="#2EFF66" stroke-opacity="0.35" stroke-width="2.5" />
+      <!-- Signal Arcs -->
+      <path d="M98 56 A32 32 0 0 0 98 92" stroke="#2EFF66" stroke-opacity="0.38" stroke-width="3" stroke-linecap="round" />
+      <path d="M148 56 A32 32 0 0 1 148 92" stroke="#2EFF66" stroke-opacity="0.38" stroke-width="3" stroke-linecap="round" />
+      <path d="M82 42 A50 50 0 0 0 82 106" stroke="#FFE600" stroke-opacity="0.28" stroke-width="2.5" stroke-linecap="round" />
+      <path d="M164 42 A50 50 0 0 1 164 106" stroke="#FFE600" stroke-opacity="0.28" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+
+    <!-- Bottom-Right: Crisp Vault-Tec Toothed Gear Door Silhouette -->
+    <svg class="absolute -bottom-16 -right-16 w-72 sm:w-96 md:w-[27rem] h-auto text-[#102E1B] opacity-95" viewBox="0 0 320 320" fill="currentColor">
+      <!-- Outer Gear Teeth -->
+      <g transform="translate(160 160)">
+        <rect x="-18" y="-146" width="36" height="36" rx="4" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(45)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(90)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(135)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(180)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(225)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(270)" />
+        <rect x="-18" y="-146" width="36" height="36" rx="4" transform="rotate(315)" />
+        <circle r="118" />
+        <circle r="86" fill="#06130b" />
+        <circle r="76" fill="none" stroke="#2EFF66" stroke-opacity="0.32" stroke-width="4" />
+        <!-- Vault-Tec Center Bar & Ring -->
+        <rect x="-82" y="-16" width="164" height="32" fill="currentColor" />
+        <circle r="34" fill="currentColor" />
+        <circle r="18" fill="#06130b" />
+        <circle r="18" fill="none" stroke="#FFE600" stroke-opacity="0.4" stroke-width="3" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- 3) Cyberpunk 2077: Night City Megabuilding Skyline Backdrop (Crisp Vector — Zero Glow) -->
+  <div id="cyberpunk-backdrop" aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-x-0 bottom-0 h-[42vh] bg-gradient-to-t from-[#FF003C]/14 via-[#131322]/25 to-transparent"></div>
+
+    <!-- Bottom-Left: Night City Megabuildings & HUD Angle Lines -->
+    <svg class="absolute bottom-0 left-0 w-72 sm:w-96 md:w-[26rem] h-auto text-[#141428] opacity-95" viewBox="0 0 380 340" fill="currentColor">
+      <polygon points="0,340 0,115 36,92 72,92 72,340" />
+      <polygon points="64,340 64,158 128,158 128,340" />
+      <polygon points="118,340 118,64 146,42 184,42 184,340" />
+      <polygon points="178,340 178,192 238,192 252,208 252,340" />
+      <polygon points="244,340 244,244 304,244 304,340" />
+      <!-- Crisp Lit Tower Slits & Angled HUD Accents -->
+      <rect x="20" y="122" width="32" height="5" fill="#FCEE0A" fill-opacity="0.55" />
+      <rect x="20" y="138" width="22" height="5" fill="#00F0FF" fill-opacity="0.55" />
+      <rect x="134" y="76" width="34" height="6" fill="#FF003C" fill-opacity="0.65" />
+      <rect x="134" y="96" width="34" height="4" fill="#FCEE0A" fill-opacity="0.5" />
+      <rect x="134" y="112" width="24" height="4" fill="#00F0FF" fill-opacity="0.5" />
+      <polyline points="0,78 52,78 76,54 118,54" fill="none" stroke="#FCEE0A" stroke-opacity="0.4" stroke-width="2.5" />
+      <polyline points="184,170 250,170 280,200 340,200" fill="none" stroke="#00F0FF" stroke-opacity="0.4" stroke-width="2" />
+    </svg>
+
+    <!-- Bottom-Right: Night City Spire Skyline -->
+    <svg class="absolute bottom-0 right-0 w-72 sm:w-96 md:w-[27rem] h-auto text-[#141428] opacity-95" viewBox="0 0 400 360" fill="currentColor">
+      <polygon points="90,360 90,250 148,250 148,360" />
+      <polygon points="140,360 140,180 182,162 214,162 214,360" />
+      <polygon points="204,360 204,88 238,54 278,54 278,360" />
+      <rect x="255" y="14" width="4" height="44" fill="#FF003C" fill-opacity="0.6" />
+      <polygon points="270,360 270,130 330,130 344,148 344,360" />
+      <polygon points="334,360 334,96 400,96 400,360" />
+      <!-- Crisp HUD Stripes -->
+      <rect x="220" y="96" width="42" height="6" fill="#00F0FF" fill-opacity="0.6" />
+      <rect x="220" y="114" width="30" height="5" fill="#FCEE0A" fill-opacity="0.55" />
+      <rect x="350" y="124" width="36" height="6" fill="#FF003C" fill-opacity="0.65" />
+      <rect x="350" y="142" width="26" height="5" fill="#FCEE0A" fill-opacity="0.55" />
+      <polyline points="84,224 140,224 172,192 204,192" fill="none" stroke="#FF003C" stroke-opacity="0.45" stroke-width="2.5" />
+      <polyline points="278,108 320,108 344,84 400,84" fill="none" stroke="#FCEE0A" stroke-opacity="0.45" stroke-width="2" />
+    </svg>
+  </div>
+
+  <!-- 4) Watch Dogs: DedSec / ctOS Constellation Backdrop (Crisp Vector — Zero Glow) -->
+  <div id="watchdogs-backdrop" aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-x-0 bottom-0 h-[38vh] bg-gradient-to-t from-[#00D8FF]/12 via-[#131924]/20 to-transparent"></div>
+
+    <!-- Bottom-Left: ctOS Network Nodes & Pixelated Glitch Blocks -->
+    <svg class="absolute bottom-0 left-0 w-72 sm:w-96 h-auto opacity-95" viewBox="0 0 360 320" fill="none">
+      <g stroke="#00D8FF" stroke-opacity="0.34" stroke-width="1.8">
+        <line x1="28" y1="290" x2="108" y2="215" />
+        <line x1="108" y1="215" x2="196" y2="255" />
+        <line x1="108" y1="215" x2="72" y2="122" />
+        <line x1="72" y1="122" x2="178" y2="148" />
+        <line x1="178" y1="148" x2="196" y2="255" />
+        <line x1="196" y1="255" x2="292" y2="288" />
+        <line x1="178" y1="148" x2="262" y2="198" />
+      </g>
+      <circle cx="28" cy="290" r="6" fill="#00D8FF" fill-opacity="0.65" />
+      <circle cx="108" cy="215" r="7" fill="#FF2A85" fill-opacity="0.75" />
+      <circle cx="72" cy="122" r="5" fill="#39FF14" fill-opacity="0.75" />
+      <circle cx="178" cy="148" r="6" fill="#00D8FF" fill-opacity="0.65" />
+      <circle cx="196" cy="255" r="7" fill="#FFFFFF" fill-opacity="0.7" />
+      <circle cx="262" cy="198" r="5" fill="#FF2A85" fill-opacity="0.65" />
+      <circle cx="292" cy="288" r="5" fill="#00D8FF" fill-opacity="0.6" />
+      <!-- Crisp Pixel Glitch Squares -->
+      <rect x="16" y="180" width="14" height="14" fill="#FF2A85" fill-opacity="0.35" />
+      <rect x="34" y="196" width="10" height="10" fill="#00D8FF" fill-opacity="0.38" />
+      <rect x="132" y="274" width="22" height="8" fill="#39FF14" fill-opacity="0.32" />
+      <rect x="224" y="232" width="16" height="8" fill="#FFFFFF" fill-opacity="0.25" />
+    </svg>
+
+    <!-- Bottom-Right: ctOS Profiler Grid & Constellation -->
+    <svg class="absolute bottom-0 right-0 w-72 sm:w-96 h-auto opacity-95" viewBox="0 0 360 320" fill="none">
+      <g stroke="#00D8FF" stroke-opacity="0.34" stroke-width="1.8">
+        <line x1="74" y1="292" x2="162" y2="238" />
+        <line x1="162" y1="238" x2="248" y2="262" />
+        <line x1="162" y1="238" x2="198" y2="146" />
+        <line x1="198" y1="146" x2="296" y2="118" />
+        <line x1="296" y1="118" x2="328" y2="212" />
+        <line x1="248" y1="262" x2="328" y2="212" />
+        <line x1="198" y1="146" x2="248" y2="262" />
+      </g>
+      <circle cx="74" cy="292" r="5" fill="#00D8FF" fill-opacity="0.6" />
+      <circle cx="162" cy="238" r="7" fill="#00D8FF" fill-opacity="0.7" />
+      <circle cx="198" cy="146" r="6" fill="#FF2A85" fill-opacity="0.75" />
+      <circle cx="296" cy="118" r="7" fill="#39FF14" fill-opacity="0.7" />
+      <circle cx="328" cy="212" r="6" fill="#FFFFFF" fill-opacity="0.65" />
+      <circle cx="248" cy="262" r="7" fill="#FF2A85" fill-opacity="0.7" />
+      <!-- DedSec Glitch Blocks & Profiler Corner -->
+      <polyline points="236,84 236,68 252,68" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="2.5" />
+      <polyline points="336,154 336,170 320,170" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="2.5" />
+      <rect x="278" y="274" width="24" height="10" fill="#00D8FF" fill-opacity="0.35" />
+      <rect x="308" y="260" width="14" height="14" fill="#FF2A85" fill-opacity="0.4" />
+      <rect x="116" y="192" width="18" height="8" fill="#39FF14" fill-opacity="0.32" />
+    </svg>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
@@ -395,10 +671,10 @@
 
       <!-- Right Action Controls -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-        <!-- Connect Spotify / Data Source Modal Trigger -->
+        <!-- Import JSON / Data Source Modal Trigger -->
         <button id="open-connect-btn" class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition active:scale-95">
-          <i data-lucide="plug-zap" class="w-4 h-4 text-spotify-green"></i>
-          <span id="connect-btn-label">Connect Spotify</span>
+          <i data-lucide="file-json" class="w-4 h-4 text-spotify-green"></i>
+          <span id="connect-btn-label">Import JSON</span>
         </button>
 
         <!-- Share Capsule Button -->
@@ -422,9 +698,67 @@
     <!-- Capsule Header + Time Range Selector Pills -->
     <section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <div class="flex items-center gap-2.5 mb-1.5">
-          <img id="user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Profile" onerror="this.src='https://placehold.co/100x100/242424/1DB954?text=S'" class="w-7 h-7 rounded-full object-cover ring-2 ring-spotify-green/70">
-          <span id="user-display-name" class="text-xs font-semibold uppercase tracking-wider text-spotify-subtext">Maya Lin • Sound Capsule</span>
+        <div class="flex items-center gap-3 mb-1.5">
+          <!-- Profile Avatar (DrethMa5ter Pop-Art Portrait SVG + Click to Upload Custom Photo) -->
+          <button id="avatar-picker-btn" type="button" title="Click to upload a custom profile picture" class="relative w-11 h-11 rounded-full overflow-hidden ring-2 ring-spotify-green shrink-0 group cursor-pointer focus:outline-none">
+            <svg id="user-avatar-svg" viewBox="0 0 120 120" class="w-full h-full block" role="img" aria-label="DrethMa5ter Portrait">
+              <!-- Deep Purple Pop-Art Backdrop -->
+              <rect width="120" height="120" fill="#260030" />
+              <!-- Magenta-Crimson Shirt & Shoulders -->
+              <path d="M-4 92 C14 82, 30 82, 42 82 L49 124 L-4 124 Z" fill="#F21E54" stroke="#08080A" stroke-width="2" />
+              <path d="M84 85 C98 86, 112 94, 124 114 L124 124 L76 124 Z" fill="#F21E54" stroke="#08080A" stroke-width="2" />
+              <path d="M12 86 C20 96, 22 108, 22 122 L34 122 C33 106, 28 92, 20 84 Z" fill="#B8102C" />
+              <path d="M98 94 C104 102, 108 110, 108 122 L114 122 C113 108, 108 98, 102 92 Z" fill="#B8102C" />
+              <!-- Neck -->
+              <path d="M40 72 L78 72 L75 122 L44 122 Z" fill="#009E88" />
+              <path d="M43 78 C46 92, 50 104, 54 118 L44 118 Z" fill="#58C400" />
+              <!-- Cropped Black Hair Silhouette -->
+              <path d="M39 46 C36 28, 46 12, 66 10 C84 9, 95 22, 92 43 C90 47, 88 45, 86 40 C83 28, 72 23, 58 24 C47 25, 43 34, 41 46 Z" fill="#060608" />
+              <!-- Ears -->
+              <path d="M39 45 C35 48, 36 59, 41 62 Z" fill="#00B89E" stroke="#060608" stroke-width="1.5" />
+              <path d="M38 51 C37 54, 38 57, 40 58 Z" fill="#58C400" />
+              <path d="M88 49 C92 51, 91 61, 85 65 Z" fill="#00B89E" stroke="#060608" stroke-width="1.5" />
+              <path d="M88 53 C89 56, 88 59, 86 60 Z" fill="#58C400" />
+              <!-- Face Base (Teal) -->
+              <path d="M41 41 C41 25, 55 20, 68 21 C82 22, 89 32, 88 48 C87 64, 79 78, 63 82 C48 81, 41 64, 41 41 Z" fill="#00A98F" stroke="#060608" stroke-width="1.8" />
+              <!-- Bright Aqua Highlights on Forehead, Cheeks & Nose -->
+              <path d="M46 34 C50 24, 65 22, 77 26 C81 30, 81 36, 75 37 C64 35, 53 35, 46 37 Z" fill="#00F5DC" />
+              <path d="M45 50 C50 48, 56 50, 56 57 C55 62, 48 63, 45 57 Z" fill="#00F5DC" />
+              <path d="M68 50 C75 49, 83 51, 82 60 C80 66, 71 65, 68 58 Z" fill="#00F5DC" />
+              <path d="M60 40 C63 40, 65 49, 64 56 C61 57, 58 55, 59 48 Z" fill="#00F5DC" />
+              <!-- Signature Pop-Art Lime Green Highlights -->
+              <path d="M60 26 C66 25, 74 28, 72 34 C68 38, 62 39, 60 34 Z" fill="#5CC700" />
+              <path d="M66 49 C69 52, 71 57, 68 60 C66 57, 65 53, 66 49 Z" fill="#5CC700" />
+              <path d="M43 60 C46 62, 47 67, 45 70 C42 68, 42 63, 43 60 Z" fill="#5CC700" />
+              <!-- Eyebrows -->
+              <path d="M44 39 C49 35, 56 36, 59 40 C55 39, 49 39, 44 41 Z" fill="#060608" />
+              <path d="M69 39 C74 37, 81 38, 85 42 C80 41, 74 41, 69 41 Z" fill="#060608" />
+              <!-- Eyes -->
+              <ellipse cx="52" cy="45" rx="4.8" ry="2.6" fill="#FFFFFF" stroke="#060608" stroke-width="1.6" />
+              <circle cx="52.5" cy="45" r="1.9" fill="#060608" />
+              <ellipse cx="75" cy="46.5" rx="4.8" ry="2.6" fill="#FFFFFF" stroke="#060608" stroke-width="1.6" />
+              <circle cx="74.5" cy="46.5" r="1.9" fill="#060608" />
+              <!-- Subtle Mustache & Mouth -->
+              <path d="M51 64 C55 61, 67 61, 71 65 C67 64, 56 64, 51 66 Z" fill="#0B4F46" />
+              <path d="M54 68 C58 70, 64 70, 68 68" fill="none" stroke="#060608" stroke-width="1.6" stroke-linecap="round" />
+              <!-- Hand Resting on Chin (Signature Pose) -->
+              <path d="M49 77 C54 73, 63 73, 67 78 C72 82, 75 93, 76 106 L74 122 L53 122 C52 108, 47 93, 49 77 Z" fill="#00F5DC" stroke="#060608" stroke-width="1.8" />
+              <!-- Curled Finger Divisions & Lime Highlights -->
+              <path d="M51 84 C57 83, 62 84, 65 87" fill="none" stroke="#060608" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M52 92 C58 91, 63 92, 67 96" fill="none" stroke="#060608" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M53 101 C59 100, 65 102, 68 106" fill="none" stroke="#060608" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M50 80 C55 78, 60 80, 59 84 C55 84, 51 83, 50 80 Z" fill="#5CC700" />
+              <path d="M51 88 C57 87, 62 89, 60 93 C55 93, 51 91, 51 88 Z" fill="#5CC700" />
+              <path d="M53 96 C58 96, 62 99, 60 103 C56 102, 53 100, 53 96 Z" fill="#5CC700" />
+              <path d="M64 109 C69 107, 73 111, 71 118 L63 118 Z" fill="#00A98F" />
+            </svg>
+            <img id="user-avatar" src="https://placehold.co/100x100/260030/00F5DC?text=DM" alt="Profile" onerror="this.src='https://placehold.co/100x100/260030/00F5DC?text=DM'" class="hidden w-full h-full object-cover">
+            <span class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+              <i data-lucide="camera" class="w-4 h-4 text-white"></i>
+            </span>
+          </button>
+          <input id="avatar-upload-input" type="file" accept="image/*" class="hidden">
+          <span id="user-display-name" class="text-xs font-semibold uppercase tracking-wider text-spotify-subtext">DrethMa5ter • Sound Capsule</span>
         </div>
         <h1 id="capsule-period-heading" class="vice-neon-title font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           November 2026
@@ -480,8 +814,12 @@
 
       <!-- Card 2: Sound of the Month / Audio Aura (7 cols) -->
       <div class="lg:col-span-7 capsule-aura-bg rounded-3xl p-6 border border-white/10 flex flex-col justify-between relative overflow-hidden">
-        <!-- Animated Ambient Glow Orb (Hidden in Vice City theme) -->
-        <div id="aura-orb" class="pointer-events-none absolute -right-12 -top-12 w-64 h-64 rounded-full bg-gradient-to-tr from-violet-500/40 via-fuchsia-500/40 to-cyan-400/40 blur-2xl animate-aura-slow"></div>
+        <!-- Crisp Geometric Accent Ring (Zero Blur / Zero Glow) -->
+        <svg id="aura-orb" aria-hidden="true" class="pointer-events-none absolute -right-12 -top-12 w-56 h-56 text-white/10 animate-aura-slow" viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="2" stroke-dasharray="10 8" />
+          <circle cx="100" cy="100" r="64" stroke="currentColor" stroke-width="2" />
+          <circle cx="100" cy="100" r="36" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 6" />
+        </svg>
 
         <!-- Vice City Hero Card Palm Tree Silhouette (Crisp Dark Violet, Zero Drop-Shadow) -->
         <svg id="aura-palm-silhouette" aria-hidden="true" class="pointer-events-none absolute right-2 bottom-0 w-44 sm:w-56 h-auto text-[#120422] opacity-40" viewBox="0 0 240 220" fill="currentColor">
@@ -492,6 +830,54 @@
           <path d="M127 72 C138 42, 160 26, 186 22 C164 32, 144 48, 130 74 Z"/>
           <path d="M128 74 C156 54, 188 56, 216 74 C190 64, 160 66, 131 79 Z"/>
           <path d="M128 77 C162 72, 194 88, 216 116 C190 96, 160 85, 130 83 Z"/>
+        </svg>
+
+        <!-- Fallout Hero Card Vault-Tec Gear Silhouette -->
+        <svg id="aura-fallout-silhouette" aria-hidden="true" class="pointer-events-none absolute -right-6 -top-4 w-48 sm:w-56 h-auto text-[#06130b] opacity-45" viewBox="0 0 200 200" fill="currentColor">
+          <g transform="translate(100 100)">
+            <rect x="-12" y="-92" width="24" height="26" rx="3" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(45)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(90)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(135)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(180)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(225)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(270)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(315)" />
+            <circle r="72" />
+            <circle r="50" fill="none" stroke="#2EFF66" stroke-width="5" stroke-opacity="0.55" />
+            <rect x="-54" y="-10" width="108" height="20" fill="#FFE600" fill-opacity="0.4" />
+            <circle r="18" fill="#06130b" />
+          </g>
+        </svg>
+
+        <!-- Cyberpunk 2077 Hero Card Tower & HUD Reticle Vector -->
+        <svg id="aura-cyberpunk-silhouette" aria-hidden="true" class="pointer-events-none absolute right-0 top-0 w-52 sm:w-64 h-auto opacity-45" viewBox="0 0 240 200" fill="none">
+          <polygon points="148,200 148,54 176,30 210,30 210,200" fill="#0a0a12" />
+          <polygon points="104,200 104,108 148,108 148,200" fill="#0a0a12" />
+          <polygon points="204,200 204,76 240,76 240,200" fill="#0a0a12" />
+          <rect x="160" y="56" width="34" height="5" fill="#FCEE0A" />
+          <rect x="160" y="70" width="24" height="4" fill="#00F0FF" />
+          <polyline points="72,44 128,44 148,24 226,24" stroke="#FCEE0A" stroke-width="2.5" />
+          <circle cx="96" cy="76" r="18" stroke="#00F0FF" stroke-width="2" />
+          <line x1="96" y1="50" x2="96" y2="102" stroke="#00F0FF" stroke-width="1.5" />
+          <line x1="70" y1="76" x2="122" y2="76" stroke="#00F0FF" stroke-width="1.5" />
+        </svg>
+
+        <!-- Watch Dogs Hero Card ctOS Node Polygon & Profiler Brackets -->
+        <svg id="aura-watchdogs-silhouette" aria-hidden="true" class="pointer-events-none absolute right-2 top-2 w-48 sm:w-56 h-auto opacity-55" viewBox="0 0 220 190" fill="none">
+          <polygon points="118,28 190,62 174,142 96,158 58,92" stroke="#00D8FF" stroke-width="2" fill="#0b0e14" fill-opacity="0.35" />
+          <line x1="118" y1="28" x2="174" y2="142" stroke="#00D8FF" stroke-width="1.5" stroke-opacity="0.7" />
+          <line x1="58" y1="92" x2="190" y2="62" stroke="#FF2A85" stroke-width="1.5" stroke-opacity="0.75" />
+          <circle cx="118" cy="28" r="5" fill="#39FF14" />
+          <circle cx="190" cy="62" r="5.5" fill="#00D8FF" />
+          <circle cx="174" cy="142" r="5.5" fill="#FF2A85" />
+          <circle cx="96" cy="158" r="5" fill="#FFFFFF" />
+          <circle cx="58" cy="92" r="5" fill="#00D8FF" />
+          <!-- Profiler Corner Brackets -->
+          <polyline points="40,34 40,16 58,16" stroke="#FFFFFF" stroke-width="2.5" />
+          <polyline points="204,16 212,16 212,34" stroke="#FFFFFF" stroke-width="2.5" />
+          <polyline points="40,156 40,174 58,174" stroke="#FFFFFF" stroke-width="2.5" />
+          <polyline points="194,174 212,174 212,156" stroke="#FFFFFF" stroke-width="2.5" />
         </svg>
 
         <div class="relative z-10">
@@ -506,10 +892,10 @@
           </div>
 
           <h2 id="aura-title" class="font-display text-2xl sm:text-3xl font-extrabold text-white leading-tight max-w-lg">
-            Euphoric Indie & Nocturnal Synth
+            Leonida Synth & Vice City Anthems
           </h2>
           <p id="aura-description" class="text-sm text-white/90 mt-2 max-w-xl leading-relaxed">
-            Your rotation leaned into shimmering late-night synths, crisp alt-pop percussion, and warm atmospheric vocals.
+            Your rotation locked into Grand Theft Auto VI’s score and Vice City radio—driven by Justice’s French electro anthems, neo-psychedelia, and cruising classics.
           </p>
         </div>
 
@@ -744,7 +1130,7 @@
     </div>
   </div>
 
-  <!-- MODAL 1: Connect Spotify OAuth PKCE / Upload JSON / Switch Demo -->
+  <!-- MODAL 1: Import Spotify JSON / Switch Demo Profiles -->
   <div id="connect-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
     <div class="bg-[#181818] border border-white/10 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button id="close-connect-modal" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#282828] hover:bg-[#333333] flex items-center justify-center text-spotify-subtext hover:text-white transition">
@@ -753,20 +1139,17 @@
 
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 rounded-full bg-spotify-green/15 text-spotify-green flex items-center justify-center">
-          <i data-lucide="radio" class="w-5 h-5"></i>
+          <i data-lucide="file-json" class="w-5 h-5"></i>
         </div>
         <div>
-          <h3 class="font-display text-xl font-bold text-white">Connect Your Spotify Data</h3>
-          <p class="text-xs text-spotify-subtext">Choose how you want to populate your Sound Capsule</p>
+          <h3 class="font-display text-xl font-bold text-white">Import Your Spotify Data</h3>
+          <p class="text-xs text-spotify-subtext">Analyze your official Spotify JSON export locally or explore demo profiles</p>
         </div>
       </div>
 
-      <!-- Tab Switcher inside Modal -->
-      <div class="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-[#121212] border border-white/5 mb-5">
-        <button data-source-tab="oauth" class="source-tab-btn active py-2 px-3 rounded-xl text-xs font-bold bg-[#282828] text-white transition">
-          Spotify API
-        </button>
-        <button data-source-tab="json" class="source-tab-btn py-2 px-3 rounded-xl text-xs font-bold text-spotify-subtext hover:text-white transition">
+      <!-- Tab Switcher inside Modal (2 Tabs Only: Upload JSON + Demo Profiles) -->
+      <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-[#121212] border border-white/5 mb-5">
+        <button data-source-tab="json" class="source-tab-btn active py-2 px-3 rounded-xl text-xs font-bold bg-[#282828] text-white transition">
           Upload JSON
         </button>
         <button data-source-tab="demo" class="source-tab-btn py-2 px-3 rounded-xl text-xs font-bold text-spotify-subtext hover:text-white transition">
@@ -774,98 +1157,76 @@
         </button>
       </div>
 
-      <!-- TAB 1: Live Spotify OAuth 2.0 PKCE -->
-      <div id="tab-oauth" class="space-y-4">
-        <div class="p-4 rounded-2xl bg-[#222222] border border-white/5 text-xs text-spotify-subtext space-y-2.5 leading-relaxed">
+      <!-- TAB 1 (Default Active): Upload Spotify Privacy Data JSON + Detailed Download Guide -->
+      <div id="tab-json" class="space-y-4">
+        <div class="p-4 rounded-2xl bg-[#222222] border border-white/10 text-xs text-spotify-subtext space-y-2.5 leading-relaxed">
           <p class="text-white font-semibold flex items-center gap-1.5">
-            <i data-lucide="shield-check" class="w-4 h-4 text-spotify-green"></i>
-            Quick Setup Guide (No Backend Needed)
+            <i data-lucide="download" class="w-4 h-4 text-spotify-green"></i>
+            How to Download Your Spotify JSON Files
           </p>
-          <ol class="space-y-2 list-decimal list-inside marker:text-spotify-green marker:font-bold">
+          <ol class="space-y-2.5 list-decimal list-inside marker:text-spotify-green marker:font-bold">
             <li>
-              Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener" class="text-spotify-green underline hover:text-spotify-greenBright">Spotify Developer Dashboard</a>, click <strong class="text-white">Create app</strong>, and check <strong class="text-white">Web API</strong>.
+              Sign in to your browser and open
+              <a href="https://www.spotify.com/account/privacy/" target="_blank" rel="noopener" class="text-spotify-green font-semibold underline hover:text-spotify-greenBright">Spotify Account Privacy</a>.
+              (See
+              <a href="https://support.spotify.com/us/article/understanding-your-data/" target="_blank" rel="noopener" class="text-cyan-300 underline hover:text-cyan-200">Spotify’s official data guide</a>
+              for details.)
             </li>
             <li>
-              Copy this exact <strong class="text-white">Redirect URI</strong> and paste it once into your Spotify app's Redirect URIs box:
-              <div class="flex items-center gap-2 bg-[#121212] p-2 mt-1.5 rounded-xl border border-white/10">
-                <input id="redirect-uri-display" type="text" aria-label="Redirect URI" class="bg-transparent text-[11px] font-mono text-emerald-300 flex-1 focus:outline-none focus:text-white min-w-0" />
-                <button id="copy-redirect-btn" type="button" class="px-2.5 py-1 rounded-lg bg-[#282828] hover:bg-[#353535] text-white text-[11px] font-semibold shrink-0">
-                  Copy
-                </button>
-              </div>
+              Scroll down to <strong class="text-white">Download your data</strong> and choose a package:
+              <ul class="mt-1.5 ml-4 space-y-1 list-disc text-[11px]">
+                <li><strong class="text-white">Account data</strong> — Last 12 months of history (usually arrives in 1–5 days; contains <code class="text-emerald-300">StreamingHistory_music_0.json</code>, etc.).</li>
+                <li><strong class="text-white">Extended streaming history</strong> — Your full lifetime history from day one (takes up to 30 days, often 1–5 days; contains <code class="text-emerald-300">Streaming_History_Audio_*.json</code>).</li>
+                <li class="text-amber-300">Tip: You can untick <em>Technical log information</em>.</li>
+              </ul>
             </li>
             <li>
-              Click <strong class="text-white">Add</strong>, then scroll to the bottom of Spotify's settings page and click <strong class="text-white">Save</strong> <span class="text-amber-300/90">(clicking Add alone won't save it)</span>.
+              Click <strong class="text-white">Request data</strong>, then open the confirmation email from Spotify and click <strong class="text-white">Confirm</strong> <span class="text-white/80">(Spotify will not start preparing your export until you confirm)</span>.
             </li>
             <li>
-              Open your app's <strong class="text-white">Settings</strong>, copy the <strong class="text-white">Client ID</strong>, and paste it below.
+              When Spotify emails your download link, download and unzip the archive promptly before the link expires.
             </li>
             <li>
-              Click <strong class="text-white">Authorize & Load Real Spotify Stats</strong>, click <strong class="text-white">Agree</strong> on Spotify, then copy the redirected URL (containing <code class="text-emerald-300">?code=...</code>) from the address bar and paste it into the box that appears below.
+              Select or drag-and-drop one or multiple <code class="text-emerald-300">.json</code> files below (<code class="text-emerald-300">StreamingHistory_music_*.json</code>, <code class="text-emerald-300">Streaming_History_Audio_*.json</code>, or legacy <code class="text-emerald-300">endsong_*.json</code>).
             </li>
           </ol>
-        </div>
-
-        <div>
-          <label for="spotify-client-id" class="block text-xs font-semibold text-white mb-1.5">Spotify App Client ID</label>
-          <input id="spotify-client-id" type="text" placeholder="e.g., 8f9a2b3c4d5e6f7a8b9c0d1e2f3a4b5c" class="w-full px-4 py-3 rounded-xl bg-[#121212] border border-white/15 text-sm text-white placeholder-spotify-muted focus:outline-none focus:border-spotify-green transition">
-          <p id="client-id-status" class="text-[11px] text-spotify-subtext mt-1.5 hidden"></p>
-        </div>
-
-        <button id="start-pkce-btn" type="button" class="theme-accent-btn w-full py-3.5 rounded-full font-bold text-sm transition flex items-center justify-center gap-2">
-          <i data-lucide="log-in" class="w-4 h-4"></i>
-          Authorize & Load Real Spotify Stats
-        </button>
-
-        <!-- Sandboxed Iframe Fallback: Manual Callback URL / Code Paste -->
-        <div id="pkce-fallback-box" class="hidden p-3.5 rounded-2xl bg-[#121212] border border-amber-500/30 space-y-2.5">
-          <p class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            Opened Spotify Login in a New Tab
-          </p>
-          <p class="text-[11px] text-spotify-subtext leading-relaxed">
-            After clicking <strong>Agree</strong> on Spotify, if the redirected page doesn't load inside this preview frame, copy the full URL from your browser's address bar (containing <code class="text-emerald-300">?code=...</code>) and paste it below:
-          </p>
-          <div class="flex items-center gap-2">
-            <input id="manual-callback-input" type="text" placeholder="Paste redirected URL or ?code=... here" class="flex-1 px-3 py-2 rounded-xl bg-[#181818] border border-white/15 text-xs text-white placeholder-spotify-muted focus:outline-none focus:border-spotify-green min-w-0">
-            <button id="complete-manual-pkce-btn" type="button" class="theme-accent-btn px-3.5 py-2 rounded-xl font-bold text-xs shrink-0">
-              Load Stats
-            </button>
+          <div class="pt-2 border-t border-white/10 flex items-center gap-2 text-[11px] text-emerald-300 font-medium">
+            <i data-lucide="shield-check" class="w-4 h-4 shrink-0"></i>
+            <span>100% Private: All parsing runs locally in your browser—no data ever leaves your device.</span>
           </div>
-          <p id="pkce-fallback-error" class="hidden text-[11px] text-rose-300 leading-relaxed"></p>
-        </div>
-      </div>
-
-      <!-- TAB 2: Upload Spotify Privacy Data JSON -->
-      <div id="tab-json" class="hidden space-y-4">
-        <div class="p-3.5 rounded-2xl bg-[#222222] border border-white/5 text-xs text-spotify-subtext space-y-1.5">
-          <p class="text-white font-semibold">Supports Spotify Account Data Exports</p>
-          <p>Upload <code class="text-emerald-300">StreamingHistory_music_0.json</code> or <code class="text-emerald-300">endsong_0.json</code> (or multiple files at once) to compute your exact listening minutes, peak clock hours, top tracks, and top artists locally in your browser.</p>
         </div>
 
-        <label id="json-dropzone" class="flex flex-col items-center justify-center p-7 border-2 border-dashed border-white/15 hover:border-spotify-green rounded-2xl bg-[#121212] cursor-pointer transition text-center">
-          <i data-lucide="file-json" class="w-9 h-9 text-spotify-green mb-2"></i>
-          <span class="text-sm font-bold text-white">Click to select Spotify JSON file(s)</span>
-          <span class="text-xs text-spotify-subtext mt-1">StreamingHistory_music_*.json or endsong_*.json</span>
+        <label id="json-dropzone" class="flex flex-col items-center justify-center p-6 border-2 border-dashed border-white/20 hover:border-spotify-green rounded-2xl bg-[#121212] cursor-pointer transition text-center">
+          <i data-lucide="upload" class="w-8 h-8 text-spotify-green mb-2"></i>
+          <span class="text-sm font-bold text-white">Click or drag &amp; drop Spotify JSON file(s)</span>
+          <span class="text-xs text-spotify-subtext mt-1">StreamingHistory_music_*.json • Streaming_History_Audio_*.json • endsong_*.json</span>
           <input id="json-file-input" type="file" accept=".json,application/json" multiple class="hidden">
         </label>
       </div>
 
-      <!-- TAB 3: Curated Demo Personas -->
+      <!-- TAB 2: Curated Demo Personas -->
       <div id="tab-demo" class="hidden space-y-3">
         <p class="text-xs text-spotify-subtext">Switch between curated listening personas to explore different Sound Capsule moods and rhythms:</p>
 
-        <button data-demo-preset="indie" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-spotify-green/40 text-left flex items-center justify-between transition">
+        <button data-demo-preset="drethma5ter" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-spotify-green/40 text-left flex items-center justify-between transition">
           <div>
-            <p class="text-sm font-bold text-white">Maya Lin — Euphoric Indie & Synth</p>
-            <p class="text-xs text-spotify-subtext">4,820 mins • Fred again.., Tame Impala, Magdalena Bay</p>
+            <p class="text-sm font-bold text-white">DrethMa5ter — GTA VI: Vice City Radio &amp; Score</p>
+            <p class="text-xs text-spotify-subtext">5,480 mins • Justice, Tame Impala, SZA, Travis Scott</p>
           </div>
           <span class="demo-status-label text-xs font-bold text-spotify-green shrink-0 ml-2">Active</span>
         </button>
 
+        <button data-demo-preset="indie" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-white/5 text-left flex items-center justify-between transition">
+          <div>
+            <p class="text-sm font-bold text-white">Maya Lin — Euphoric Indie &amp; Synth</p>
+            <p class="text-xs text-spotify-subtext">4,820 mins • Fred again.., Tame Impala, Magdalena Bay</p>
+          </div>
+          <span class="demo-status-label text-xs font-semibold text-spotify-subtext shrink-0 ml-2">Load</span>
+        </button>
+
         <button data-demo-preset="hiphop" class="demo-preset-btn w-full p-3.5 rounded-2xl bg-[#222222] hover:bg-[#2a2a2a] border border-white/5 text-left flex items-center justify-between transition">
           <div>
-            <p class="text-sm font-bold text-white">Devon Brooks — Late-Night R&B & Rap</p>
+            <p class="text-sm font-bold text-white">Devon Brooks — Late-Night R&amp;B &amp; Rap</p>
             <p class="text-xs text-spotify-subtext">6,140 mins • Kendrick Lamar, SZA, Kaytranada, Frank Ocean</p>
           </div>
           <span class="demo-status-label text-xs font-semibold text-spotify-subtext shrink-0 ml-2">Load</span>
@@ -884,22 +1245,21 @@
         </button>
       </div>
 
-      <!-- Theme Selector Pills -->
-      <div class="flex items-center gap-2 mb-4">
+      <!-- Theme Selector Pills (All 8 Crisp Story Themes) -->
+      <div class="flex items-center flex-wrap justify-center gap-2 mb-4">
         <button data-card-theme="cosmic" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-cyan-400 ring-2 ring-white transition" title="Cosmic Purple"></button>
         <button data-card-theme="vice_city" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-[#00F6FF] via-[#FF2EC4] to-[#FFE600] opacity-70 hover:opacity-100 transition" title="GTA VI: Vice City"></button>
-        <button data-card-theme="lime" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 via-spotify-green to-lime-300 opacity-70 hover:opacity-100 transition" title="Neon Lime"></button>
+        <button data-card-theme="fallout" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-[#06130b] via-[#2EFF66] to-[#FFE600] opacity-70 hover:opacity-100 transition" title="Fallout: Pip-Boy"></button>
+        <button data-card-theme="cyberpunk" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-[#FF003C] via-[#FCEE0A] to-[#00F0FF] opacity-70 hover:opacity-100 transition" title="Cyberpunk 2077: Night City"></button>
+        <button data-card-theme="watch_dogs" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-[#0b0e14] via-[#00D8FF] to-[#FF2A85] opacity-70 hover:opacity-100 transition" title="Watch Dogs: DedSec"></button>
+        <button data-card-theme="lime" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 via-spotify-green to-lime-300 opacity-70 hover:opacity-100 transition" title="Emerald Lime"></button>
         <button data-card-theme="sunset" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-rose-600 via-orange-500 to-amber-300 opacity-70 hover:opacity-100 transition" title="Sunset Coral"></button>
         <button data-card-theme="cyan" class="card-theme-btn w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 via-cyan-500 to-teal-300 opacity-70 hover:opacity-100 transition" title="Midnight Cyan"></button>
       </div>
 
-      <!-- 9:16 Aspect Ratio Story Card Preview -->
+      <!-- 9:16 Aspect Ratio Story Card Preview (Zero Blur / Zero Glow) -->
       <div id="share-story-card" class="w-full max-w-[300px] aspect-[9/16] rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden border border-white/15 bg-gradient-to-br from-[#23153c] via-[#171324] to-[#0f172a]">
-        <!-- Decorative Radial Glows (Hidden in Vice City theme) -->
-        <div id="story-glow-1" class="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full bg-fuchsia-500/40 blur-2xl"></div>
-        <div id="story-glow-2" class="pointer-events-none absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-cyan-400/35 blur-2xl"></div>
-
-        <!-- Vice City Story Card Palm Silhouette (Crisp, Zero Drop-Shadow) -->
+        <!-- Vice City Story Card Palm Silhouette -->
         <svg id="story-palm-silhouette" aria-hidden="true" class="hidden pointer-events-none absolute -right-3 bottom-6 w-36 h-auto text-[#120422] opacity-45" viewBox="0 0 240 260" fill="currentColor">
           <path d="M178 260 C172 196, 156 136, 128 82 L120 85 C146 138, 160 198, 164 260 Z"/>
           <path d="M124 84 C96 62, 64 64, 36 84 C64 74, 92 76, 120 90 Z"/>
@@ -908,6 +1268,48 @@
           <path d="M127 82 C138 50, 162 32, 190 28 C166 38, 146 56, 130 84 Z"/>
           <path d="M128 84 C158 62, 192 64, 220 84 C192 74, 162 76, 131 90 Z"/>
           <path d="M128 87 C164 82, 196 98, 220 128 C192 108, 162 96, 130 94 Z"/>
+        </svg>
+
+        <!-- Fallout Story Card Vault Gear Silhouette -->
+        <svg id="story-fallout-silhouette" aria-hidden="true" class="hidden pointer-events-none absolute -right-8 bottom-8 w-40 h-auto text-[#06130b] opacity-45" viewBox="0 0 200 200" fill="currentColor">
+          <g transform="translate(100 100)">
+            <rect x="-12" y="-92" width="24" height="26" rx="3" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(45)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(90)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(135)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(180)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(225)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(270)" />
+            <rect x="-12" y="-92" width="24" height="26" rx="3" transform="rotate(315)" />
+            <circle r="72" />
+            <circle r="48" fill="none" stroke="#2EFF66" stroke-width="4" stroke-opacity="0.55" />
+            <rect x="-50" y="-9" width="100" height="18" fill="#FFE600" fill-opacity="0.4" />
+            <circle r="16" fill="#06130b" />
+          </g>
+        </svg>
+
+        <!-- Cyberpunk Story Card Skyline Silhouette -->
+        <svg id="story-cyberpunk-silhouette" aria-hidden="true" class="hidden pointer-events-none absolute inset-x-0 bottom-0 w-full h-36 opacity-45" viewBox="0 0 300 140" fill="none">
+          <polygon points="0,140 0,72 28,58 54,58 54,140" fill="#0a0a12" />
+          <polygon points="50,140 50,94 94,94 94,140" fill="#0a0a12" />
+          <polygon points="204,140 204,48 232,28 262,28 262,140" fill="#0a0a12" />
+          <polygon points="256,140 256,68 300,68 300,140" fill="#0a0a12" />
+          <rect x="218" y="54" width="28" height="4" fill="#FCEE0A" />
+          <rect x="218" y="66" width="20" height="4" fill="#00F0FF" />
+          <polyline points="0,46 58,46 78,26 124,26" stroke="#FCEE0A" stroke-width="2" />
+        </svg>
+
+        <!-- Watch Dogs Story Card ctOS Graph & Profiler Brackets -->
+        <svg id="story-watchdogs-silhouette" aria-hidden="true" class="hidden pointer-events-none absolute right-2 bottom-8 w-36 h-36 opacity-50" viewBox="0 0 160 160" fill="none">
+          <polygon points="82,22 140,56 124,126 52,136 28,74" stroke="#00D8FF" stroke-width="2" />
+          <line x1="82" y1="22" x2="124" y2="126" stroke="#FF2A85" stroke-width="1.5" />
+          <circle cx="82" cy="22" r="4.5" fill="#39FF14" />
+          <circle cx="140" cy="56" r="4.5" fill="#00D8FF" />
+          <circle cx="124" cy="126" r="4.5" fill="#FF2A85" />
+          <circle cx="52" cy="136" r="4" fill="#FFFFFF" />
+          <circle cx="28" cy="74" r="4.5" fill="#00D8FF" />
+          <polyline points="14,26 14,12 28,12" stroke="#FFFFFF" stroke-width="2" />
+          <polyline points="134,148 148,148 148,134" stroke="#FFFFFF" stroke-width="2" />
         </svg>
 
         <!-- Top Header -->
@@ -927,8 +1329,8 @@
             <img id="story-artist-img" src="https://placehold.co/120x120/242424/1DB954?text=A" onerror="this.src='https://placehold.co/120x120/242424/1DB954?text=A'" alt="Top Artist" class="w-16 h-16 rounded-full object-cover ring-2 ring-white/60 shrink-0">
             <div class="min-w-0">
               <span class="text-[10px] font-bold uppercase tracking-widest text-white/80">Top Artist</span>
-              <p id="story-artist-name" class="font-display text-lg font-extrabold text-white leading-tight truncate">Fred again..</p>
-              <p id="story-aura-tag" class="text-[11px] text-white/90 font-medium mt-0.5 truncate">Euphoric Indie & Synth</p>
+              <p id="story-artist-name" class="font-display text-lg font-extrabold text-white leading-tight truncate">Justice</p>
+              <p id="story-aura-tag" class="text-[11px] text-white/90 font-medium mt-0.5 truncate">Leonida Synth & Vice City Anthems</p>
             </div>
           </div>
 
@@ -937,7 +1339,7 @@
               <span class="text-[10px] uppercase tracking-wider text-white/80 font-semibold">Minutes Listened</span>
               <span id="story-peak-hour" class="text-[10px] text-cyan-200 font-semibold">Peak: 11 PM</span>
             </div>
-            <p id="story-minutes" class="font-display text-2xl font-extrabold text-white mt-0.5">4,820 min</p>
+            <p id="story-minutes" class="font-display text-2xl font-extrabold text-white mt-0.5">5,480 min</p>
           </div>
 
           <!-- Top 3 Tracks Mini List -->
@@ -951,7 +1353,7 @@
 
         <!-- Footer -->
         <div class="relative z-10 flex items-center justify-between pt-2 border-t border-white/20 text-[10px] text-white/85">
-          <span id="story-user">@mayalin</span>
+          <span id="story-user">@drethma5ter</span>
           <span class="font-semibold text-white">spotify.com/soundcapsule</span>
         </div>
       </div>
@@ -1021,6 +1423,57 @@
                   <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#FF2EC4]/25 text-[#FF6BF2] border border-[#00F6FF]">Leonida</span>
                 </div>
                 <p class="text-xs text-spotify-subtext truncate">Bright vivid magenta (#FF2EC4), electric cyan (#00F6FF) &amp; neon yellow</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Fallout: Pip-Boy / Vault-Tec -->
+          <button type="button" data-theme-choice="fallout" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-[#2EFF66]" style="background: linear-gradient(135deg, #06130b 20%, #2EFF66 65%, #FFE600 100%);">
+                <span class="text-[10px] font-display font-extrabold text-[#041208] tracking-tighter">111</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-bold text-white">Fallout: Pip-Boy</p>
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#2EFF66]/20 text-[#2EFF66] border border-[#FFE600]">Vault-Tec</span>
+                </div>
+                <p class="text-xs text-spotify-subtext truncate">Pip-Boy phosphor green (#2EFF66), Vault yellow (#FFE600) &amp; gear silhouettes</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Cyberpunk 2077: Night City -->
+          <button type="button" data-theme-choice="cyberpunk" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-[#FCEE0A]" style="background: linear-gradient(135deg, #FF003C 0%, #FCEE0A 55%, #00F0FF 100%);">
+                <span class="text-[10px] font-display font-extrabold text-[#0A0A12] tracking-tighter">2077</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-bold text-white">Cyberpunk 2077</p>
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#FCEE0A]/20 text-[#FCEE0A] border border-[#00F0FF]">Night City</span>
+                </div>
+                <p class="text-xs text-spotify-subtext truncate">Cyber yellow (#FCEE0A), netrunner cyan (#00F0FF) &amp; megabuilding skyline</p>
+              </div>
+            </div>
+            <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
+          </button>
+
+          <!-- Watch Dogs: DedSec / ctOS -->
+          <button type="button" data-theme-choice="watch_dogs" class="theme-choice-btn w-full p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between gap-3 text-left transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center border border-[#00D8FF]" style="background: linear-gradient(135deg, #0b0e14 15%, #00D8FF 60%, #FF2A85 100%);">
+                <span class="text-[10px] font-display font-extrabold text-white tracking-tighter">ctOS</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-bold text-white">Watch Dogs: DedSec</p>
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#00D8FF]/20 text-[#00D8FF] border border-[#FF2A85]">ctOS</span>
+                </div>
+                <p class="text-xs text-spotify-subtext truncate">Signal cyan (#00D8FF), glitch magenta (#FF2A85) &amp; network node graph</p>
               </div>
             </div>
             <span class="theme-check-badge text-xs font-semibold text-spotify-subtext shrink-0">Select</span>
@@ -1099,6 +1552,199 @@
     // 1. CURATED DEMO DATASETS (Sound Capsule Profiles)
     // =========================================================================
     const DEMO_PROFILES = {
+      drethma5ter: {
+        user: {
+          name: 'DrethMa5ter',
+          handle: '@drethma5ter',
+          avatarType: 'drethma5ter_svg',
+          avatar: ''
+        },
+        ranges: {
+          month: {
+            label: 'November 2026',
+            minutes: 5480,
+            delta: '+26% vs Oct',
+            dailyAvg: 183,
+            topDay: 'Fridays',
+            weekdayMinutes: [640, 710, 690, 790, 1080, 910, 660],
+            aura: {
+              title: 'Leonida Synth & Vice City Anthems',
+              description: 'Your rotation locked into Grand Theft Auto VI’s score and Vice City radio—driven by Justice’s French electro anthems, neo-psychedelia, and cruising classics.',
+              danceability: 81,
+              energy: 88,
+              valence: 68,
+              tempo: 122
+            },
+            clockPersona: 'Vice City Night Drive: 10 PM – 2 AM',
+            hourlyMinutes: [360, 240, 130, 55, 25, 15, 45, 120, 195, 235, 225, 260, 290, 275, 260, 305, 345, 330, 295, 285, 340, 410, 465, 490],
+            discoveryPct: 34,
+            newArtistsCount: 48,
+            totalGenresExplored: 18,
+            genres: [
+              { name: 'French Electro & Score', pct: 36, color: '#FF2EC4' },
+              { name: 'Neo-Psychedelia', pct: 24, color: '#00F6FF' },
+              { name: 'Vice City Synth & Pop', pct: 19, color: '#A855F7' },
+              { name: 'Psychedelic Trap', pct: 13, color: '#F59E0B' },
+              { name: 'Leonida Classic Rock', pct: 8, color: '#1DB954' }
+            ],
+            artists: [
+              { name: 'Justice', genre: 'French Electro • GTA VI Score', minutes: 1240, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 845, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 690, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Travis Scott', genre: 'Psychedelic Trap', minutes: 585, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Michael McDonald', genre: 'Yacht Rock & Soul', minutes: 470, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' },
+              { name: 'King Gizzard & the Lizard Wizard', genre: 'Psych Rock', minutes: 425, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Dua Lipa', genre: 'Flash FM • Disco Pop', minutes: 378, image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Gesaffelstein', genre: 'Dark Synth & Electro', minutes: 332, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tom Petty', genre: 'Leonida Classic Rock', minutes: 285, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Lana Del Rey', genre: 'Back Country • Dream Pop', minutes: 230, image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Starting From Zero (feat. Michael McDonald)', artist: 'Justice', duration: '3:11', plays: 94, note: 'C4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Flower in a Hurricane', artist: 'Justice, Tame Impala, SZA & King Gizzard', duration: '3:45', plays: 87, note: 'E4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pusher', artist: 'Justice & Gesaffelstein', duration: '4:12', plays: 69, note: 'G4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Love Is A Long Road', artist: 'Tom Petty', duration: '4:08', plays: 62, note: 'D4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'RHYNO', artist: 'Travis Scott', duration: '3:24', plays: 56, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Go Easy', artist: 'Dua Lipa', duration: '3:12', plays: 51, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Sexy Magic', artist: 'Fred again.., PinkPantheress & CA7RIEL', duration: '3:38', plays: 46, note: 'B4', art: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=200&q=80' },
+              { title: "That's It", artist: 'Yung Lean, Future & Metro Boomin', duration: '3:19', plays: 41, note: 'C5', art: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=200&q=80' },
+              { title: "Don't Chart", artist: 'Cardi B', duration: '2:54', plays: 37, note: 'E5', art: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Crazy for You', artist: 'Lana Del Rey', duration: '4:02', plays: 33, note: 'G3', art: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          short_term: {
+            label: 'Last 4 Weeks',
+            minutes: 5120,
+            delta: '+22% vs prior 4w',
+            dailyAvg: 183,
+            topDay: 'Saturdays',
+            weekdayMinutes: [590, 650, 630, 740, 940, 1020, 550],
+            aura: {
+              title: 'Launch Week Overdrive & French Electro',
+              description: 'Non-stop repeats of the Grand Theft Auto VI launch score and high-energy Leonida club cuts.',
+              danceability: 84,
+              energy: 90,
+              valence: 71,
+              tempo: 124
+            },
+            clockPersona: 'Midnight Ocean Drive: 11 PM Peak',
+            hourlyMinutes: [320, 210, 110, 45, 20, 15, 40, 105, 180, 215, 210, 240, 270, 255, 245, 290, 325, 340, 310, 295, 355, 430, 460, 475],
+            discoveryPct: 37,
+            newArtistsCount: 44,
+            totalGenresExplored: 16,
+            genres: [
+              { name: 'French Electro & Score', pct: 39, color: '#FF2EC4' },
+              { name: 'Neo-Psychedelia', pct: 25, color: '#00F6FF' },
+              { name: 'Psychedelic Trap', pct: 19, color: '#A855F7' },
+              { name: 'Flash FM Disco Pop', pct: 17, color: '#F59E0B' }
+            ],
+            artists: [
+              { name: 'Justice', genre: 'French Electro • GTA VI Score', minutes: 1190, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 780, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 645, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Travis Scott', genre: 'Psychedelic Trap', minutes: 540, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'King Gizzard & the Lizard Wizard', genre: 'Psych Rock', minutes: 460, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Michael McDonald', genre: 'Yacht Rock & Soul', minutes: 415, image: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Dua Lipa', genre: 'Flash FM • Disco Pop', minutes: 360, image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Flower in a Hurricane', artist: 'Justice, Tame Impala, SZA & King Gizzard', duration: '3:45', plays: 89, note: 'E4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Starting From Zero (feat. Michael McDonald)', artist: 'Justice', duration: '3:11', plays: 84, note: 'C4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pusher', artist: 'Justice & Gesaffelstein', duration: '4:12', plays: 63, note: 'G4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'RHYNO', artist: 'Travis Scott', duration: '3:24', plays: 54, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Go Easy', artist: 'Dua Lipa', duration: '3:12', plays: 47, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Love Is A Long Road', artist: 'Tom Petty', duration: '4:08', plays: 42, note: 'D4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Sexy Magic', artist: 'Fred again.., PinkPantheress & CA7RIEL', duration: '3:38', plays: 38, note: 'B4', art: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          medium_term: {
+            label: 'Last 6 Months',
+            minutes: 31850,
+            delta: '+19% vs H1',
+            dailyAvg: 177,
+            topDay: 'Fridays',
+            weekdayMinutes: [3950, 4200, 4350, 4720, 5480, 4980, 4170],
+            aura: {
+              title: 'Electro-Psych & Highway Radio',
+              description: 'Six months leading straight into Leonida—heavy Justice grooves, psychedelic rock, and late-night trap.',
+              danceability: 78,
+              energy: 83,
+              valence: 65,
+              tempo: 119
+            },
+            clockPersona: 'Evening Cruise & Late Night',
+            hourlyMinutes: [1680, 1040, 490, 240, 120, 95, 290, 740, 1260, 1490, 1440, 1590, 1740, 1680, 1620, 1840, 2050, 2190, 1940, 1820, 2040, 2380, 2610, 2650],
+            discoveryPct: 35,
+            newArtistsCount: 182,
+            totalGenresExplored: 26,
+            genres: [
+              { name: 'French Electro & Score', pct: 33, color: '#FF2EC4' },
+              { name: 'Neo-Psychedelia', pct: 26, color: '#00F6FF' },
+              { name: 'Alternative R&B', pct: 21, color: '#A855F7' },
+              { name: 'Psychedelic Trap', pct: 20, color: '#F59E0B' }
+            ],
+            artists: [
+              { name: 'Justice', genre: 'French Electro • GTA VI Score', minutes: 5420, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 4380, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Travis Scott', genre: 'Psychedelic Trap', minutes: 3490, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 3120, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Gesaffelstein', genre: 'Dark Synth & Electro', minutes: 2450, image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tom Petty', genre: 'Leonida Classic Rock', minutes: 2110, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Flower in a Hurricane', artist: 'Justice, Tame Impala, SZA & King Gizzard', duration: '3:45', plays: 242, note: 'E4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Starting From Zero (feat. Michael McDonald)', artist: 'Justice', duration: '3:11', plays: 218, note: 'C4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Love Is A Long Road', artist: 'Tom Petty', duration: '4:08', plays: 196, note: 'D4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pusher', artist: 'Justice & Gesaffelstein', duration: '4:12', plays: 174, note: 'G4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'RHYNO', artist: 'Travis Scott', duration: '3:24', plays: 158, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Go Easy', artist: 'Dua Lipa', duration: '3:12', plays: 141, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' }
+            ]
+          },
+          long_term: {
+            label: 'All Time',
+            minutes: 164200,
+            delta: 'Top 1% Listener',
+            dailyAvg: 168,
+            topDay: 'Fridays',
+            weekdayMinutes: [21200, 22100, 22800, 24100, 27600, 25200, 21200],
+            aura: {
+              title: 'French Touch, Synthwave & Vice Classics',
+              description: 'Your all-time sonic DNA fuses heavy analog synths, psychedelic rock, and iconic soundtrack anthems.',
+              danceability: 77,
+              energy: 81,
+              valence: 64,
+              tempo: 118
+            },
+            clockPersona: 'Midnight Driver: 11 PM Peak',
+            hourlyMinutes: [9200, 5600, 2600, 1250, 710, 590, 1620, 4200, 6700, 7900, 7750, 8400, 9050, 8800, 8400, 9450, 10400, 10850, 9800, 9150, 10100, 11800, 13200, 13680],
+            discoveryPct: 41,
+            newArtistsCount: 684,
+            totalGenresExplored: 52,
+            genres: [
+              { name: 'French Electro & Score', pct: 32, color: '#FF2EC4' },
+              { name: 'Neo-Psychedelia', pct: 28, color: '#00F6FF' },
+              { name: 'Psychedelic Trap', pct: 22, color: '#A855F7' },
+              { name: 'Classic & Synth Rock', pct: 18, color: '#1DB954' }
+            ],
+            artists: [
+              { name: 'Justice', genre: 'French Electro • GTA VI Score', minutes: 22450, image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tame Impala', genre: 'Neo-Psychedelia', minutes: 18920, image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Travis Scott', genre: 'Psychedelic Trap', minutes: 14650, image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=240&q=80' },
+              { name: 'SZA', genre: 'Alternative R&B', minutes: 12480, image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&q=80' },
+              { name: 'Tom Petty', genre: 'Leonida Classic Rock', minutes: 10940, image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=240&q=80' },
+              { name: 'King Gizzard & the Lizard Wizard', genre: 'Psych Rock', minutes: 9610, image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=240&q=80' }
+            ],
+            tracks: [
+              { title: 'Starting From Zero (feat. Michael McDonald)', artist: 'Justice', duration: '3:11', plays: 615, note: 'C4', art: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Flower in a Hurricane', artist: 'Justice, Tame Impala, SZA & King Gizzard', duration: '3:45', plays: 582, note: 'E4', art: 'https://images.unsplash.com/photo-1614613535768-5e75f159e7a5?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Love Is A Long Road', artist: 'Tom Petty', duration: '4:08', plays: 514, note: 'D4', art: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Neverender', artist: 'Justice & Tame Impala', duration: '4:26', plays: 468, note: 'G4', art: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80' },
+              { title: 'Pusher', artist: 'Justice & Gesaffelstein', duration: '4:12', plays: 421, note: 'A4', art: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=200&q=80' },
+              { title: 'RHYNO', artist: 'Travis Scott', duration: '3:24', plays: 389, note: 'F4', art: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80' }
+            ]
+          }
+        }
+      },
       indie: {
         user: {
           name: 'Maya Lin',
@@ -1482,56 +2128,17 @@
       short_term: 'Last 4 Weeks',
       medium_term: 'Last 6 Months',
       long_term: 'All Time',
-      all: 'Exported History'
+      last_30_days: 'Last 30 Days',
+      last_6_months: 'Last 6 Months',
+      last_12_months: 'Last 12 Months',
+      all_time: 'All Time'
     };
 
     const DEFAULT_GENRE_COLORS = ['#1DB954', '#A855F7', '#06B6D4', '#EC4899', '#F59E0B', '#3B82F6'];
     const SYNTH_NOTES = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5'];
 
     // =========================================================================
-    // 2. SPOTIFY OAUTH 2.0 PKCE CRYPTO & REDIRECT HELPERS
-    // =========================================================================
-    const SPOTIFY_SCOPES = 'user-top-read user-read-recently-played user-read-private';
-
-    function getCleanRedirectUri() {
-      const savedCustom = localStorage.getItem('sc_custom_redirect_uri');
-      if (savedCustom && savedCustom.startsWith('http')) {
-        return savedCustom.split('#')[0].split('?')[0];
-      }
-      const isIframe = window.self !== window.top;
-      const href = window.location.href || '';
-      if (isIframe || href.startsWith('blob:') || href.startsWith('about:') || href.startsWith('file:')) {
-        return 'https://example.org/callback';
-      }
-      try {
-        const url = new URL(href);
-        return `${url.origin}${url.pathname}`;
-      } catch (e) {
-        return 'https://example.org/callback';
-      }
-    }
-
-    function generateRandomString(length) {
-      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      const values = crypto.getRandomValues(new Uint8Array(length));
-      return values.reduce((acc, x) => acc + possible[x % possible.length], '');
-    }
-
-    async function sha256(plain) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(plain);
-      return window.crypto.subtle.digest('SHA-256', data);
-    }
-
-    function base64encode(input) {
-      return btoa(String.fromCharCode(...new Uint8Array(input)))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-    }
-
-    // =========================================================================
-    // 3. APPLICATION STATE & VISUAL THEMES
+    // 2. APPLICATION STATE & VISUAL THEMES (8 COMPLETE THEMES — ZERO GLOW)
     // =========================================================================
     const APP_THEMES = {
       spotify: {
@@ -1550,6 +2157,33 @@
         emptySpoke: '#34115C',
         palette: ['#FF2EC4', '#00F6FF', '#FF6BF2', '#7CFFFC', '#FFE600'],
         storyTheme: 'vice_city'
+      },
+      fallout: {
+        name: 'Fallout: Pip-Boy',
+        primary: '#2EFF66',
+        secondary: '#FFE600',
+        mutedSpoke: '#00C2FF',
+        emptySpoke: '#143320',
+        palette: ['#2EFF66', '#FFE600', '#00C2FF', '#FF9F1C', '#73FF98'],
+        storyTheme: 'fallout'
+      },
+      cyberpunk: {
+        name: 'Cyberpunk 2077',
+        primary: '#FCEE0A',
+        secondary: '#00F0FF',
+        mutedSpoke: '#FF003C',
+        emptySpoke: '#1E1E38',
+        palette: ['#FCEE0A', '#00F0FF', '#FF003C', '#FF8A00', '#FFFFFF'],
+        storyTheme: 'cyberpunk'
+      },
+      watch_dogs: {
+        name: 'Watch Dogs: DedSec',
+        primary: '#00D8FF',
+        secondary: '#FF2A85',
+        mutedSpoke: '#39FF14',
+        emptySpoke: '#1D2738',
+        palette: ['#00D8FF', '#FF2A85', '#39FF14', '#FFFFFF', '#5CE8FF'],
+        storyTheme: 'watch_dogs'
       },
       synthwave: {
         name: 'Midnight Synthwave',
@@ -1579,70 +2213,95 @@
 
     const STORY_THEMES = {
       cosmic: {
-        bg: 'from-[#23153c] via-[#171324] to-[#0f172a]',
-        glow1: 'bg-fuchsia-500/40',
-        glow2: 'bg-cyan-400/35',
+        bg: 'from-[#2b1d4d] via-[#1c2436] to-[#0f172a]',
+        borderClass: 'border border-white/20',
         accentHex: '#A855F7',
-        gradStart: '#23153c',
+        gradStart: '#2b1d4d',
+        gradMid: '#1c2436',
         gradEnd: '#0f172a'
       },
       vice_city: {
         bg: 'from-[#D91A9E] via-[#6A11B0] to-[#008FB8]',
-        glow1: 'hidden',
-        glow2: 'hidden',
+        borderClass: 'border-2 border-[#00F6FF]',
         accentHex: '#FF2EC4',
         secondaryHex: '#00F6FF',
         gradStart: '#D91A9E',
         gradMid: '#6A11B0',
         gradEnd: '#008FB8'
       },
+      fallout: {
+        bg: 'from-[#0D5C2B] via-[#0B2E19] to-[#06130b]',
+        borderClass: 'border-2 border-[#2EFF66]',
+        accentHex: '#2EFF66',
+        secondaryHex: '#FFE600',
+        gradStart: '#0D5C2B',
+        gradMid: '#0B2E19',
+        gradEnd: '#06130b'
+      },
+      cyberpunk: {
+        bg: 'from-[#B80032] via-[#2B1040] to-[#0a0a12]',
+        borderClass: 'border-2 border-[#FCEE0A]',
+        accentHex: '#FCEE0A',
+        secondaryHex: '#00F0FF',
+        gradStart: '#B80032',
+        gradMid: '#2B1040',
+        gradEnd: '#0a0a12'
+      },
+      watch_dogs: {
+        bg: 'from-[#005E80] via-[#131924] to-[#520D2D]',
+        borderClass: 'border-2 border-[#00D8FF]',
+        accentHex: '#00D8FF',
+        secondaryHex: '#FF2A85',
+        gradStart: '#005E80',
+        gradMid: '#131924',
+        gradEnd: '#520D2D'
+      },
       lime: {
-        bg: 'from-[#0d2b1d] via-[#121816] to-[#091510]',
-        glow1: 'bg-emerald-500/40',
-        glow2: 'bg-lime-400/30',
+        bg: 'from-[#0d3b26] via-[#121f19] to-[#08140e]',
+        borderClass: 'border border-[#1DB954]/60',
         accentHex: '#1DB954',
-        gradStart: '#0d2b1d',
-        gradEnd: '#091510'
+        gradStart: '#0d3b26',
+        gradMid: '#121f19',
+        gradEnd: '#08140e'
       },
       sunset: {
-        bg: 'from-[#36151e] via-[#1f1318] to-[#170f12]',
-        glow1: 'bg-orange-500/45',
-        glow2: 'bg-rose-500/35',
+        bg: 'from-[#6E1D33] via-[#36151e] to-[#170f12]',
+        borderClass: 'border border-[#F97316]/60',
         accentHex: '#F97316',
-        gradStart: '#36151e',
+        gradStart: '#6E1D33',
+        gradMid: '#36151e',
         gradEnd: '#170f12'
       },
       cyan: {
-        bg: 'from-[#0c2738] via-[#111827] to-[#090d16]',
-        glow1: 'bg-cyan-500/45',
-        glow2: 'bg-blue-500/35',
-        accentHex: '#06B6D4',
-        gradStart: '#0c2738',
-        gradEnd: '#090d16'
+        bg: 'from-[#0E4D7A] via-[#111827] to-[#070b19]',
+        borderClass: 'border border-[#00E5FF]/60',
+        accentHex: '#00E5FF',
+        gradStart: '#0E4D7A',
+        gradMid: '#111827',
+        gradEnd: '#070b19'
       }
     };
 
     const state = {
-      sourceMode: 'demo', // 'demo' | 'live' | 'json'
-      demoPreset: 'indie',
+      sourceMode: 'demo', // 'demo' | 'json'
+      demoPreset: 'drethma5ter',
       activeRange: 'month',
       showTop10Artists: localStorage.getItem('sc_default_top10') === 'true',
       showTop10Tracks: localStorage.getItem('sc_default_top10') === 'true',
       activeTheme: localStorage.getItem('sc_app_theme') || 'spotify',
       storyTheme: 'cosmic',
       auraAnimated: localStorage.getItem('sc_aura_anim') !== 'false',
-      liveDataset: null,
+      customAvatarUrl: null,
       jsonDataset: null,
       playingTrackId: null,
       audioElem: null,
       synth: null,
       synthLoop: null,
-      selectedClockHour: null,
-      attemptedCodes: new Set()
+      selectedClockHour: null
     };
 
     // =========================================================================
-    // 4. UI UTILITIES (TOASTS, CLIPBOARD, FORMATTERS, HTML ESCAPING)
+    // 3. UI UTILITIES (TOASTS, CLIPBOARD, FORMATTERS, HTML ESCAPING)
     // =========================================================================
     function refreshIcons() {
       if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -1735,28 +2394,20 @@
     }
 
     function getActiveProfileAndRange() {
-      if (state.sourceMode === 'live' && state.liveDataset) {
-        const rangeKey = state.liveDataset.ranges[state.activeRange]
+      if (state.sourceMode === 'json' && state.jsonDataset) {
+        const available = state.jsonDataset.availableRanges || ['all_time'];
+        const rangeKey = state.jsonDataset.ranges[state.activeRange]
           ? state.activeRange
-          : 'short_term';
+          : available[0];
         state.activeRange = rangeKey;
         return {
-          user: state.liveDataset.user,
-          rangeData: state.liveDataset.ranges[rangeKey],
-          availableRanges: ['short_term', 'medium_term', 'long_term']
-        };
-      }
-
-      if (state.sourceMode === 'json' && state.jsonDataset) {
-        state.activeRange = 'all';
-        return {
           user: state.jsonDataset.user,
-          rangeData: state.jsonDataset.ranges.all,
-          availableRanges: ['all']
+          rangeData: state.jsonDataset.ranges[rangeKey],
+          availableRanges: available
         };
       }
 
-      const preset = DEMO_PROFILES[state.demoPreset] || DEMO_PROFILES.indie;
+      const preset = DEMO_PROFILES[state.demoPreset] || DEMO_PROFILES.drethma5ter;
       const rangeKey = preset.ranges[state.activeRange] ? state.activeRange : 'month';
       state.activeRange = rangeKey;
       return {
@@ -1767,7 +2418,7 @@
     }
 
     // =========================================================================
-    // 5. THEME & SETTINGS ENGINE
+    // 4. THEME & SETTINGS ENGINE
     // =========================================================================
     function applyAppTheme(themeKey) {
       const theme = APP_THEMES[themeKey] ? themeKey : 'spotify';
@@ -1814,29 +2465,18 @@
       const theme = STORY_THEMES[key];
 
       const card = document.getElementById('share-story-card');
-      const glow1 = document.getElementById('story-glow-1');
-      const glow2 = document.getElementById('story-glow-2');
       const storyPalm = document.getElementById('story-palm-silhouette');
+      const storyFallout = document.getElementById('story-fallout-silhouette');
+      const storyCyberpunk = document.getElementById('story-cyberpunk-silhouette');
+      const storyWatchdogs = document.getElementById('story-watchdogs-silhouette');
 
       if (card) {
-        const borderClass = key === 'vice_city' ? 'border-2 border-[#00F6FF]' : 'border border-white/15';
-        card.className = `w-full max-w-[300px] aspect-[9/16] rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden ${borderClass} bg-gradient-to-br ${theme.bg}`;
+        card.className = `w-full max-w-[300px] aspect-[9/16] rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden ${theme.borderClass || 'border border-white/15'} bg-gradient-to-br ${theme.bg}`;
       }
-      if (glow1) {
-        glow1.className =
-          key === 'vice_city'
-            ? 'hidden'
-            : `pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full ${theme.glow1} blur-2xl`;
-      }
-      if (glow2) {
-        glow2.className =
-          key === 'vice_city'
-            ? 'hidden'
-            : `pointer-events-none absolute -bottom-12 -left-12 w-48 h-48 rounded-full ${theme.glow2} blur-2xl`;
-      }
-      if (storyPalm) {
-        storyPalm.classList.toggle('hidden', key !== 'vice_city');
-      }
+      if (storyPalm) storyPalm.classList.toggle('hidden', key !== 'vice_city');
+      if (storyFallout) storyFallout.classList.toggle('hidden', key !== 'fallout');
+      if (storyCyberpunk) storyCyberpunk.classList.toggle('hidden', key !== 'cyberpunk');
+      if (storyWatchdogs) storyWatchdogs.classList.toggle('hidden', key !== 'watch_dogs');
 
       document.querySelectorAll('.card-theme-btn').forEach((btn) => {
         const active = btn.dataset.cardTheme === key;
@@ -1848,7 +2488,7 @@
     }
 
     // =========================================================================
-    // 6. MAIN DASHBOARD RENDERER & COMPONENT BUILDERS
+    // 5. MAIN DASHBOARD RENDERER & COMPONENT BUILDERS
     // =========================================================================
     function renderDashboard() {
       const { user, rangeData, availableRanges } = getActiveProfileAndRange();
@@ -1858,21 +2498,28 @@
       const modeBadge = document.getElementById('data-mode-badge');
       const connectBtnLabel = document.getElementById('connect-btn-label');
       if (modeBadge) {
-        if (state.sourceMode === 'live') {
-          modeBadge.textContent = 'Live Spotify';
-        } else if (state.sourceMode === 'json') {
-          modeBadge.textContent = 'JSON Export';
-        } else {
-          modeBadge.textContent = 'Demo Profile';
-        }
+        modeBadge.textContent = state.sourceMode === 'json' ? 'JSON Export' : 'Demo Profile';
       }
       if (connectBtnLabel) {
-        connectBtnLabel.textContent = state.sourceMode === 'live' ? 'Connected' : 'Connect Spotify';
+        connectBtnLabel.textContent = state.sourceMode === 'json' ? 'JSON Loaded' : 'Import JSON';
       }
 
       const avatarEl = document.getElementById('user-avatar');
+      const avatarSvgEl = document.getElementById('user-avatar-svg');
+      const useCustomPortraitSvg =
+        user.avatarType === 'drethma5ter_svg' && !state.customAvatarUrl;
+
+      if (avatarSvgEl) {
+        avatarSvgEl.classList.toggle('hidden', !useCustomPortraitSvg);
+      }
       if (avatarEl) {
-        avatarEl.src = user.avatar || 'https://placehold.co/100x100/242424/1DB954?text=S';
+        avatarEl.classList.toggle('hidden', useCustomPortraitSvg);
+        if (!useCustomPortraitSvg) {
+          avatarEl.src =
+            state.customAvatarUrl ||
+            user.avatar ||
+            'https://placehold.co/100x100/260030/00F5DC?text=DM';
+        }
       }
       const userDisplayEl = document.getElementById('user-display-name');
       if (userDisplayEl) {
@@ -1981,6 +2628,7 @@
 
       const maxVal = Math.max(...values, 1);
       const themeMeta = APP_THEMES[state.activeTheme] || APP_THEMES.spotify;
+      const isGamingTheme = ['vice_city', 'fallout', 'cyberpunk', 'watch_dogs'].includes(state.activeTheme);
 
       barsContainer.innerHTML = values
         .map((val, idx) => {
@@ -1988,10 +2636,10 @@
           const isPeak = val === maxVal;
           const barColor = isPeak
             ? themeMeta.primary
-            : state.activeTheme === 'vice_city'
-            ? '#00F6FF'
+            : isGamingTheme
+            ? themeMeta.secondary
             : 'rgba(255,255,255,0.24)';
-          const barOpacity = isPeak ? '1' : state.activeTheme === 'vice_city' ? '0.65' : '1';
+          const barOpacity = isPeak ? '1' : isGamingTheme ? '0.68' : '1';
           return `
             <div class="group flex flex-col items-center justify-end h-full gap-1.5 relative" title="${dayNames[idx]}: ${val.toLocaleString()} mins">
               <div class="w-full flex-1 flex items-end">
@@ -2110,18 +2758,16 @@
 
       const limit = state.showTop10Artists ? Math.min(10, artists.length) : Math.min(5, artists.length);
       const rest = artists.slice(1, limit);
+      const themePalette = themeMeta.palette;
 
       list.innerHTML = rest
         .map((artist, i) => {
           const rank = i + 2;
           const pct = Math.max(14, Math.round(((artist.minutes || 0) / maxMins) * 100));
           const metricLabel = artist.minutes ? `${Number(artist.minutes).toLocaleString()} min` : `#${rank}`;
-          const barColor =
-            state.activeTheme === 'vice_city'
-              ? i % 2 === 0
-                ? '#00F6FF'
-                : '#FF2EC4'
-              : themeMeta.primary;
+          const barColor = themePalette
+            ? themePalette[(i + 1) % themePalette.length]
+            : themeMeta.primary;
 
           return `
             <div class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-transparent hover:border-white/15 transition">
@@ -2531,404 +3177,212 @@
     }
 
     // =========================================================================
-    // 8. SPOTIFY OAUTH 2.0 PKCE LIVE API INTEGRATION
+    // 7. LOCAL SPOTIFY PRIVACY JSON PARSER (ACCOUNT DATA + EXTENDED HISTORY)
     // =========================================================================
-    async function initiateSpotifyPKCE() {
-      const clientIdInput = document.getElementById('spotify-client-id');
-      const redirectInput = document.getElementById('redirect-uri-display');
-      const fallbackBox = document.getElementById('pkce-fallback-box');
-      const errorBox = document.getElementById('pkce-fallback-error');
-
-      const clientId = clientIdInput ? clientIdInput.value.trim() : '';
-      const redirectUri = redirectInput ? redirectInput.value.trim() : getCleanRedirectUri();
-
-      if (!clientId || clientId.length < 16) {
-        showToast('Please enter your Spotify App Client ID first.', 'error');
-        if (clientIdInput) clientIdInput.focus();
-        return;
+    function parseSpotifyEntryTimestamp(rawTime) {
+      if (!rawTime || typeof rawTime !== 'string') return null;
+      const trimmed = rawTime.trim();
+      let normalized = trimmed;
+      if (trimmed.includes(' ') && !trimmed.includes('T')) {
+        normalized = trimmed.replace(' ', 'T') + (trimmed.length <= 16 ? ':00Z' : 'Z');
       }
+      const dt = new Date(normalized);
+      return isNaN(dt.getTime()) ? null : dt;
+    }
 
-      try {
-        localStorage.setItem('sc_spotify_client_id', clientId);
-        localStorage.setItem('sc_custom_redirect_uri', redirectUri);
+    function aggregateJsonRange(entries, label, fallbackDays) {
+      let totalMs = 0;
+      const artistMs = new Map();
+      const trackMap = new Map();
+      const hourlyMs = Array(24).fill(0);
+      const weekdayMs = Array(7).fill(0);
+      const uniqueDates = new Set();
 
-        const codeVerifier = generateRandomString(64);
-        localStorage.setItem('sc_pkce_verifier', codeVerifier);
+      entries.forEach((item) => {
+        totalMs += item.ms;
+        artistMs.set(item.artist, (artistMs.get(item.artist) || 0) + item.ms);
 
-        const hashed = await sha256(codeVerifier);
-        const codeChallenge = base64encode(hashed);
+        const trackKey = `${item.track}|||${item.artist}`;
+        const prev = trackMap.get(trackKey) || { title: item.track, artist: item.artist, plays: 0, totalMs: 0 };
+        prev.plays += 1;
+        prev.totalMs += item.ms;
+        trackMap.set(trackKey, prev);
 
-        const authUrl = new URL('https://accounts.spotify.com/authorize');
-        authUrl.searchParams.set('response_type', 'code');
-        authUrl.searchParams.set('client_id', clientId);
-        authUrl.searchParams.set('scope', SPOTIFY_SCOPES);
-        authUrl.searchParams.set('code_challenge_method', 'S256');
-        authUrl.searchParams.set('code_challenge', codeChallenge);
-        authUrl.searchParams.set('redirect_uri', redirectUri);
-
-        if (errorBox) errorBox.classList.add('hidden');
-
-        const isIframe = window.self !== window.top;
-        if (isIframe) {
-          window.open(authUrl.toString(), '_blank', 'noopener,noreferrer');
-          if (fallbackBox) fallbackBox.classList.remove('hidden');
-          showToast('Opened Spotify authorization in a new tab.', 'info');
-        } else {
-          window.location.href = authUrl.toString();
+        if (item.date) {
+          hourlyMs[item.date.getHours()] += item.ms;
+          const dayIdx = (item.date.getDay() + 6) % 7;
+          weekdayMs[dayIdx] += item.ms;
+          uniqueDates.add(item.date.toISOString().slice(0, 10));
         }
-      } catch (err) {
-        showToast('Failed to start Spotify authorization.', 'error');
-      }
-    }
-
-    async function spotifyApiFetch(endpoint, accessToken) {
-      const res = await fetch(`https://api.spotify.com/v1${endpoint}`, {
-        headers: { Authorization: `Bearer ${accessToken}` }
-      });
-      if (!res.ok) {
-        throw new Error(`Spotify API error (${res.status})`);
-      }
-      return res.json();
-    }
-
-    function buildLiveRangeData(label, artistsItems, tracksItems, recentItems, multiplier) {
-      const artists = (artistsItems || []).map((a, idx) => ({
-        name: a.name,
-        genre: a.genres && a.genres.length ? a.genres[0] : 'Artist',
-        minutes: Math.round((120 - idx * 8) * multiplier),
-        image: a.images && a.images[0] ? a.images[0].url : ''
-      }));
-
-      const tracks = (tracksItems || []).map((t, idx) => ({
-        title: t.name,
-        artist: (t.artists || []).map((a) => a.name).join(', '),
-        duration: formatDurationMs(t.duration_ms),
-        plays: Math.max(5, Math.round((48 - idx * 3) * (multiplier / 6))),
-        note: SYNTH_NOTES[idx % SYNTH_NOTES.length],
-        previewUrl: t.preview_url || null,
-        art: t.album && t.album.images && t.album.images[0] ? t.album.images[0].url : ''
-      }));
-
-      const genreCounts = {};
-      (artistsItems || []).forEach((a) => {
-        (a.genres || []).forEach((g) => {
-          const clean = g.replace(/\b\w/g, (c) => c.toUpperCase());
-          genreCounts[clean] = (genreCounts[clean] || 0) + 1;
-        });
       });
 
-      const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
-      const top5Genres = sortedGenres.slice(0, 5);
-      const top5Sum = top5Genres.reduce((acc, [, c]) => acc + c, 0) || 1;
-      const genres = top5Genres.map(([name, count], idx) => ({
-        name,
-        pct: Math.max(6, Math.round((count / top5Sum) * 100)),
+      const totalMinutes = Math.round(totalMs / 60000);
+      const hourlyMinutes = hourlyMs.map((m) => Math.round(m / 60000));
+      const weekdayMinutes = weekdayMs.map((m) => Math.round(m / 60000));
+      const dayNames = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'];
+      const topDayIdx = weekdayMinutes.indexOf(Math.max(...weekdayMinutes));
+      const peakHour = getPeakHourFromArray(hourlyMinutes);
+
+      const topArtists = Array.from(artistMs.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .map(([name, ms], idx) => ({
+          name,
+          genre: idx === 0 ? 'Most Streamed' : 'Heavy Rotation',
+          minutes: Math.round(ms / 60000),
+          image: `https://placehold.co/160x160/242424/1DB954?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`
+        }));
+
+      const topTracks = Array.from(trackMap.values())
+        .sort((a, b) => b.plays - a.plays || b.totalMs - a.totalMs)
+        .slice(0, 10)
+        .map((t, idx) => ({
+          title: t.title,
+          artist: t.artist,
+          duration: formatDurationMs(Math.round(t.totalMs / Math.max(t.plays, 1))),
+          plays: t.plays,
+          note: SYNTH_NOTES[idx % SYNTH_NOTES.length],
+          art: `https://placehold.co/160x160/242424/1DB954?text=${idx + 1}`
+        }));
+
+      const activeDays = Math.max(uniqueDates.size, fallbackDays || 1);
+      const dailyAvg = Math.max(1, Math.round(totalMinutes / activeDays));
+
+      const top5Artists = topArtists.slice(0, 5);
+      const top5Sum = top5Artists.reduce((acc, a) => acc + a.minutes, 0) || 1;
+      const rotationShares = top5Artists.map((a, idx) => ({
+        name: `${a.name} Rotation`,
+        pct: Math.max(6, Math.round((a.minutes / top5Sum) * 100)),
         color: DEFAULT_GENRE_COLORS[idx % DEFAULT_GENRE_COLORS.length]
       }));
 
-      const hourlyMinutes = Array(24).fill(0);
-      const weekdayMinutes = Array(7).fill(0);
-      (recentItems || []).forEach((item) => {
-        const dt = new Date(item.played_at);
-        if (!isNaN(dt.getTime())) {
-          const mins = Math.max(1, Math.round((item.track?.duration_ms || 200000) / 60000));
-          hourlyMinutes[dt.getHours()] += mins;
-          const dayIdx = (dt.getDay() + 6) % 7;
-          weekdayMinutes[dayIdx] += mins;
-        }
-      });
+      // Derive rhythmic aura characteristics from real listening behavior
+      const nightHoursSum = [22, 23, 0, 1, 2, 3].reduce((acc, h) => acc + hourlyMinutes[h], 0);
+      const nightRatio = nightHoursSum / Math.max(totalMinutes, 1);
+      const repeatIntensity = Math.min(1, (topTracks[0]?.plays || 1) / Math.max(entries.length * 0.08, 1));
+      const danceability = Math.min(92, Math.max(54, Math.round(66 + repeatIntensity * 18)));
+      const energy = Math.min(94, Math.max(52, Math.round(64 + (dailyAvg / 240) * 24)));
+      const valence = Math.min(86, Math.max(42, Math.round(74 - nightRatio * 34)));
+      const tempo = Math.min(136, Math.max(92, Math.round(108 + energy * 0.22)));
 
-      const hasRecent = hourlyMinutes.some((v) => v > 0);
-      const finalHourly = hasRecent
-        ? hourlyMinutes.map((v) => Math.round(v * (multiplier / 2)))
-        : [120, 80, 40, 20, 10, 15, 45, 95, 160, 195, 180, 210, 230, 215, 200, 240, 270, 285, 250, 235, 265, 310, 340, 290];
-      const finalWeekdays = weekdayMinutes.some((v) => v > 0)
-        ? weekdayMinutes.map((v) => Math.round(v * (multiplier / 2)))
-        : [420, 460, 440, 510, 680, 620, 490];
-
-      const dayLabels = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'];
-      const topDayIdx = finalWeekdays.indexOf(Math.max(...finalWeekdays));
-      const totalMinutes = artists.reduce((acc, a) => acc + a.minutes, 0) || 1800;
-      const peakHour = getPeakHourFromArray(finalHourly);
-      const topGenreName = genres[0] ? genres[0].name : 'Eclectic Mix';
-      const secondGenreName = genres[1] ? genres[1].name : 'Modern Essentials';
+      const personaPrefix =
+        peakHour >= 22 || peakHour <= 3
+          ? 'Night Owl'
+          : peakHour >= 17
+          ? 'Evening Groove'
+          : peakHour >= 12
+          ? 'Afternoon Flow'
+          : 'Morning Listener';
 
       return {
         label,
         minutes: totalMinutes,
-        delta: 'Live Spotify API',
-        dailyAvg: Math.max(20, Math.round(totalMinutes / (multiplier * 5))),
-        topDay: dayLabels[topDayIdx] || 'Fridays',
-        weekdayMinutes: finalWeekdays,
+        delta: `${entries.length.toLocaleString()} Streams`,
+        dailyAvg,
+        topDay: dayNames[topDayIdx] || 'Fridays',
+        weekdayMinutes,
         aura: {
-          title: `${topGenreName} & ${secondGenreName}`,
-          description: `Built directly from your live Spotify profile, centered around ${artists[0]?.name || 'your favorite artists'} and ${topGenreName.toLowerCase()} vibes.`,
-          danceability: 74,
-          energy: 78,
-          valence: 62,
-          tempo: 116
+          title: `Anchored by ${topArtists[0]?.name || 'Your Favorites'}`,
+          description: `Analyzed ${entries.length.toLocaleString()} music streams across ${artistMs.size.toLocaleString()} unique artists over ${uniqueDates.size.toLocaleString()} active days—100% locally in your browser.`,
+          danceability,
+          energy,
+          valence,
+          tempo
         },
-        clockPersona: `Peak Rhythm: ${formatHourLabel(peakHour)}`,
-        hourlyMinutes: finalHourly,
-        discoveryPct: 30,
-        newArtistsCount: Math.max(12, artists.length * 3),
-        totalGenresExplored: Math.max(sortedGenres.length, 1),
-        genres,
-        artists,
-        tracks
+        clockPersona: `${personaPrefix}: Peak at ${formatHourLabel(peakHour)}`,
+        hourlyMinutes,
+        discoveryPct: Math.min(95, Math.max(8, Math.round((artistMs.size / Math.max(entries.length, 1)) * 165))),
+        newArtistsCount: artistMs.size,
+        totalGenresExplored: Math.min(60, Math.max(5, Math.round(artistMs.size / 10))),
+        genres: rotationShares,
+        artists: topArtists,
+        tracks: topTracks
       };
     }
 
-    async function exchangeCodeForSpotifyStats(rawInput) {
-      const errorBox = document.getElementById('pkce-fallback-error');
-      const showFallbackError = (msg) => {
-        if (errorBox) {
-          errorBox.textContent = msg;
-          errorBox.classList.remove('hidden');
-        }
-        showToast(msg, 'error');
-      };
-
-      let code = (rawInput || '').trim();
-      if (!code) {
-        showFallbackError('Please paste the full redirected URL or authorization code.');
-        return;
-      }
-
-      try {
-        if (code.includes('code=')) {
-          const parsed = new URL(code.startsWith('http') ? code : `https://dummy.local/?${code.replace(/^\?/, '')}`);
-          code = parsed.searchParams.get('code') || '';
-        }
-      } catch (e) {
-        const match = code.match(/[?&]code=([^&]+)/);
-        if (match) code = match[1];
-      }
-
-      if (!code) {
-        showFallbackError('Could not find a ?code= parameter in the pasted URL.');
-        return;
-      }
-
-      if (state.attemptedCodes.has(code)) {
-        showFallbackError('This authorization code was already used. Click Authorize again to get a fresh code.');
-        return;
-      }
-      state.attemptedCodes.add(code);
-
-      const clientId = localStorage.getItem('sc_spotify_client_id');
-      const codeVerifier = localStorage.getItem('sc_pkce_verifier');
-      const redirectUri = getCleanRedirectUri();
-
-      if (!clientId || !codeVerifier) {
-        showFallbackError('Missing PKCE session. Please click "Authorize & Load Real Spotify Stats" first.');
-        return;
-      }
-
-      try {
-        showToast('Connecting to Spotify...', 'info');
-        const body = new URLSearchParams({
-          client_id: clientId,
-          grant_type: 'authorization_code',
-          code,
-          redirect_uri: redirectUri,
-          code_verifier: codeVerifier
-        });
-
-        const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body
-        });
-
-        const tokenData = await tokenRes.json();
-        if (!tokenRes.ok || !tokenData.access_token) {
-          throw new Error(tokenData.error_description || tokenData.error || 'Token exchange failed.');
-        }
-
-        const accessToken = tokenData.access_token;
-
-        const [me, artShort, artMed, artLong, trkShort, trkMed, trkLong, recent] = await Promise.all([
-          spotifyApiFetch('/me', accessToken),
-          spotifyApiFetch('/me/top/artists?time_range=short_term&limit=10', accessToken),
-          spotifyApiFetch('/me/top/artists?time_range=medium_term&limit=10', accessToken),
-          spotifyApiFetch('/me/top/artists?time_range=long_term&limit=10', accessToken),
-          spotifyApiFetch('/me/top/tracks?time_range=short_term&limit=10', accessToken),
-          spotifyApiFetch('/me/top/tracks?time_range=medium_term&limit=10', accessToken),
-          spotifyApiFetch('/me/top/tracks?time_range=long_term&limit=10', accessToken),
-          spotifyApiFetch('/me/player/recently-played?limit=50', accessToken).catch(() => ({ items: [] }))
-        ]);
-
-        state.liveDataset = {
-          user: {
-            name: me.display_name || 'Spotify Listener',
-            handle: `@${(me.id || 'spotify').toLowerCase()}`,
-            avatar: me.images && me.images[0] ? me.images[0].url : 'https://placehold.co/100x100/242424/1DB954?text=S'
-          },
-          ranges: {
-            short_term: buildLiveRangeData('Last 4 Weeks', artShort.items, trkShort.items, recent.items, 6),
-            medium_term: buildLiveRangeData('Last 6 Months', artMed.items, trkMed.items, recent.items, 24),
-            long_term: buildLiveRangeData('All Time', artLong.items, trkLong.items, recent.items, 80)
-          }
-        };
-
-        state.sourceMode = 'live';
-        state.activeRange = 'short_term';
-        state.selectedClockHour = null;
-
-        const connectModal = document.getElementById('connect-modal');
-        if (connectModal) {
-          connectModal.classList.add('hidden');
-          connectModal.classList.remove('flex');
-        }
-
-        renderDashboard();
-        showToast(`Loaded live Spotify Sound Capsule for ${state.liveDataset.user.name}!`, 'success');
-      } catch (err) {
-        showFallbackError(`Spotify connection failed: ${err.message}`);
-      }
-    }
-
-    // =========================================================================
-    // 9. LOCAL SPOTIFY PRIVACY JSON PARSER
-    // =========================================================================
     async function handleSpotifyJsonFiles(fileList) {
       if (!fileList || !fileList.length) return;
 
       try {
-        const allEntries = [];
+        const rawEntries = [];
         for (const file of Array.from(fileList)) {
           const text = await file.text();
           const parsed = JSON.parse(text);
           if (Array.isArray(parsed)) {
-            allEntries.push(...parsed);
+            rawEntries.push(...parsed);
           }
         }
 
-        if (!allEntries.length) {
-          showToast('No valid listening entries found in the selected JSON file(s).', 'error');
+        if (!rawEntries.length) {
+          showToast('No listening entries found in the selected JSON file(s).', 'error');
           return;
         }
 
-        let totalMs = 0;
-        const artistMs = new Map();
-        const trackMap = new Map();
-        const hourlyMs = Array(24).fill(0);
-        const weekdayMs = Array(7).fill(0);
-        const uniqueDates = new Set();
+        // Normalize both Account Data & Extended Streaming History while skipping null/non-music items
+        const validMusicEntries = [];
+        let latestTimestamp = 0;
 
-        allEntries.forEach((entry) => {
+        rawEntries.forEach((entry) => {
           const ms = Number(entry.msPlayed ?? entry.ms_played ?? 0);
           if (!ms || ms < 5000) return;
 
-          const artist = entry.artistName || entry.master_metadata_album_artist_name || 'Unknown Artist';
-          const track = entry.trackName || entry.master_metadata_track_name || 'Unknown Track';
-          const rawTime = entry.endTime || entry.ts;
+          // Ignore podcast/audiobook episodes (missing music track or artist metadata)
+          const track = (entry.trackName ?? entry.master_metadata_track_name ?? '').trim();
+          const artist = (entry.artistName ?? entry.master_metadata_album_artist_name ?? '').trim();
+          if (!track || !artist) return;
 
-          totalMs += ms;
-          artistMs.set(artist, (artistMs.get(artist) || 0) + ms);
-
-          const trackKey = `${track}|||${artist}`;
-          const prev = trackMap.get(trackKey) || { title: track, artist, plays: 0, totalMs: 0 };
-          prev.plays += 1;
-          prev.totalMs += ms;
-          trackMap.set(trackKey, prev);
-
-          if (rawTime) {
-            const normalizedTime = typeof rawTime === 'string' && rawTime.includes(' ') && !rawTime.includes('T')
-              ? rawTime.replace(' ', 'T')
-              : rawTime;
-            const dt = new Date(normalizedTime);
-            if (!isNaN(dt.getTime())) {
-              hourlyMs[dt.getHours()] += ms;
-              const dayIdx = (dt.getDay() + 6) % 7;
-              weekdayMs[dayIdx] += ms;
-              uniqueDates.add(dt.toISOString().slice(0, 10));
-            }
+          const date = parseSpotifyEntryTimestamp(entry.endTime || entry.ts);
+          const tsMs = date ? date.getTime() : 0;
+          if (tsMs > latestTimestamp) {
+            latestTimestamp = tsMs;
           }
+
+          validMusicEntries.push({ ms, track, artist, date, tsMs });
         });
 
-        const totalMinutes = Math.round(totalMs / 60000);
-        if (totalMinutes <= 0) {
-          showToast('Could not detect msPlayed or ms_played fields in JSON.', 'error');
+        if (!validMusicEntries.length) {
+          showToast('No valid music tracks found. Make sure you upload StreamingHistory_music_*.json or Streaming_History_Audio_*.json.', 'error');
           return;
         }
 
-        const hourlyMinutes = hourlyMs.map((m) => Math.round(m / 60000));
-        const weekdayMinutes = weekdayMs.map((m) => Math.round(m / 60000));
-        const dayNames = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'];
-        const topDayIdx = weekdayMinutes.indexOf(Math.max(...weekdayMinutes));
-        const peakHour = getPeakHourFromArray(hourlyMinutes);
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        const ranges = {};
+        const availableRanges = [];
 
-        const topArtists = Array.from(artistMs.entries())
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 10)
-          .map(([name, ms], idx) => ({
-            name,
-            genre: idx === 0 ? 'Most Streamed' : 'Top Artist',
-            minutes: Math.round(ms / 60000),
-            image: `https://placehold.co/160x160/242424/1DB954?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`
-          }));
+        if (latestTimestamp > 0) {
+          const buckets = [
+            { key: 'last_30_days', label: 'Last 30 Days', days: 30 },
+            { key: 'last_6_months', label: 'Last 6 Months', days: 182 },
+            { key: 'last_12_months', label: 'Last 12 Months', days: 365 }
+          ];
 
-        const topTracks = Array.from(trackMap.values())
-          .sort((a, b) => b.plays - a.plays)
-          .slice(0, 10)
-          .map((t, idx) => ({
-            title: t.title,
-            artist: t.artist,
-            duration: formatDurationMs(Math.round(t.totalMs / Math.max(t.plays, 1))),
-            plays: t.plays,
-            note: SYNTH_NOTES[idx % SYNTH_NOTES.length],
-            art: `https://placehold.co/160x160/242424/1DB954?text=${idx + 1}`
-          }));
+          buckets.forEach((bucket) => {
+            const cutoff = latestTimestamp - bucket.days * DAY_MS;
+            const filtered = validMusicEntries.filter((e) => e.tsMs >= cutoff);
+            if (filtered.length > 0) {
+              ranges[bucket.key] = aggregateJsonRange(filtered, bucket.label, Math.min(bucket.days, 30));
+              availableRanges.push(bucket.key);
+            }
+          });
+        }
 
-        const activeDays = Math.max(uniqueDates.size, 1);
-        const dailyAvg = Math.round(totalMinutes / activeDays);
+        ranges.all_time = aggregateJsonRange(validMusicEntries, 'All Time (Export)', 1);
+        availableRanges.push('all_time');
 
-        const top5ArtistMins = topArtists.slice(0, 5);
-        const top5Sum = top5ArtistMins.reduce((acc, a) => acc + a.minutes, 0) || 1;
-        const shareGenres = top5ArtistMins.map((a, idx) => ({
-          name: `${a.name} Rotation`,
-          pct: Math.max(6, Math.round((a.minutes / top5Sum) * 100)),
-          color: DEFAULT_GENRE_COLORS[idx % DEFAULT_GENRE_COLORS.length]
-        }));
+        const totalMinutesAll = ranges.all_time.minutes;
 
         state.jsonDataset = {
           user: {
-            name: 'Your JSON Archive',
+            name: 'Your Spotify Archive',
             handle: '@spotifyexport',
             avatar: 'https://placehold.co/100x100/242424/1DB954?text=ME'
           },
-          ranges: {
-            all: {
-              label: `Exported History (${activeDays} Days)`,
-              minutes: totalMinutes,
-              delta: `${allEntries.length.toLocaleString()} Streams`,
-              dailyAvg,
-              topDay: dayNames[topDayIdx] || 'Fridays',
-              weekdayMinutes,
-              aura: {
-                title: `Anchored by ${topArtists[0]?.name || 'Your Favorites'}`,
-                description: `Analyzed ${allEntries.length.toLocaleString()} streams across ${artistMs.size.toLocaleString()} unique artists completely locally in your browser.`,
-                danceability: 75,
-                energy: 77,
-                valence: 63,
-                tempo: 114
-              },
-              clockPersona: `Peak Hour: ${formatHourLabel(peakHour)}`,
-              hourlyMinutes,
-              discoveryPct: Math.min(95, Math.round((artistMs.size / Math.max(allEntries.length, 1)) * 180)),
-              newArtistsCount: artistMs.size,
-              totalGenresExplored: Math.min(40, Math.max(5, Math.round(artistMs.size / 12))),
-              genres: shareGenres,
-              artists: topArtists,
-              tracks: topTracks
-            }
-          }
+          availableRanges,
+          ranges
         };
 
         state.sourceMode = 'json';
-        state.activeRange = 'all';
+        state.activeRange = availableRanges.includes('last_30_days') ? 'last_30_days' : 'all_time';
         state.selectedClockHour = null;
 
         const connectModal = document.getElementById('connect-modal');
@@ -2938,14 +3392,17 @@
         }
 
         renderDashboard();
-        showToast(`Parsed ${allEntries.length.toLocaleString()} Spotify streams (${totalMinutes.toLocaleString()} mins)!`, 'success');
+        showToast(
+          `Loaded ${validMusicEntries.length.toLocaleString()} music streams (${totalMinutesAll.toLocaleString()} mins) across ${availableRanges.length} timeframes!`,
+          'success'
+        );
       } catch (err) {
         showToast('Could not parse JSON file. Ensure it is a valid Spotify export.', 'error');
       }
     }
 
     // =========================================================================
-    // 10. SHARE STORY CARD PREVIEW & 720x1280 PNG CANVAS EXPORTER
+    // 8. SHARE STORY CARD PREVIEW & 720x1280 PNG CANVAS EXPORTER (ZERO GLOW)
     // =========================================================================
     function populateShareCard() {
       const { user, rangeData } = getActiveProfileAndRange();
@@ -3028,8 +3485,8 @@
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 720, 1280);
 
+      // Theme-specific crisp vector artwork & inset border (Zero Glow / Zero Radial Blurs)
       if (state.storyTheme === 'vice_city') {
-        // Crisp Vice City Palm Tree Silhouette (Zero Blur / Zero Shadow Glow)
         ctx.save();
         ctx.fillStyle = 'rgba(18, 4, 34, 0.48)';
 
@@ -3060,22 +3517,145 @@
           ctx.fill();
         });
 
-        // Crisp electric cyan accent border inset
         ctx.strokeStyle = '#00F6FF';
         ctx.lineWidth = 6;
         drawRoundedRect(ctx, 18, 18, 684, 1244, 34);
         ctx.stroke();
         ctx.restore();
+      } else if (state.storyTheme === 'fallout') {
+        // Crisp Vault-Tec Toothed Gear Door Silhouette
+        ctx.save();
+        ctx.translate(585, 1085);
+        ctx.fillStyle = 'rgba(6, 19, 11, 0.55)';
+        for (let i = 0; i < 8; i++) {
+          ctx.save();
+          ctx.rotate((i * Math.PI) / 4);
+          ctx.fillRect(-26, -210, 52, 56);
+          ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.arc(0, 0, 166, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(46, 255, 102, 0.5)';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(0, 0, 118, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(255, 230, 0, 0.35)';
+        ctx.fillRect(-124, -22, 248, 44);
+        ctx.fillStyle = '#06130b';
+        ctx.beginPath();
+        ctx.arc(0, 0, 42, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.save();
+        ctx.strokeStyle = '#2EFF66';
+        ctx.lineWidth = 6;
+        drawRoundedRect(ctx, 18, 18, 684, 1244, 34);
+        ctx.stroke();
+        ctx.restore();
+      } else if (state.storyTheme === 'cyberpunk') {
+        // Crisp Night City Megabuilding Skyline Silhouette Bars
+        ctx.save();
+        ctx.fillStyle = 'rgba(10, 10, 18, 0.55)';
+        const towers = [
+          [0, 1080, 90, 200],
+          [85, 1130, 110, 150],
+          [440, 1060, 80, 220],
+          [510, 920, 110, 360],
+          [612, 1000, 108, 280]
+        ];
+        towers.forEach(([x, y, w, h]) => ctx.fillRect(x, y, w, h));
+
+        ctx.fillStyle = '#FCEE0A';
+        ctx.fillRect(532, 956, 66, 10);
+        ctx.fillStyle = '#00F0FF';
+        ctx.fillRect(532, 982, 48, 8);
+        ctx.fillStyle = '#FF003C';
+        ctx.fillRect(634, 1036, 58, 10);
+
+        // Angled HUD Accent Frame
+        ctx.strokeStyle = '#FCEE0A';
+        ctx.lineWidth = 6;
+        drawRoundedRect(ctx, 18, 18, 684, 1244, 24);
+        ctx.stroke();
+        ctx.strokeStyle = '#00F0FF';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(420, 88);
+        ctx.lineTo(540, 88);
+        ctx.lineTo(576, 52);
+        ctx.lineTo(664, 52);
+        ctx.stroke();
+        ctx.restore();
+      } else if (state.storyTheme === 'watch_dogs') {
+        // Crisp ctOS Node Graph Constellation & Profiler Corner Brackets
+        ctx.save();
+        const nodes = [
+          [520, 920, '#39FF14'],
+          [645, 985, '#00D8FF'],
+          [612, 1140, '#FF2A85'],
+          [455, 1168, '#FFFFFF'],
+          [408, 1030, '#00D8FF']
+        ];
+        ctx.strokeStyle = 'rgba(0, 216, 255, 0.55)';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        nodes.forEach(([nx, ny], idx) => (idx === 0 ? ctx.moveTo(nx, ny) : ctx.lineTo(nx, ny)));
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(255, 42, 133, 0.55)';
+        ctx.beginPath();
+        ctx.moveTo(nodes[0][0], nodes[0][1]);
+        ctx.lineTo(nodes[2][0], nodes[2][1]);
+        ctx.moveTo(nodes[4][0], nodes[4][1]);
+        ctx.lineTo(nodes[1][0], nodes[1][1]);
+        ctx.stroke();
+
+        nodes.forEach(([nx, ny, col]) => {
+          ctx.fillStyle = col;
+          ctx.beginPath();
+          ctx.arc(nx, ny, 10, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Profiler Corner Brackets
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(44, 72); ctx.lineTo(44, 44); ctx.lineTo(72, 44);
+        ctx.moveTo(648, 44); ctx.lineTo(676, 44); ctx.lineTo(676, 72);
+        ctx.moveTo(44, 1208); ctx.lineTo(44, 1236); ctx.lineTo(72, 1236);
+        ctx.moveTo(648, 1236); ctx.lineTo(676, 1236); ctx.lineTo(676, 1208);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#00D8FF';
+        ctx.lineWidth = 6;
+        drawRoundedRect(ctx, 18, 18, 684, 1244, 30);
+        ctx.stroke();
+        ctx.restore();
       } else {
-        // Standard themes subtle radial accent
-        const glow = ctx.createRadialGradient(580, 180, 20, 580, 180, 340);
-        glow.addColorStop(0, theme.accentHex + '66');
-        glow.addColorStop(1, 'transparent');
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, 720, 1280);
+        // Crisp geometric inset border for classic themes (zero radial glow)
+        ctx.save();
+        ctx.strokeStyle = theme.accentHex;
+        ctx.lineWidth = 4;
+        drawRoundedRect(ctx, 20, 20, 680, 1240, 32);
+        ctx.stroke();
+        ctx.restore();
       }
 
-      const highlightColor = state.storyTheme === 'vice_city' ? '#7CFFFC' : theme.accentHex;
+      const highlightColor =
+        state.storyTheme === 'vice_city'
+          ? '#7CFFFC'
+          : state.storyTheme === 'fallout'
+          ? '#FFE600'
+          : state.storyTheme === 'cyberpunk'
+          ? '#00F0FF'
+          : state.storyTheme === 'watch_dogs'
+          ? '#39FF14'
+          : theme.accentHex;
 
       // Typography
       ctx.fillStyle = '#FFFFFF';
@@ -3122,7 +3702,17 @@
         drawRoundedRect(ctx, 56, y - 48, 608, 82, 20);
         ctx.fill();
 
-        ctx.fillStyle = state.storyTheme === 'vice_city' ? ['#FFE600', '#00F6FF', '#FF6BF2'][idx % 3] : theme.accentHex;
+        const rankColors =
+          state.storyTheme === 'vice_city'
+            ? ['#FFE600', '#00F6FF', '#FF6BF2']
+            : state.storyTheme === 'fallout'
+            ? ['#2EFF66', '#FFE600', '#00C2FF']
+            : state.storyTheme === 'cyberpunk'
+            ? ['#FCEE0A', '#00F0FF', '#FF003C']
+            : state.storyTheme === 'watch_dogs'
+            ? ['#00D8FF', '#FF2A85', '#39FF14']
+            : [theme.accentHex, theme.accentHex, theme.accentHex];
+        ctx.fillStyle = rankColors[idx % rankColors.length];
         ctx.font = 'bold 28px Inter, sans-serif';
         ctx.fillText(`#${idx + 1}`, 82, y);
 
@@ -3144,42 +3734,10 @@
     }
 
     // =========================================================================
-    // 11. EVENT WIRING & INITIALIZATION
+    // 9. EVENT WIRING & INITIALIZATION
     // =========================================================================
     window.addEventListener('DOMContentLoaded', () => {
-      // Populate Redirect URI & Saved Client ID
-      const redirectInput = document.getElementById('redirect-uri-display');
-      if (redirectInput) {
-        redirectInput.value = getCleanRedirectUri();
-        redirectInput.addEventListener('change', () => {
-          localStorage.setItem('sc_custom_redirect_uri', redirectInput.value.trim());
-        });
-      }
-
-      const savedClientId = localStorage.getItem('sc_spotify_client_id');
-      const clientIdInput = document.getElementById('spotify-client-id');
-      const clientIdStatus = document.getElementById('client-id-status');
-      if (clientIdInput && savedClientId) {
-        clientIdInput.value = savedClientId;
-      }
-
-      if (clientIdInput) {
-        clientIdInput.addEventListener('input', () => {
-          const val = clientIdInput.value.trim();
-          if (val.length >= 20) {
-            localStorage.setItem('sc_spotify_client_id', val);
-            if (clientIdStatus) {
-              clientIdStatus.textContent = 'Client ID saved. Click "Authorize & Load Real Spotify Stats" below to connect.';
-              clientIdStatus.className = 'text-[11px] text-emerald-400 mt-1.5';
-              clientIdStatus.classList.remove('hidden');
-            }
-          } else if (clientIdStatus) {
-            clientIdStatus.classList.add('hidden');
-          }
-        });
-      }
-
-      // Connect Modal Controls
+      // Import Modal Controls
       const connectModal = document.getElementById('connect-modal');
       document.getElementById('open-connect-btn').addEventListener('click', () => {
         connectModal.classList.remove('hidden');
@@ -3190,53 +3748,20 @@
         connectModal.classList.remove('flex');
       });
 
-      // Modal Source Tabs (Spotify API / Upload JSON / Demo Profiles)
-      document.querySelectorAll('.source-tab-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const target = btn.dataset.sourceTab;
-          document.querySelectorAll('.source-tab-btn').forEach((b) => {
-            const active = b.dataset.sourceTab === target;
-            b.classList.toggle('bg-[#282828]', active);
-            b.classList.toggle('text-white', active);
-            b.classList.toggle('text-spotify-subtext', !active);
-          });
-          document.getElementById('tab-oauth').classList.toggle('hidden', target !== 'oauth');
-          document.getElementById('tab-json').classList.toggle('hidden', target !== 'json');
-          document.getElementById('tab-demo').classList.toggle('hidden', target !== 'demo');
-        });
-      });
-
-      document.getElementById('copy-redirect-btn').addEventListener('click', () => {
-        const uri = document.getElementById('redirect-uri-display').value.trim();
-        copyTextSafe(uri);
-        showToast('Copied Redirect URI to clipboard!', 'success');
-      });
-
-      document.getElementById('start-pkce-btn').addEventListener('click', initiateSpotifyPKCE);
-
-      document.getElementById('complete-manual-pkce-btn').addEventListener('click', () => {
-        const raw = document.getElementById('manual-callback-input').value;
-        exchangeCodeForSpotifyStats(raw);
-      });
-
-      // JSON File Upload + Drag & Drop
-      const jsonInput = document.getElementById('json-file-input');
-      const jsonDropzone = document.getElementById('json-dropzone');
-      jsonInput.addEventListener('change', (e) => handleSpotifyJsonFiles(e.target.files));
-      if (jsonDropzone) {
-        jsonDropzone.addEventListener('dragover', (e) => {
-          e.preventDefault();
-          jsonDropzone.classList.add('border-spotify-green');
-        });
-        jsonDropzone.addEventListener('dragleave', () => {
-          jsonDropzone.classList.remove('border-spotify-green');
-        });
-        jsonDropzone.addEventListener('drop', (e) => {
-          e.preventDefault();
-          jsonDropzone.classList.remove('border-spotify-green');
-          if (e.dataTransfer?.files?.length) {
-            handleSpotifyJsonFiles(e.dataTransfer.files);
+      // Clickable Profile Avatar (allows swapping in a local image file anytime)
+      const avatarPickerBtn = document.getElementById('avatar-picker-btn');
+      const avatarUploadInput = document.getElementById('avatar-upload-input');
+      if (avatarPickerBtn && avatarUploadInput) {
+        avatarPickerBtn.addEventListener('click', () => avatarUploadInput.click());
+        avatarUploadInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (state.customAvatarUrl) {
+            URL.revokeObjectURL(state.customAvatarUrl);
           }
+          state.customAvatarUrl = URL.createObjectURL(file);
+          renderDashboard();
+          showToast('Updated profile picture!', 'success');
         });
       }
 
@@ -3354,14 +3879,6 @@
           });
         }
       });
-
-      // Handle top-level OAuth ?code=... redirect if present in window.location
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('code')) {
-        const fullHref = window.location.href;
-        window.history.replaceState({}, document.title, window.location.pathname);
-        exchangeCodeForSpotifyStats(fullHref);
-      }
 
       // Apply saved theme and render initial dashboard
       applyAppTheme(state.activeTheme);
